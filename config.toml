@@ -12,8 +12,9 @@ build_search_index = true
 theme = "even"
 
 taxonomies = [
-    { name = "tags" },
-    { name = "categories" }
+    # You can enable/disable RSS
+    {name = "categories", feed = true},
+    {name = "tags", feed = true},
 ]
 
 [markdown]
