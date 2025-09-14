@@ -1,0 +1,15 @@
+# Zola build output
+/public
+
+# Sass cache (falls mal verwendet)
+/.sass-cache
+
+# macOS system files
+.DS_Store
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Log files
+*.log
