@@ -123,6 +123,15 @@ tags = ["devops"]
 - kultur
 - wichtigste ist zu sagen "wir wollen etwas zusammenbauen"
 
+## Wöchentliche Aufgaben
+- https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/assignments/assignment01.html
+- soll auf linux cluster laufen können 
+- app soll über CI/CD gebaut werden können 
+- protokoll soll über http sein 
+- support für logging und metriken soll es haben 
+- logs schreiben auf stdout -> timestamps, am besten mit loggingframework
+- wichtig: jedes teammitglied einen chatbot und verschiedene programmiersprachen 
+
 ## recaps questions, können an prüfung dran kommen:
 1. Name and describe the 5 DORA metrics
 2. Why is Cloud important for DevOps and why is DevOps important for Cloud?
