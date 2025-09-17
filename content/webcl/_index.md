@@ -1,6 +1,6 @@
 +++
 title = "WebCl"
-sort_by = "weight"
+sort_by = "date"
 +++
 
 Kursnotizen zu **WebCl**.

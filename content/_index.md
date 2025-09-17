@@ -1,6 +1,6 @@
 +++
 title = "Vorlesungen"
-sort_by = "weight"
+sort_by = "date"
 +++
 
 Notizen und Materialien aus verschiedenen **Vorlesungen**.

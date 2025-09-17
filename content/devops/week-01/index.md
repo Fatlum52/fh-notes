@@ -1,6 +1,5 @@
 +++
 title = "Week 01"
-weight = 1
 date = 2025-09-15
 [taxonomies]
 authors = ["fatlum"]
