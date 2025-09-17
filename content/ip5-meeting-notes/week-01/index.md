@@ -16,7 +16,7 @@ Eine EID (External Interface Description) ist eine SGr-konforme XML-Datei, die m
   Alle diese Teile gehören in eine gültige, SGr-konforme XML-Datei.
   Die Schwierigkeit liegt vor allem in der korrekten Erstellung und in der Validierung.
 ---
-##Workflow (in unserer Software)
+## Workflow (in unserer Software)
 
 ***Auswahl beim Start:***
 - EID erstellen, EID öffnen oder EID bearbeiten.
