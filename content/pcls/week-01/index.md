@@ -6,7 +6,13 @@ authors = ["fatlum"]
 tags = ["pcls"]
 +++
 
-*** Drehbücher: https://sgi.pages.fhnw.ch/moduluebersicht/ ***
+***Drehbuch: https://sgi.pages.fhnw.ch/moduluebersicht/pcls/drehbuch.html***
+***Gitrepo: https://gitlab.fhnw.ch/spd/module/pcls/***
+***Assessments / Assignments: https://spd.pages.fhnw.ch/module/pcls/tutorials/assignments/public-cloud-services/hs25/index.html***
+***Report: https://gitlab.fhnw.ch/spd/module/pcls/tutorials/assignments/-/blob/main/modules/assessments/pages/…***
+***Switch Engines: https://engines.switch.ch/***
+***AWS: https://fhnw.awsapps.com/start/#/?tab=accounts***
+***Azure: https://portal.azure.com***
 ---
 
 ## Relevante Links
