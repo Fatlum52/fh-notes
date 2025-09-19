@@ -7,170 +7,184 @@ tags = ["cloud"]
 +++
 
 ## Learning target
-- technisches wissen über cloud technologien 
-- wissen über die konzepte der darunter liegenden technologie
-- selber plattform aufbauen, 
-- verstehen was es braucht eine cloud zu builden
+- technisches Wissen über Cloud-Technologien
+- Wissen über die Konzepte der darunterliegenden Technologie
+- selbst Plattformen aufbauen
+- verstehen, was es braucht, um eine Cloud zu bauen
 
 ## Vorlesungsstruktur
 - IaaS:
   - virtualisieren
   - Lab: Proxmox
 - PaaS:
-  - container, paravirtualisieren
-  - Labs: container, docker, swarm, kubernetes
+  - Container, Paravirtualisieren
+  - Labs: Container, Docker, Swarm, Kubernetes
 - SaaS:
   - Storage
   - Lab: Ceph Storage
 
 ***Lecture (on-site)***
-  - normal lecture:
-    - kein recording
-  - BSS: Lab-Session
-    - wir builden cloud plattformen
-    - in 4 sessions, kein aktiver content 
+- normale Vorlesung:
+  - kein Recording
+- BSS: Lab-Session
+  - wir bauen Cloud-Plattformen
+  - 4 Sessions, kein aktiver Content
 
 ***Assessment: building platforms***
-    - keine wöchentliche hausaufgaben
-    - wir bauen 4 platformen
-    - zu jeder platform einen individuellen screen cast 
-    - jede platform -> 12.5% zur Erfahrungsnote
-    - 50% schriftliche prüfung 
-    - zusammen builden mit gleiche anteil
+- keine wöchentlichen Hausaufgaben
+- wir bauen **4** Plattformen
+- zu jeder Plattform ein **individueller** Screencast
+- jede Plattform → **25 %** zur Erfahrungsnote
+- gemeinsam bauen, gleicher Anteil pro Person
 
 ***Daten***
-    - Proxmox(IaaS)
-      - Duration: 26.9 - 9.10
-      - BSS: 3.10.
-    - Container, Docker Swarm (Paas)
-      - Duration: 17.10 - 30.10
-      - BSS: 24.10.
-    - Container, Kubernetes (PaaS)
-      - Duration: 
-      - BSS: 14.11.
-    - Storage, Ceph (SaaS)
-      - Duration: 28.11. – 11.12.
-      - BSS: 5.12.
+- Proxmox (IaaS)
+  - Duration: 26.9 – 9.10
+  - BSS: 3.10
+- Container, Docker Swarm (PaaS)
+  - Duration: 17.10 – 30.10
+  - BSS: 24.10
+- Container, Kubernetes (PaaS)
+  - Duration: **7.11 – 20.11**
+  - BSS: **14.11**
+- Storage, Ceph (SaaS)
+  - Duration: 28.11 – 11.12
+  - BSS: 5.12
 
 ***Wie Gruppenarbeit***
-      - 1er-3er Gruppen
+- 1er–3er-Gruppen (bevorzugt 2)
+- Plattformen auf SwitchEngines
+- Bewertung via Ansible + SSH
+- User **eval** mit Root/Sudo und hinterlegtem Pubkey
 
 ***Motivation***
-- coud market wächst
-- software eats infrastructure
-- IaC (Infrastructure as Code) tools werden brauchbar
-- shiftleft, also der dev muss sich immer mehr in cloud und weiteres auskennen
-- 3 Sache für AWS-Server
-  - Geld, Email, Internet
+- Cloud-Market wächst
+- Software „frisst“ Infrastruktur
+- IaC-Tools werden brauchbar
+- Shift-Left: Dev braucht Cloud-Know-how
+- 3 Dinge für AWS-Server:
+  - Geld, E-Mail, Internet
 
 # Frontaler Unterricht T1
+
 ***history of cloud computing***
-- 1960, mainframe:
-  - alte computer architektur
-  - timesharing, man konnte mehrere SW gleichzeitig laufen lassen
+- 1960, Mainframe:
+  - alte Computer-Architektur
+  - Timesharing, mehrere SW gleichzeitig
 - 1969, ARPANET:
-  - vorläufer des internets
-- 1970, virtualization
-- 1997, cloud computing
-- 1999, saleforce, cloud kam dazu 
-- 2006 amazon launches Elastic Compute cloud (EC2) und Simple Storage (S3)
+  - Vorläufer des Internets
+- 1970, Virtualization
+- 1997, Cloud Computing (Begriff)
+- 1999, **Salesforce**, Cloud kam dazu
+- 2006, Amazon startet **EC2** und **S3**
 
 ***Cloud Computing***
-- es gibt keine cloud, es ist nur der computer von jemand anderem, bzw. die rechenpower von jemand anderem
-- 5 charakterisikten
-  - on-demand self-service: ressourcen werden provisioniert ohne human interaction
-  - broad network access: muss zugänglich über internet sein
-  - ressource pooling: ressourcen werden mehreren nutzer zur verfügung gestellt
-  - rapid elasticity: exestierende ressources können wachen oder shrumpfen dynamisch
-  - measured service: der usage kann genau gemessen werden und dann verrechnet, pay-as-you-go
+- es gibt keine Cloud, es ist der Computer von jemand anderem
+- 5 Charakteristiken
+  - **On-Demand Self-Service**: Ressourcen werden ohne menschliche Interaktion provisioniert
+  - **Broad Network Access**: über Netzwerk erreichbar
+  - **Resource Pooling**: Ressourcen werden mehreren Nutzern bereitgestellt
+  - **Rapid Elasticity**: Ressourcen können dynamisch wachsen oder schrumpfen
+  - **Measured Service**: Nutzung messbar, Pay-as-you-go
 
-***How can clouds be provided? - Cloud Deployment Models***
-- private cloud für eine einzelne organisation
-  - innerhalb der firewall
-  - third-party managed die cloud
-  - skaliert nicht so gut wie public cloud (oft nicht eine echte cloud)
-- public cloud for the general public
-  - multi-tenant
-  - allgemeiner nutzen
-  - keine volle kontrolle über die daten -> confindential compute
-- Community Cloud for organizations that have shared concerns (e.g., government, universities), wie unsere switch
-- hybrid cloud 
-  - kaum zu sehen, da unternehmen 1-2 public cloud haben und ihre on-prem server physisch vor ort sind, was keine cloud ist
+***How can clouds be provided? – Cloud Deployment Models***
+- **Private Cloud** für eine einzelne Organisation
+  - innerhalb der Firewall
+  - kann Third-Party-managed sein
+  - skaliert oft schlechter als Public Cloud
+- **Public Cloud** für die Allgemeinheit
+  - Multi-Tenant
+  - allgemeiner Nutzen
+  - eingeschränkte Datenkontrolle → **Confidential Computing** als Thema
+- **Community Cloud** für Organisationen mit geteilten Anforderungen (z. B. Staat, Uni)
+- **Hybrid Cloud**
+  - Kombination aus mehreren Cloud-Infrastrukturen (z. B. Private + Public)
 
 ***Services***
-- wenn ich PaaS anbieten will, nutze ich IaaS für mich selber
-- wenn ich SaaS anbieten will, nutze ich eine PaaS
-- die grenzen sind verschomme, wo IaaS anfängt und bis wo und das selbe für PaaS
-- fragen um zu entscheiden ob IaaS, PaaS, SaaS
-  - muss ich OS selber managen, auswählen etc.? -> IaaS
-  - muss ich selber code? -> SaaS
-  - wenn OS, virtualisierung gegeben sind -> PaaS
+- wenn ich **PaaS** anbieten will, nutze ich **IaaS** darunter
+- wenn ich **SaaS** anbieten will, nutze ich eine **PaaS** darunter
+- Grenzen sind teils verschwommen
+- Fragen zur Einordnung IaaS/PaaS/SaaS:
+  - muss ich OS selbst managen/auswählen? → **IaaS**
+  - schreibe ich keinen eigenen Code? → **SaaS**
+  - OS/Virtualisierung gegeben, ich bringe App/Runtime/Libs → **PaaS**
 
 - ***IaaS***
-  - beinhaltet vorallem das physische, also network, storage, compute, virtualisierung
-  - oben durch ist seine verantwortung
-
+  - umfasst v. a. Physik: Network, Storage, Compute, Virtualisierung
+  - darüber beginnt die eigene Verantwortung
 - ***PaaS***
-  - network, storage, compute, virtualiserung, OS, Tools & Libraries, Application Runtime wird vom provider geliefert
-  - der customer bringt nur noch daten und die app selber
-  - am meisten verbreitet
-
+  - Network, Storage, Compute, Virtualisierung, OS, Tools & Libraries, Application Runtime vom Provider
+  - Kunde liefert Daten und App
+  - weit verbreitet
 - ***SaaS***
-  - provider der sw managed alles
-  - da kann man selber keine code mehr schreiben
+  - Provider managt alles
+  - man schreibt keinen Code mehr
 
-    
 ## Fragen
 - What is ARPANET?
-- You need to migrate windows-instances to your new cloud. What level of service class are you
-  using on the new cloud?
+- You need to migrate Windows-Instances to your new cloud. What level of service class are you using on the new cloud?
 - What types of clouds are existing according to NIST?
-- What necessary criterias exists for clouds according to NIST?
-- Why are the denoted cloud layers much less dependend on each other than the layers from the
-  OSI model?
+- What necessary criterias exist for clouds according to NIST?
+- Why are the denoted cloud layers much less dependent on each other than the layers from the OSI model?
 - The following tech stack is given: map the elements of the tech stack to the cloud layer model:
 
 # Frontaler Unterricht T2
-- abstraction vs virtualization
-  - abstraction
-    - das tiefere level verstecken
+
+- **abstraction vs virtualization**
+  - **abstraction**
+    - tieferes Level verstecken
     - OS macht das oft
-    - ein file ist eine abstraktion eines storageblock auf der festplatte
-  - virtualization
-    - virtuelle repräsentation einer ressource
-    - nichts ist versteckt
-    - volle flexibilität über speicher und weitere komponente
+    - ein File ist eine Abstraktion von Storage-Blöcken
+  - **virtualization**
+    - virtuelle Repräsentation einer Ressource
+    - nichts wird versteckt
+    - volle Flexibilität über Speicher und andere Komponenten
 
 ***VM***
-- process virtual machine
-  - keinen typischen rechner
-  - benutzt intermediate language, java byte code
-  - bsp.: JVM
-- system virtual machine
-  - probiert die ganze hardware to mimic
-  - example: Xen, KVM, VMWare
-- wir fokussieren uns auf type 1 hypervisor 
+- **process virtual machine**
+  - kein typischer Rechner
+  - nutzt Intermediate Language, z. B. Java Bytecode
+  - Bsp.: JVM
+- **system virtual machine**
+  - versucht die komplette Hardware zu „mimen“
+  - Beispiele: Xen, KVM, VMware
+- Fokus: **Type-1-Hypervisor**
 
-***Anforderung für Virtualisierung***
-- möglichst weniger overhead, gute performance
-- resource control (safety)- isolation zwischen guests und von guest zu host
-- equivalence - gleiches ergebnis mit und ohne VMM
-- wichtigkeit von virtualization: von ressource pooling
+***Anforderungen an Virtualisierung (Popek/Goldberg)***
+- **Efficiency** – möglichst geringer Overhead, gute Performance
+- **Resource Control (Safety)** – Isolation Guest↔Host und zwischen Guests
+- **Equivalence** – gleiches Ergebnis mit und ohne VMM
 
-***Hypervisor type 1***
-- volle virtualisierung von nutzung von binary translation
-- x86 privilege rings
-  - ![img.png](img.png)
-  - x86 CPU hat vier protection rings
-  - nur code in mehr priviled rings kann auf weniger priviledged rings zugreifen
-  - ring 0:
-    - level mit meisten privileg
-    - interagiert mir hardware
-  - Full Virtualization using Binary Translation (Type I)
-    - jede instruction wird umgeschrieben, sodass auf hardware zugegriffen werden kann
-    - vorteil: direkte ausführung von user-level code -> high performance 
-    - nachteil: schwierig zu implementieren VMM
-    - übersetzung hat impact auf performance (virtual memory → physical memory → machine memory)
-    - komplextität aus hypervisor auslagern: ins guetOS oder direkt in die hardware
+***Hypervisor Type 1***
+- Full-Virtualization mit Binary Translation
+- Paravirtualization (OS-Assisted)
+- Hardware-assisted Virtualization
 
-Nächstesmal: 02-1 - cloud - Virtualization.pdf auf seite 14
+***x86 Privilege Rings***
+- 4 Ringe, Ring 0 am privilegiertesten
+- nur höher privilegierter Code kann tiefer zugreifen
+- Ring 0: Kernel/Hardware-Interaktion
+- Vergleich:
+  - **Bare-metal Setup**: App → OS → Hardware
+  - **VM Setup**: App → **Guest OS** → **Hypervisor** → Hardware
+- ![img.png](img.png)
+
+***Full Virtualization using Binary Translation (Type I)***
+- Kernel-Instruktionen werden umgeschrieben
+- User-Level-Code läuft direkt
+- + Gast-OS unverändert; hohe Performance
+- − schwierig zu implementieren; Übersetzung kostet
+
+***Paravirtualization (Type I)***
+- Gast-Kernel nutzt Hypercalls
+- + weniger Overhead
+- − schlechtere Portabilität, OS-Modifikation nötig
+
+***Hardware-assisted Virtualization (Type I)***
+- CPU-Erweiterungen (Intel VT-x, AMD-V)
+- VMM läuft in Root-Mode
+- privilegierte Instruktionen lösen Trap zum Hypervisor aus
+- + schnell und heute Standard
+- − IO-Virtualisierung braucht weiter Übersetzung
+
+Nächstes Mal: „02-1 – cloud – Virtualization.pdf“ ab Seite 14 weiterlesen.
