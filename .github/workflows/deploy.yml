@@ -21,7 +21,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true    # falls du Theme-Submodule nutzt
+          submodules: recursive # falls du Theme-Submodule nutzt
+          fetch-depth: 0
 
       - name: Install Zola
         run: |
