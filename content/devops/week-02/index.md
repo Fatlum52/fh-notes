@@ -80,3 +80,62 @@ tags = ["devops"]
       - name:tag kann überschrieben werden
       - keine gefahr trasitive dependecies kapput zu machen, images sind self-contained
       - für CD: use latest
+- configurations:
+  - ![img_1.png](img_1.png)
+  - umgebungen sind installationen der software
+  - endpunkte heisst url, http-endpunkte, müssen konfiguriert werden
+  - eine app braucht eine config
+  - strikte separierung vom code 
+  - dockerimages wurden stage-abhängig gebaut -> absolutes NO GO
+    - image muss immer stage unahängigkeit sein
+    - was ist eine umgebung genau?
+  - exmaple von quarkus:
+    - ![img_2.png](img_2.png)
+    - 7 verschiedene stages zum konfigurieren 
+    - application property, text-file mit key value 
+    - definieren wohin es kommt und dabei bleiben: also wenn entschieden im .env, dann nur dort
+    - zwei arten von confis;
+      - runntime configs: sind stage abhängig
+      - stable configs: name der app, log-leve, version, sachen die sich nicht ändern 
+    - in quarkus kann man yaml file anlegen für stabile und nicht stabile configs
+- backing serrvices:
+  - externe services konsumieren, TUT es
+  - database zum beispiel, externisieren
+  - code sollte es nicht interssieren ob extern oder self-hosting
+  - alles was man extern konsumieren kann, tut es, "externalize your pain"
+  - beispiel für extern: storage, security, messaging, monitoring, analytics
+  - unser job ist eine cloud native system
+- die app selber sollte ***stateless*** sein:
+  - nichts teilen mit anderen prozessen
+  - wegen dem horizontal scaling sollte es stateless sein
+  - ***frage klären, was ist genau LLM?***
+  - state sollte irgendwo gepseichert werden: shared-cache zum beispiel oder in einer database
+  - jede app sollte einen port definieren:
+    - verhindert port-collision
+    - bei fehler weiss ich schnell welche app spinnt
+    - auch in conaitaner (kubernetes cluster) schreibt den port hin
+    - expose in docker file, welcher port zu welcher app -> DOKUMENTIEREN!!
+    - bei chatpot im team: jeder verwendet eigenen port
+    - securtiy concern, man kann sich auf die ports konzentieren und diese dann schützen
+- mit prozessen arbeiten
+  - in linux haben wir super prozess management
+  - bsp: eine app für einen prozess
+  - anti-pattern: 5 apps in einem image
+  - horizonatel skalierung problemlos möglich mit prozessen, ein docker ist ein prozess
+  - signalhandling: sigterm kann sich der prozess noch sauber abschalten 
+  - eine app pro prozess erlaubt schnelles starten und sauberes herunterfahren mit signalhandling
+  - sauberes exception-handling
+
+
+
+## assignements:
+- assignement 2: [https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/assignments/assignment02.html]
+  - schauen das framework, dass wir haben erweitbar ist
+  - wie gehen wir mit branching? trunk based oder nicht...
+  - welches release konzept?
+  - nächste woche richtung LLM arbeiten
+  - an konventionen halten, chatbot muss wie folgt heissen "service-<Name>"
+  - in repo ein meta-json hinzufügen
+  - source code dokumentieren, source code wird angeschaut
+  - mit checkern wie sonaCube wird source-code überprüft
+  - security wird beachtet
