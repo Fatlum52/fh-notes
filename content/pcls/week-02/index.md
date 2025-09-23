@@ -101,5 +101,55 @@ tags = ["pcls"]
   - stopping:
   - stopped:
 - ![img.png](img.png)
+***Instance Classes***
+- bei aws mit EC2 instances:
+  - es gibt konventionen
 
-- 
+***Unterschied start und stopp lifecycles, blockstorage, instanztypen... zu SwitchEngines***
+- Differenzen:
+  - Mehr Blockstorage bei AWS
+  - verschiedene CPU/RAM/Typen-Konstellationen
+  - Stop bei AWS = shelve bei Switch
+- Gleich:
+  - Lifecycle, provisionierung, imaging, deletion -> selfService
+  - Unabhängig zu Storage und Netzwerk
+
+***Optimizing Costs, IaaS***
+- wieso IaaS am teuersten?
+  - können am meisten
+  - kein vendor lock
+  - sie müssen bereitstellen, was sie versprechen
+- kosten optimieren:
+  - free tier nutzt man am meisten
+  - dann geht es richtung on-demand: start/stopp eine instanz
+  - ich weiss habe einen statischen workload, läuft bsp. die nächsten 3 Jahre -> reserved instance und preis geht um 40-50% runter
+  - spot instance: spezielle instanzen die sie versteigern
+    - sie haben weniger als kapazität, den rest versteigern sie
+    - wenn aber instanz gebraucht wird, nehmen sie es dir weg
+    - es gibt workload, da bringt es 
+    - wenn gut konfiguriert, mit images etc. dann kein problem
+  - saving plans: genauer anschauen
+  - microsoft spezifisch: azure hybrid benefit, mit windows etc. -> vertragliche vendor lock-in
+- architecture for optimizing costs: pdf 02-2 seite 19 und 20
+***was fehlt um das in swtich zu implementieren?***
+- orchestrator auf event hört
+- monitoring, das events warhnimmt
+- (User)
+- Ein software gestützer Loadbalancer
+
+***Summary***
+- hauptgrund wieso in die cloud: IaaS
+
+---
+## optional tutorials
+• EC2:
+https://awsacademy.instructure.com/courses/137586/modules → Modul 6
+
+• Azure:
+https://learn.microsoft.com/de-de/training/modules/describe-azure-compute-
+networking-services/
+---
+
+***Vorbereitung***
+- IaC über das provisionieren
+- Packer und cloud init lernen 
