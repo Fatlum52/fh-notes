@@ -37,4 +37,17 @@ tags = ["swa"]
   - good naming convention etc. 
 
 # Aufgabe
-- 
+- Es ging vorallem um UML Sequenz diagrammen
+- wie könnten die Use Cases, anwendungsfälle, szenarios auf objektstrukturen verteilen?
+- Logical View: war in diesem fall ein UML-Sequenzdiagramm
+- Aus logical view folgt ein development view
+  - aus dem logical, hat man die titel der sequenzen entnommen, und diese sind direkt klassen in java
+- development view (analysis model -> system disgn)
+- process-view: 
+  - gibt es mehrere programme, die ich getrennt voneinander laufen lassen will
+  - wenn es zu einer verteilung kommt, was sind anforderungen von den einzelnen prozessen
+  - wo würden die pakete von dev. view landen? wie würden sie laufen? etc. 
+  - prozesse laufen auf physical view, wie wird dieser organisiert etc. 
+- logical, dev, process und physical view kommen in einem scenario vor
+- scenario driven design -> anhand den 4 + 1 view model haben wir das gemacht. 
+- aus dem logical view, eine dev view gemacht und dann in java überführt
