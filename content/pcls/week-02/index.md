@@ -58,4 +58,48 @@ tags = ["pcls"]
   - private cloud keine technische garantie für unbefugten access
 
 ## IaaS
-*** ***
+***Product Class***
+- virtual computing, virtuale umgebung
+- basiert auf AMI amazon machine image, azure machine image
+- CPU/RAM fixe instanz typen mit definierten setups
+- disks: extra produkt, flexibel erweitbar
+- netzwerk: interface, externes managen
+- möglichkeit zum scalen
+- tags, tags, tags:
+  - wie in cloud welt, eins der hauptfeatures meta infos an die maschine, das sind labels eigentlich 
+- erreichbar nur via SSH Public/Private Key
+- ip-range wird nach unerfahreren usern gescannt
+***templates***
+- template für virtuelle maschinen, Grundidee:
+  - baue ein template, gehe dort hin und starte es
+  - wie ein image
+  - wie bei Docker
+- ***AMI:***
+  - source EC2 instance, drücke knopf und der macht mir ein image
+  - ich baue eine golden image und starte diese
+  - in cloud will man horizontale skalierung erreichen 
+  - Packer:
+    - ich habe ein rezept, da drin spezifizier ich, wie ein image aussieht
+    - tool um golden images zu erstellen
+  - cloud-init:
+    - beim booten werden settings hinterlegt
+    - settings wie: network, meta, vendor, user configs/data
+    - user anlegen automatisch mit ssh etc. ist typisches cloud-init task
+- ***differenz zu switch engines was templating angeht:***
+  - nur über CLI bei Switch bei download
+  - externe Images bei AWS (Marktplatz)
+- ***ähnlichkeiten***
+  - cloud init geht
+  - SSH am ersten start
+- ***instance lifecycle***
+- nach launch:
+  - pending:
+  - running:
+  - shutting-down
+  - terminated
+- from running kann man zu:
+  - stopping:
+  - stopped:
+- ![img.png](img.png)
+
+- 
