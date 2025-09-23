@@ -17,3 +17,45 @@ tags = ["pcls"]
 
 ---
 
+# Frontal Unterricht
+
+## legal acpects
+*** Legal aspects to secure the service/data***
+- zahlt man, ist man kunde
+- zahlt man nichts, ist man produkt
+- wenn man zahl:
+  - es betrifft die IT-Sicherheit
+- CIA Triad:
+  - confidentiality:
+    - wer liest meine daten, wer geht auf meinem service?
+  - availability:
+    - sind meine daten, services verfügbar? Service level agrements (SLA's)
+  - integrity:
+    - ist mein service kompromitiert, oder verändert?
+    - cloud anbieter darf daten nicht verändern, ausser zum schutz wenn zb ein rechner des kunden gehackt wird
+- different levels:
+  - regulations/verträge zwischen firmen
+    - cyber resilience act:
+      - alle produkte welche in EU verkauft werden, die digitale elemente beinhalten müssen folgende anforderungen erfüllen:
+        - cybersecurity beweisen, also zeigen dass meine app sicher ist
+        - sie müssen die requiretmetns nachvollziehbar aufarbeiten und auflisten
+        - jede verwundbarkeit die sie haben (in der App) an EU melden
+        - ich muss support über die gesamte lebensdauer liefern für meine App
+    - data protection:
+      - datenschutz garantieren
+  - regulatorien gegen staatliche institutionen
+    - CLOUD Act:
+      - sagt, dass CSP ihre daten speichern und für die strafbehörden der USA nach gesuch ausgeben 
+      - sind transparent gegenüber:
+        - eine seite, die zeigt wie oft sie einblick gegeben habe, an andere staaten
+        - AWS und Azure zeigen das 100% transparent
+- private cloud even better?
+  - gängige on-prem hardware kommt von usa oder china
+    - diese haben zugang zu infrastruktur aufgrund von support und service aufträgen
+- Summary:
+  - legal ascpect schwer zu determine
+  - verschiedene levels zum abdecken: storage vs serive, location, private vs public cloud
+  - private cloud keine technische garantie für unbefugten access
+
+## IaaS
+*** ***
