@@ -17,139 +17,132 @@ tags = ["pcls"]
 
 ---
 
-# Frontal Unterricht
+# Frontalunterricht
 
-## legal acpects
-*** Legal aspects to secure the service/data***
-- zahlt man, ist man kunde
-- zahlt man nichts, ist man produkt
-- wenn man zahl:
-  - es betrifft die IT-Sicherheit
-- CIA Triad:
-  - confidentiality:
-    - wer liest meine daten, wer geht auf meinem service?
-  - availability:
-    - sind meine daten, services verfügbar? Service level agrements (SLA's)
-  - integrity:
-    - ist mein service kompromitiert, oder verändert?
-    - cloud anbieter darf daten nicht verändern, ausser zum schutz wenn zb ein rechner des kunden gehackt wird
-- different levels:
-  - regulations/verträge zwischen firmen
-    - cyber resilience act:
-      - alle produkte welche in EU verkauft werden, die digitale elemente beinhalten müssen folgende anforderungen erfüllen:
-        - cybersecurity beweisen, also zeigen dass meine app sicher ist
-        - sie müssen die requiretmetns nachvollziehbar aufarbeiten und auflisten
-        - jede verwundbarkeit die sie haben (in der App) an EU melden
-        - ich muss support über die gesamte lebensdauer liefern für meine App
-    - data protection:
-      - datenschutz garantieren
-  - regulatorien gegen staatliche institutionen
-    - CLOUD Act:
-      - sagt, dass CSP ihre daten speichern und für die strafbehörden der USA nach gesuch ausgeben 
-      - sind transparent gegenüber:
-        - eine seite, die zeigt wie oft sie einblick gegeben habe, an andere staaten
-        - AWS und Azure zeigen das 100% transparent
-- private cloud even better?
-  - gängige on-prem hardware kommt von usa oder china
-    - diese haben zugang zu infrastruktur aufgrund von support und service aufträgen
-- Summary:
-  - legal ascpect schwer zu determine
-  - verschiedene levels zum abdecken: storage vs serive, location, private vs public cloud
-  - private cloud keine technische garantie für unbefugten access
+## Legal Aspects
+### Legal aspects to secure the service/data
+- zahlt man → man ist Kunde
+- zahlt man nichts → man ist Produkt
+- mit Bezahlung: betrifft primär **IT-Sicherheit**
+
+**CIA Triad**:contentReference[oaicite:0]{index=0}:
+- **Confidentiality**: wer liest meine Daten / wer greift auf meinen Service zu?
+- **Availability**: sind meine Daten und Services verfügbar? (SLA’s)
+- **Integrity**: ist mein Service kompromittiert oder verändert?
+  - Cloud-Anbieter dürfen Daten **nicht** verändern, ausser aus Sicherheitsgründen (z.B. wenn ein Kundensystem gehackt wird).
+
+---
+
+### Levels von Legal Aspects
+- **Regulationen / Verträge zwischen Firmen**
+  - **Cyber Resilience Act (CRA)**:contentReference[oaicite:1]{index=1}:
+    - alle Produkte mit digitalen Elementen in der EU müssen Cybersecurity nachweisen
+    - Anforderungen nachvollziehbar dokumentieren
+    - jede Verwundbarkeit muss gemeldet werden
+    - Support über gesamte Lebensdauer
+  - **Data Protection**:
+    - Cloud Provider garantieren Datenschutz
+- **Regulationen gegen staatliche Institutionen**
+  - **CLOUD Act**:contentReference[oaicite:2]{index=2}:
+    - US CSP müssen Daten weltweit aufbewahren und an US-Behörden herausgeben (auf Anfrage)
+    - unabhängig vom Speicherort
+    - Hyperscaler (AWS, Azure) zeigen Transparenz-Reports
+- **Private Cloud**:
+  - oft auf Hardware aus USA oder China
+  - Hersteller haben über Support/Service potenziell Zugriff
+  - keine technische Garantie für „unbefugten Access“
+
+---
+
+### Zusammenfassung
+- Legal Aspects sind schwer zu bestimmen → verschiedene Levels (Storage, Service, Location, Public vs. Private Cloud).
+- Private Cloud bietet **keine absolute Sicherheit** gegen Zugriff.
+- Hyperscaler stellen Transparenzberichte bereit.
+
+---
 
 ## IaaS
-***Product Class***
-- virtual computing, virtuale umgebung
-- basiert auf AMI amazon machine image, azure machine image
-- CPU/RAM fixe instanz typen mit definierten setups
-- disks: extra produkt, flexibel erweitbar
-- netzwerk: interface, externes managen
-- möglichkeit zum scalen
-- tags, tags, tags:
-  - wie in cloud welt, eins der hauptfeatures meta infos an die maschine, das sind labels eigentlich 
-- erreichbar nur via SSH Public/Private Key
-- ip-range wird nach unerfahreren usern gescannt
-***templates***
-- template für virtuelle maschinen, Grundidee:
-  - baue ein template, gehe dort hin und starte es
-  - wie ein image
-  - wie bei Docker
-- ***AMI:***
-  - source EC2 instance, drücke knopf und der macht mir ein image
-  - ich baue eine golden image und starte diese
-  - in cloud will man horizontale skalierung erreichen 
-  - Packer:
-    - ich habe ein rezept, da drin spezifizier ich, wie ein image aussieht
-    - tool um golden images zu erstellen
-  - cloud-init:
-    - beim booten werden settings hinterlegt
-    - settings wie: network, meta, vendor, user configs/data
-    - user anlegen automatisch mit ssh etc. ist typisches cloud-init task
-- ***differenz zu switch engines was templating angeht:***
-  - nur über CLI bei Switch bei download
-  - externe Images bei AWS (Marktplatz)
-- ***ähnlichkeiten***
-  - cloud init geht
-  - SSH am ersten start
-- ***instance lifecycle***
-- nach launch:
-  - pending:
-  - running:
-  - shutting-down
-  - terminated
-- from running kann man zu:
-  - stopping:
-  - stopped:
-- ![img.png](img.png)
-***Instance Classes***
-- bei aws mit EC2 instances:
-  - es gibt konventionen
 
-***Unterschied start und stopp lifecycles, blockstorage, instanztypen... zu SwitchEngines***
-- Differenzen:
-  - Mehr Blockstorage bei AWS
-  - verschiedene CPU/RAM/Typen-Konstellationen
-  - Stop bei AWS = shelve bei Switch
-- Gleich:
-  - Lifecycle, provisionierung, imaging, deletion -> selfService
-  - Unabhängig zu Storage und Netzwerk
-
-***Optimizing Costs, IaaS***
-- wieso IaaS am teuersten?
-  - können am meisten
-  - kein vendor lock
-  - sie müssen bereitstellen, was sie versprechen
-- kosten optimieren:
-  - free tier nutzt man am meisten
-  - dann geht es richtung on-demand: start/stopp eine instanz
-  - ich weiss habe einen statischen workload, läuft bsp. die nächsten 3 Jahre -> reserved instance und preis geht um 40-50% runter
-  - spot instance: spezielle instanzen die sie versteigern
-    - sie haben weniger als kapazität, den rest versteigern sie
-    - wenn aber instanz gebraucht wird, nehmen sie es dir weg
-    - es gibt workload, da bringt es 
-    - wenn gut konfiguriert, mit images etc. dann kein problem
-  - saving plans: genauer anschauen
-  - microsoft spezifisch: azure hybrid benefit, mit windows etc. -> vertragliche vendor lock-in
-- architecture for optimizing costs: pdf 02-2 seite 19 und 20
-***was fehlt um das in swtich zu implementieren?***
-- orchestrator auf event hört
-- monitoring, das events warhnimmt
-- (User)
-- Ein software gestützer Loadbalancer
-
-***Summary***
-- hauptgrund wieso in die cloud: IaaS
+### Product Class:contentReference[oaicite:3]{index=3}
+- **Virtual Computing** auf Basis von **AMI (Amazon Machine Image)** oder **Azure Machine Image**
+- **CPU/RAM**: feste Instanztypen mit definierten Setups
+- **Disks**: extra Produkt, flexibel erweiterbar
+- **Netzwerk**: externes Interface, Subnet-Management
+- **Skalierung** möglich
+- **Tags, Tags, Tags**: Labels zur Organisation (wichtig in Cloud-Welt)
+- Zugriff: **SSH Public/Private Key**
+- **Security Note**: IP-Ranges werden nach unerfahrenen Usern gescannt
 
 ---
-## optional tutorials
-• EC2:
-https://awsacademy.instructure.com/courses/137586/modules → Modul 6
 
-• Azure:
-https://learn.microsoft.com/de-de/training/modules/describe-azure-compute-
-networking-services/
+### Templates
+- **Grundidee**: Image/Template als Startpunkt für VM (wie Docker-Image)
+- **AMI**:
+  - basiert auf existierender EC2-Instanz
+  - ermöglicht Golden Image (einmal bauen, mehrfach starten)
+- **Packer**:
+  - Tool von Hashicorp
+  - erstellt automatisiert Golden Images
+  - wird in Pipelines integriert
+- **Cloud-Init**:
+  - Settings beim Booten (Netzwerk, User, Vendor, Metadaten)
+  - z.B. automatisches Anlegen von Usern + SSH-Keys
+
 ---
 
-***Vorbereitung***
-- IaC über das provisionieren
-- Packer und cloud init lernen 
+### Unterschiede zu Switch Engines
+- **Templates**:
+  - AWS: über AMI / Marketplace
+  - Switch Engines: nur CLI-Download
+- **Lifecycle**:
+  - AWS: `pending → running → stopping/stopped → terminated`
+  - Switch: „Stop“ entspricht **shelve**
+- **Ähnlichkeiten**:
+  - cloud-init funktioniert
+  - SSH beim ersten Start
+  - self-service: Provisionierung, Imaging, Deletion
+
+---
+
+### Block Storage & Instance Classes
+- AWS: EBS-Volumes als Blockstorage, flexibel attach/detach
+- Verschiedene CPU/RAM-Kombis möglich
+- Switch Engines: weniger Vielfalt
+
+---
+
+### Optimizing Costs:contentReference[oaicite:4]{index=4}
+- **Warum teuer?**
+  - flexibel, kein Vendor-Lock, erfüllen SLAs
+- **Optimierung**:
+  - **Free Tier**: Einstieg
+  - **On-Demand**: Start/Stop bei Bedarf
+  - **Reserved Instances**: bis 40–50% günstiger (für statische Workloads über Jahre)
+  - **Spot Instances**: Restkapazitäten versteigert → riskant, da weggenommen werden kann
+  - **Saving Plans**: langfristige Vertragsmodelle
+  - **Azure Hybrid Benefit**: Vorteil für Windows-Lizenzen → Vendor Lock-in
+- **Architekturen**:
+  - Workload richtig verteilen
+  - Monitoring + Orchestrator für Event-gesteuertes Skalieren
+  - Software-basierter Load Balancer
+
+---
+
+### Zusammenfassung
+- IaaS = Hauptgrund für Cloud-Nutzung
+- Einfaches, bekanntes Produkt
+- Bei richtiger Nutzung: günstig, skalierbar, zuverlässig
+- **Billing treibt Architekturentscheidungen**
+- **IaC** (Infrastructure as Code) für Setup/Maintenance essenziell
+
+---
+
+## Optional Tutorials
+- **AWS (EC2)**: [AWS Academy Modul 6](https://awsacademy.instructure.com/courses/137586/modules)
+- **Azure**: [Compute & Networking Services](https://learn.microsoft.com/de-de/training/modules/describe-azure-compute-networking-services/)
+
+---
+
+## Vorbereitung
+- **IaC** über Provisionierung lernen
+- **Packer** und **Cloud-Init** üben
