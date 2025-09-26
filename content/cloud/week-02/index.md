@@ -6,6 +6,11 @@ authors = ["fatlum"]
 tags = ["cloud"]
 +++
 
+Drehbuch: https://sgi.pages.fhnw.ch/moduluebersicht/cloud/drehbuch.html  
+aufgaben: https://spd.pages.fhnw.ch/module/cloud/platforms_site_generated/cloud-reports/hs25/index.html  
+
+Abgabe erstes projekt: 09.10.2025
+---
 ## Virtualization
 
 - **abstraction vs virtualization**
@@ -111,6 +116,7 @@ tags = ["cloud"]
 
 ***Virtual Memory: Ballooning***
 - man manged das memory das man nicht braucht
+- genau anschauen, da wir es verwenden
 
 ***Virtual Memory: Overcommitment***
 - nur aktiven memory ins host memory mappen
@@ -167,4 +173,92 @@ tags = ["cloud"]
 - What is thick provision? When should you use it?
 - Why is generating backups with Snapshots only not a good idea?
 - What is the primary advantage of using Open vSwitch (OVS) with VxLAN in a cloud environment?
+
+## Form Virtualization to IaaS Platforms
+
+***NIST Definition of Cloud Computing***
+- Diese Cloud model hat 5 essezielle charakterisitken:
+  - on-demand-self-service: Resources are provisioned automatically without human interaction
+  - Broad network access: The cloud must be accessible via network
+  - Resource pooling: Resources are shared among multiple customers → Virtualization
+  - Rapid elasticity: Existing resource can be adapted to shrink and to increase dynamically
+  - Measured service: All usage of the cloud is metered in a transparent matter to enable pay-as-you-go
+
+***Example: OpenStack***
+- eine virtuallisierungsplattform
+- switchEngines baisert es auf openStack
+- orchestrator muss selfService und API endpoints anbieten
+- ein metric und billing system -> misst wie viel ressourcen wir gebraucht haben und stellt dies in rechnung
+- ein selfservice portal -> ein gui um unsere instanzen zu erstellen
+- bei kommerziellen lösungen gibt es einen enterprise tools integration -> für firmen zusätlziche tools wie secuirty und weiters
+- ceilometer: monitorining system bei openStack
+- nova: virtualiserung und compute
+- neutron: für network
+- cinder: für storage
+
+***Example: OpenStack Architecure***
+- controller node: managed alle services
+- computer node: manged network agents und machines
+- network node: komponenten wie DHCP
+- Storage Node: Block and Object Storage
+
+***Example: VMware vSphere / ESXi***
+- sehr komplex, gängiger abieter
+- VIM: manager der mehrere instanzen orchestriert
+- ein cluster kann enorm gross werden, bis zu 40000 virtuelle maschinen 
+- closed source produkt -> schwer für insights
+
+***VIM (Virtual Infrastructure Manager)***
+- was ist unterschied zwischen VIM und VMM -> Prüfungsfrage, unbedingt drin lassen
+- managed templates die verwendet werden um eine prebuilt instanz 
+- allocating und releasing virtuelle ressourcen
+- ressourcen koordinieren wie replication, load balancer, failover system
+- usage und security policies forced über einen lifecycle
+- monitoring von physischen/virtuelle ressourcen
+- failover system:
+  - wenn etwas schiefgeht, wird eine node zur anderen übertragen, live
+  - wärend sie läuft wird migriert
+
+***Failover System***
+- active-passive:
+  - eine andere utilisation kleiner als 50%, die hälfte steht fast immer leer
+- active-active:
+  - heut meist alle so
+  - mit tradeoff dass nicht alles überall verfügbar ist
+
+***Example: Proxmox VE***
+- eine plattform um virtuelle maschinen zum laufen
+- basiert auf debian linux
+- über webUI oder CLI zum managen
+- ![img_8.png](img_8.png)
+
+***Example: Proxmox VE Cluster Architecture***
+- ![img_9.png](img_9.png)
+- über webUI oder API kann man auf jede node zugreifen
+- VM laufen auf QEMU
+
+***Example: Proxmox VE Cluster Manager***
+- pvecm (cluster manager)
+- alle kommunikation läuft über pmxcfs file system
+```shell
+ls /etc/pve/nodes
+```
+- führt zur überischt alles nodes
+
+```shell
+ls /etc/pve/nodes/node01/qemu-server/101.conf
+```
+- alle infos über die vm die in diesem node läuft
+
+```shell
+ls /etc/pve/nodes/node01/qemu-server
+```
+- zeigt alle vm's die auf diesem node laufen
+
+- proxmoxUI auf port 8086 verfügbar
+- starkes pw für den root user -> sehr gefährlich
+- auf guest eingeloggt, die auf diesem host läuft
+- kann eine node in die andere migrieren über UI
+- über UI auf proxmox proxy, diese wiederum kommunizierne über filesystem
+- auf gitlab gibt es ein tutorial -> sehr aufmerksam durchlesen 
 
