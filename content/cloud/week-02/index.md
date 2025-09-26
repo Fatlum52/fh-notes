@@ -6,11 +6,13 @@ authors = ["fatlum"]
 tags = ["cloud"]
 +++
 
-Drehbuch: https://sgi.pages.fhnw.ch/moduluebersicht/cloud/drehbuch.html  
-aufgaben: https://spd.pages.fhnw.ch/module/cloud/platforms_site_generated/cloud-reports/hs25/index.html  
+[Drehbuch](https://sgi.pages.fhnw.ch/moduluebersicht/cloud/drehbuch.html)  
+[Aufgaben](https://spd.pages.fhnw.ch/module/cloud/platforms_site_generated/cloud-reports/hs25/index.html)
 
-Abgabe erstes projekt: 09.10.2025
+Abgabe erstes Projekt: **09.10.2025**
+
 ---
+
 ## Virtualization
 
 - **abstraction vs virtualization**
@@ -73,93 +75,85 @@ Abgabe erstes projekt: 09.10.2025
 - − IO-Virtualisierung braucht weiter Übersetzung
 - ![img_2.png](img_2.png)
 
--------------------------------------- ab hier selber notizen gemacht
-
 ***Intel Virtualization Technology (VT-x)***
-- VM control structure (VMCS) überprüft ob ein call previligiert ist 
-- wenn ja, direkt zu CPU, wenn fertig, wieder direkt zu hardware
+- VM control structure (VMCS) überprüft, ob ein Call privilegiert ist
+- wenn ja → Trap zum Hypervisor (vmexit), nach Abarbeitung zurück zur VM (vmentry)
+- VMCS speichert CPU-Kontext (Register etc.) für schnelle Umschaltung
 
 ***Example: Amazon EC2***
-- AMI brauchen HVM oder PV
-- für CPU und memory -> HVM
+- AMIs brauchen entweder HVM oder PV
+- HVM ist Standard für CPU und Memory
+- PV-Treiber (z. B. Storage, Network) können in HVM-Instanzen genutzt werden → bessere IO-Performance
 
 ***Example: KVM (Kernel Virtual Machine)***
-- Einen hypervisor im Linuxkernel eingebaut
-- der supported HVM und PV
-- Zum KVM gibt es ein QEMU (Quick EMUlator)
-- Which hypervisor type is KVM / QEMU?
-  - KVM: Der Linux (Host OS) ist gleichzeitig auch Hypervisor -> Type 1 Hypervisor 
-  - QEMU: ist emuliert und läuft auf hypervisor -> Type 2
+- Hypervisor als Linux-Kernelmodul eingebaut (seit 2007, Kernel 2.6.20)
+- unterstützt HVM (Intel VT-x, AMD-V) und PV für IO (VirtIO API)
+- QEMU emuliert Hardware (CPU, Devices) → läuft oft zusammen mit KVM
+- **Hypervisor-Typ?**
+  - KVM: Host-OS ist selbst Hypervisor → Type 1
+  - QEMU: Emulation als Prozess → Type 2
 
 ***Xen***
-- Xen läuft auf Hardware direkt
-- Xen hat einen speziellen guest der spezielle aufgaben übernimmt
-- Device Drivers sind PV, kommunizieren über bestimmte Schnittstelle
+- läuft direkt auf Hardware
+- spezieller Guest „Dom0“ (privilegiert) übernimmt Management und IO
+- normale Guests „DomU“ laufen darauf
+- Virtualisierungstechniken:
+  - PV: braucht spezialisierten Kernel, sehr leichtgewichtig
+  - HVM: volle Virtualisierung (mit VT-x/AMD-V)
 
 ***Virtual Resources: CPU***
-- CPU wird geshared durch time slicing
-- Bei GPU auch space sclicing möglich
-- kein mapping von virtual CPU und host CPU
-- hyperthreading kann passieren
-  - nicht schneller, aber einfacher zum planen
-- wie viele CPU can be provison?:
-  - (Threads x Cores) x Physical CPU = Number vCPU
-- Ratios vCPU:CPU between 1:1-3:1 (computing intensive) to 6:1 (non computing)
-- lscpu -> command zum schauene von CPU-Daten, virtualisierung etc.
+- Zeit-Slicing der CPU zwischen Guests
+- kein fixes Mapping vCPU↔physische CPU
+- Hyperthreading macht Scheduling einfacher (nicht doppelt so schnell, aber ~30 % Mehrleistung möglich)
+- vCPU-Berechnung:  
+  (Threads × Cores) × Physical CPUs = vCPUs
+- typische Ratios: 1:1–3:1 (compute-intensiv), bis 6:1 (weniger Last)
+- Befehl: `lscpu` zeigt CPU- und Virtualisierungs-Infos
 
 ***Virtual Resources: Memory***
-- CPU, Cache, Memory, Disk
-- je tiefer in die ebenen, umso langsamer
-- am besten in CPU und dann absteigend 
-- möglich wenig memory auf den guests auf unserer disk
+- Host sieht Guest als Blackbox
+- Paging auf Host-Ebene teuer → deshalb Techniken wie Ballooning, Overcommitment, Memory Sharing
 - ![img_3.png](img_3.png)
 
 ***Virtual Memory: Ballooning***
-- man manged das memory das man nicht braucht
-- genau anschauen, da wir es verwenden
+- Balloon-Treiber im Guest gibt vom Guest nicht benötigtes RAM frei
+- Host kann Speicher anderweitig nutzen
+- Problem: wenn Guest später RAM wieder braucht → Paging von Disk zurückladen (Performance-Killer)
 
 ***Virtual Memory: Overcommitment***
-- nur aktiven memory ins host memory mappen
-- memory von guests muss bekannt sein
-- bsp.: wenn mein PC 16GB und ich habe 3 guesets, dann wären das 24GB, was nicht möglich ist
-- guests requesten immer mehr memory als sie brauchen 
-- in der cloud kostet virtual memory, heisst 
+- nur aktiven Guest-Speicher auf Host-RAM mappen
+- inaktive Blöcke bleiben ungemappt
+- Ratio bis ca. 2:1 möglich
+- erfordert Wissen über Memory-Patterns der Guests
 
 ***Virtual Memory: Sharing***
-- in der praxis nicht oft zu sehen in IaaS-umgebung
-- wenn guests die ähnliche binaries haben, nur einmal im host memory laufen lassen
+- gleiche Pages (z. B. gleiche OS-Binaries) zwischen mehreren VMs nur einmal im Host-RAM
+- spart 10–40 % Speicher
+- Copy-on-write falls Guest etwas verändert
+- eher bei horizontal skalierten Systemen praktisch
 - ![img_4.png](img_4.png)
 - ![img_5.png](img_5.png)
-- wir werden ballooning implementieren
 
 ***Virtual Resources: Storage***
-- disks sind blockstorage
-- immer blockstorage für VM
-- pribieren ausserhalb des compute clusters
-  - ermöglicht bessere skalierung
-- system für storage virtualiesirung
-- system für ...     virtualisierung
-- physisch ist network und storage nicht in gleichen network
-- NIC (Network Interface Controller) → Storage Area Network (SAN) or Networked Attached Storage (NAS)
+- Disks werden als Blockdevices in Guests gemappt
+- Filesystem wird vom Guest erstellt, Host/Hypervisor sieht nur Blöcke
+- Architektur: NIC ↔ SAN oder NAS
 - ![img_6.png](img_6.png)
 
 ***Storage Types***
+- **DAS** – direkt an Server, günstig, schnell, aber kein Failover
+- **SAN** – über FibreChannel, teuer/komplex, aber skalierbar und Failover möglich
+- **NAS** – übers Netzwerk, günstig, einfacher, braucht Workarounds für Blockzugriff (z. B. iSCSI)
 - ![img_7.png](img_7.png)
 
-*** Thin vs Thick Provisioning***
-- thick:
-  - platz für guest
-  - falls guest weniger bracuht, ist verschwendet platz
-- thin:
-  - nur so viel platz reserviere, wie guest braucht -> dynmaisch
-  - wenn jeder guest ganzen platz braucht, gibt es problem
+***Thin vs Thick Provisioning***
+- **Thick:** gesamter Platz reserviert, evtl. Verschwendung
+- **Thin:** dynamisch nur das, was gebraucht wird; Risiko wenn alle gleichzeitig viel brauchen
 
 ***Virtual Resources: Network***
-- Network connection takes place via virtual network interface card
-  (NIC):
-  - keine direkte verbindung zum physischen NIC vom host
-  - virtuelle switches zum trafficen von VM's zu NIC von host
-  - VM-to-VM traffic stays on same host
+- VMs haben virtuelle NICs
+- Host hat virtuelle Switches für Routing zum physischen NIC
+- VM↔VM Traffic bleibt lokal auf Host
 
 ***Fragen***
 - Explain why Moore's Law is important regarding virtualization
@@ -174,91 +168,96 @@ Abgabe erstes projekt: 09.10.2025
 - Why is generating backups with Snapshots only not a good idea?
 - What is the primary advantage of using Open vSwitch (OVS) with VxLAN in a cloud environment?
 
-## Form Virtualization to IaaS Platforms
+---
+
+## From Virtualization to IaaS Platforms
 
 ***NIST Definition of Cloud Computing***
-- Diese Cloud model hat 5 essezielle charakterisitken:
-  - on-demand-self-service: Resources are provisioned automatically without human interaction
-  - Broad network access: The cloud must be accessible via network
-  - Resource pooling: Resources are shared among multiple customers → Virtualization
-  - Rapid elasticity: Existing resource can be adapted to shrink and to increase dynamically
-  - Measured service: All usage of the cloud is metered in a transparent matter to enable pay-as-you-go
+- Cloud Computing Modell mit 5 Eigenschaften:
+  - **On-demand self-service:** automatisierte Provisionierung ohne menschliche Interaktion
+  - **Broad network access:** über das Netzwerk erreichbar
+  - **Resource pooling:** geteilte Ressourcen → Virtualisierung als Basis
+  - **Rapid elasticity:** dynamische Anpassung (hoch/runter)
+  - **Measured service:** nutzungsbasierte Abrechnung (pay-as-you-go)
 
 ***Example: OpenStack***
-- eine virtuallisierungsplattform
-- switchEngines baisert es auf openStack
-- orchestrator muss selfService und API endpoints anbieten
-- ein metric und billing system -> misst wie viel ressourcen wir gebraucht haben und stellt dies in rechnung
-- ein selfservice portal -> ein gui um unsere instanzen zu erstellen
-- bei kommerziellen lösungen gibt es einen enterprise tools integration -> für firmen zusätlziche tools wie secuirty und weiters
-- ceilometer: monitorining system bei openStack
-- nova: virtualiserung und compute
-- neutron: für network
-- cinder: für storage
+- Open-Source Orchestrator für Cloud-Features
+- Module:
+  - Horizon (Dashboard/UI)
+  - Keystone (Auth)
+  - Glance (Images)
+  - Ceilometer (Monitoring & Billing)
+  - Nova (Compute)
+  - Neutron (Network)
+  - Cinder (Block Storage)
+  - Swift (Object Storage)
+- kommerzielle Lösungen bieten Enterprise-Integrationen (Security, Management)
 
-***Example: OpenStack Architecure***
-- controller node: managed alle services
-- computer node: manged network agents und machines
-- network node: komponenten wie DHCP
-- Storage Node: Block and Object Storage
+***OpenStack Architecture***
+- **Controller Node**: Management-Services (Keystone, Nova, Neutron Mgmt)
+- **Compute Node**: VMs, Network Agents
+- **Network Node**: DHCP, L3 Agent, Open vSwitch
+- **Storage Node**: Block/Object Storage (iSCSI)
 
 ***Example: VMware vSphere / ESXi***
-- sehr komplex, gängiger abieter
-- VIM: manager der mehrere instanzen orchestriert
-- ein cluster kann enorm gross werden, bis zu 40000 virtuelle maschinen 
-- closed source produkt -> schwer für insights
+- Closed Source, einer der größten Anbieter
+- **vCenter (VIM)**: verwaltet bis zu 2500 Hosts / 40’000 VMs
+- Services:
+  - vpxd: zentrales Mgmt
+  - vpxa: auf jedem Host als Endpoint
+  - hostd: Host-spezifisches Mgmt
+- Cluster-Features: Load Balancing, Failover, Live-Migration
 
 ***VIM (Virtual Infrastructure Manager)***
-- was ist unterschied zwischen VIM und VMM -> Prüfungsfrage, unbedingt drin lassen
-- managed templates die verwendet werden um eine prebuilt instanz 
-- allocating und releasing virtuelle ressourcen
-- ressourcen koordinieren wie replication, load balancer, failover system
-- usage und security policies forced über einen lifecycle
-- monitoring von physischen/virtuelle ressourcen
-- failover system:
-  - wenn etwas schiefgeht, wird eine node zur anderen übertragen, live
-  - wärend sie läuft wird migriert
+- Unterschied zu VMM (Prüfungsfrage!)
+- Aufgaben:
+  - Templates verwalten (Prebuilt Instanzen)
+  - virtuelle Ressourcen starten, pausieren, terminieren
+  - Policies erzwingen (Security, Usage)
+  - Monitoring von phys./virtuellen Ressourcen
+  - Failover: Live-Migration bei Host-Ausfall
 
 ***Failover System***
-- active-passive:
-  - eine andere utilisation kleiner als 50%, die hälfte steht fast immer leer
-- active-active:
-  - heut meist alle so
-  - mit tradeoff dass nicht alles überall verfügbar ist
+- **Active-Passive:** eine Hälfte steht oft ungenutzt → ineffizient
+- **Active-Active:** heute Standard, bessere Auslastung
 
 ***Example: Proxmox VE***
-- eine plattform um virtuelle maschinen zum laufen
-- basiert auf debian linux
-- über webUI oder CLI zum managen
+- Open-Source Plattform für VMs und Container
+- basiert auf Debian Linux
+- Verwaltung über WebUI oder CLI
 - ![img_8.png](img_8.png)
 
-***Example: Proxmox VE Cluster Architecture***
+***Proxmox VE Cluster Architecture***
+- Komponenten: corosync, pmxcfs, pvecm, pveproxy etc.
+- Cluster-Kommunikation über pmxcfs (DB-basiertes FS mit Live-Replikation)
 - ![img_9.png](img_9.png)
-- über webUI oder API kann man auf jede node zugreifen
-- VM laufen auf QEMU
 
-***Example: Proxmox VE Cluster Manager***
-- pvecm (cluster manager)
-- alle kommunikation läuft über pmxcfs file system
-```shell
-ls /etc/pve/nodes
-```
-- führt zur überischt alles nodes
+***Proxmox VE Cluster Manager***
+- `pvecm` CLI: Cluster erstellen, Nodes joinen, Status abfragen
+- `/etc/pve` wird über pmxcfs auf allen Nodes synchron gehalten
+- Beispiele:
+  ```shell
+  ls /etc/pve/nodes
+  ```
+  → Übersicht aller Nodes
 
-```shell
-ls /etc/pve/nodes/node01/qemu-server/101.conf
-```
-- alle infos über die vm die in diesem node läuft
+  ```shell
+  ls /etc/pve/nodes/node01/qemu-server/101.conf
+  ```
+  → Details einer VM
 
-```shell
-ls /etc/pve/nodes/node01/qemu-server
-```
-- zeigt alle vm's die auf diesem node laufen
+  ```shell
+  ls /etc/pve/nodes/node01/qemu-server
+  ```
+  → alle VMs auf Node01
 
-- proxmoxUI auf port 8086 verfügbar
-- starkes pw für den root user -> sehr gefährlich
-- auf guest eingeloggt, die auf diesem host läuft
-- kann eine node in die andere migrieren über UI
-- über UI auf proxmox proxy, diese wiederum kommunizierne über filesystem
-- auf gitlab gibt es ein tutorial -> sehr aufmerksam durchlesen 
+- WebUI: Port 8086
+- root-Login sehr sensibel (starkes PW!)
 
+***Fragen***
+- Why is simple virtualization not sufficient to withstand the NIST-Definition of Cloud Computing?
+- What is the difference between a VMM and a VIM?
+- Why is a HA-setup consisting of different nodes important related to virtualized environments?
+- What is the difference between an active-active and an active-passive architecture?
+- Explain why Keystone is neuralgic in OpenStack to exist.
+- Explain how the Proxmox VE Cluster synchronizes the configuration between nodes.
