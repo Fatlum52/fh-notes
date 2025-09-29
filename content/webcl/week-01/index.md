@@ -9,6 +9,7 @@ tags = ["webcl"]
 ### Punkte
 2
 
+---
 ### Fragen für nächste lektion:
 - schauen wir mvc erweiterungen an wie mvcs, wann macht es sinn es zu erweitern?
 - ist es eine reine vorliebe, dass sie zuerst if(...) fragen und dann return oder wieso nicht negieren und sonst nichts tun
@@ -25,6 +26,7 @@ function createElements() {
 }
 ```
 - sind die template.children die drei elemente die erstellt wurden?
+---
 
 # Intro
 
