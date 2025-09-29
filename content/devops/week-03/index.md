@@ -103,3 +103,103 @@ tags = ["devops"]
   - maven braucht man nicht zum starten, nur java
 - das was hier drauf steht ist für containerisieren sehr wichtig 
 - kleine images zur runtime, nur was man braucht 
+
+***Registry***
+- ![img_6.png](img_6.png)
+- in der regel autoamtisch gebuildet
+- kann als images eines repo gesehen werden 
+- erreichbar via URL
+- aufpassen vor public images
+- docker.io machen request quota 
+- nicht deren images verwenden, stattdessen einen mirror verwenden 
+
+***baseimage***
+- ChatGPT soll hier in ein par punkte erklären was es ist, mit beispiel 
+
+***out of image, into the container***
+- docker run und dann startet er einen container
+- aus einem blueprint image, viele container starten
+- der prozess hat im container drin id1
+- im container kann man sachen ausführen 
+  - docker exec 
+
+***how to bring application into a container?***
+- ![img_7.png](img_7.png)
+
+***images and stages***
+- ![img_8.png](img_8.png)
+- keine stageabhängigen images bauen 
+- ein image bauen und dieses durch test umgebung machen und dass dann deployen
+- releaenummer nicht wiederverwenden
+- jedes releasenummer muss unique sein
+
+***Dockerfile and Image***
+- ![img_9.png](img_9.png)
+- alpine ist ein gutes baseimage 
+- welche key-words generieren layer 
+- problem im build:
+  - viele sache die ich nicht haben will -> wegen node
+- das laufende image ist sehr klein und dünn
+- das build hat alles was es braucht um es überall zu bauen 
+- in der produktion hingegen soll man nicht wieder bauen 
+- das nennt man multi-stage dockerfile 
+- mehrere from etc. 
+- ![img_10.png](img_10.png)
+- security/lifecycle checks laufen auf prod build(letzte stage), letzter teil
+
+***how to build an image? full image***
+- build und run time in ein image -> viel werkzeuge die ich nicht braucht, grosses image
+- vorteil:
+  - einfach zu maintainen 
+  - cleane und transpartente struktur
+- nachteil:
+  - grosses image
+  - grosse angriffsattacke
+  - unnötige werkzeuge darin
+
+***how to build an image? multi stage***
+- vorteil:
+  - separat build und run stage
+  - kleinere run image mit kleinerem angrissfläche
+- nachteil:
+  - komplizierter zu entwicklen 
+  - nicht so transparent zum warten 
+
+***how to build an image? build packs***
+- vorteil:
+  - dockeriamge ohne dockerfile
+  - auto detect frameworks
+- nachteil:
+  - New project, bugs occur
+  - Complicated architecture, hard to track errors in framework
+
+***choice of baseimge***
+- alpine: small
+- distroless: no bash
+- chainguard
+- ubi
+- je grössr base image, umso mehr unnötiges ist drin
+- werkzeug zum wissen was drin ist:
+  - syft
+
+***best practices for building images***
+- einen main prozess der startet 
+- eine applikation ein image
+- ohne root, wenn man nicht muss -> user setzen
+- grosse teile nach unten
+- images scannen: syft und grype
+- nicht irgendwelche public images
+
+
+***für nächste woche***
+- link zu assignement 3:
+  - https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/assignments/assignment03.html
+- kann framework als SaaS agieren?
+- docker file im root verzeichnis
+- dockerfile mit build und run und muss Dockerfile heissen
+- recherchieren was base image ist
+  - klein und minimal
+- container anfangen zu bauen 
+- saubere dockerfiles 
+- app muss im dockefile baubar sein 
+- names konvention einhalten 
