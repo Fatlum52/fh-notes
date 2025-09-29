@@ -158,7 +158,7 @@ Abgabe erstes Projekt: **09.10.2025**
 ***Fragen***
 - Explain why Moore's Law is important regarding virtualization
 - Describe the difference between
-- Type1 and Type2 virtualization
+  - Type1 and Type2 virtualization
 - Hardware-assisted, Full, and Paravirtualization
 - Why are the properties and requirments for virtualization also important for cloud computing?
 - Which virtualization approach provides the best performance?
