@@ -6,200 +6,239 @@ authors = ["fatlum"]
 tags = ["devops"]
 +++
 
-## Reflektion Assignement 2
-- 12-faktor-app
-  - wichtig für die schriftliche prüfung -> anschauen vor der prüfung!!
-- security-flaws schnell adressieren im service
-- 9 wichtigsten funktioanlitäten erfassen
-- git tag machen und das soll system triggern für einen release
-- nächste woche die lösung containerisieren
+- [📘 Aufgaben – DevOps Foundations HS25](https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/index.html)
+- [☁️ Azure Portal (AKS)](https://portal.azure.com)
+- [🦊 GitLab – FHNW DevOps Projekte](https://gitlab.fhnw.ch/spd/module/devops)
 
-## Introduction, why docker?
-- ganze anwendungsschicht als artefakt bauen, sodass es auf jedem OS laufen kann
-- portabilität, OIC-kontainer darauf ausgelegt von A nach B zu wandern
-  - idee wie es funktioniert ist steinalt
-- reproduzierbarkeit, einfacher syntax für ein dockerfile
-- container virtualisieren keine software!
-- grundidee von CI/CD gab es schon vor Docker
-- mit container ist CI/CD viel generischer 
+---
 
-***where does it come from?***
-- VM model:
-  - app läuft auf os, vm läuft auf hypervisor und diese läuft auf hardware von host
-- container model:
-  - die apps werden isoliert und laufen nativ auf server
-  - eine app wird wie ein prozess behandelt
-  - shell und application-schicht wird von docker abgenommen, läuft in einem container
-- ![img.png](img.png)
-- container gedacht auf rezept zu erstellen
+## Reflektion Assignment 2
+- **12-Faktor-App**
+  - wichtig für die schriftliche Prüfung → vor der Prüfung unbedingt anschauen!
+- Security-Flaws im Service schnell adressieren
+- 9 wichtigste Funktionalitäten erfassen
+- Git-Tag erstellen, dieser soll einen Release-Prozess triggern
+- nächste Woche: Lösung containerisieren
 
-***linking to cloud, para-virtualization***
-- idee ist sehr alt
-- ein container ist eine gruppe von prozessen
-- ein normlaer container hat keinen eigenen kernel und laufen auf anwendungsschicht
-- es möglichkeit container bootable zu machen
-- brauchen weniger ram, sind sehr schnell
-- container startet, wenn prozess dahinter startet 
-- bei vm zuerst systemd danahc timer starten etc. 
-- vm sind besser isoliert, bei container ist es abhängig von runtime 
-- docker runtime kann man rootrechte geben, wenn man root-volum darin mountet
-- schwiriger zu entscheiden wann contaienr verwenden wann nicht
-- ein prozess ein image und ein container ist best practice
+---
 
-***OCI-container/images***
-- docker war nicht mehr als frontend für NIC
-- Imagespezifikation und runtime spezifikation, darin steht wie sie aufbeaut werden müssen
+## Introduction – Why Docker?
+- Ganze Anwendungsschicht als Artefakt bauen, sodass sie auf jedem OS laufen kann
+- **Portabilität**: OCI-Container sind darauf ausgelegt, von A nach B zu wandern
+  - die Idee ist alt (Trennung von Concerns)
+- **Reproduzierbarkeit**: einfacher Syntax für ein Dockerfile
+- Container virtualisieren **keine Hardware**, sondern die Anwendungsschicht
+- CI/CD gab es schon vor Docker, aber mit Containern ist es **generischer** und einfacher
 
-***wie läuft es?***
-- ![img_1.png](img_1.png)
-- wenn man auf oberste schicht etwa baut, muss es augrund von spezifikation in kubernetes laufen
-- in wirklichkeit redet man über OIC-Images und nicht dockerimages
+---
 
-***Dockerfile and Dockerimages***
+## Where does it come from?
+- **VM-Modell**:  
+  App läuft auf OS → OS läuft in VM → VM läuft auf Hypervisor → Hypervisor läuft auf Host-Hardware
+- **Container-Modell**:  
+  Apps sind isolierte Prozesse, die nativ auf dem Server laufen
+  - eine App wird wie ein Prozess behandelt
+  - Shell und Application-Schicht übernimmt Docker
+- Container sind wie **Rezepte** → man kann sie beliebig neu erzeugen
+- → siehe Punkt 2 der **12-Faktor-App** (Trennung von Concerns ist Pflicht für gutes Operating)
+
+---
+
+## Linking to Cloud, Para-Virtualization
+- Idee ist alt
+- Container = Gruppe von Prozessen
+- Normale Container haben **keinen eigenen Kernel** → laufen auf Anwendungsschicht
+- Container brauchen weniger RAM, starten sehr schnell
+- Container starten, sobald der Prozess startet  
+  VMs starten zuerst Systemdienste (systemd, Timer, …)
+- VMs sind stärker isoliert, Container sind abhängig von Runtime
+- Achtung: Docker-Runtime kann Rootrechte erhalten (z. B. wenn man ein Root-Volume mountet)
+- Entscheidung **Container vs. VM** nicht trivial
+- **Best Practice**: ein Prozess → ein Image → ein Container
+
+---
+
+## OCI-Container / Images
+- Docker war im Ursprung nur ein **Frontend** für `runc` (Open Container Initiative – OCI)
+- Es gibt zwei Spezifikationen:
+  - **Image Spec** (wie Images aufgebaut sind)
+  - **Runtime Spec** (wie Container gestartet werden)  
+    → siehe [OCI Runtime Spec](https://github.com/opencontainers/runtime-spec), [OCI Image Spec](https://github.com/opencontainers/image-spec)
+
+---
+
+## Dockerfile and Dockerimages
 - ![img_2.png](img_2.png)
-- FROM, COPY, RUN, CMD
-- standard containerisieren mit dockerfile
-- alles was im baseimgae ist ist im dockerimage auch drin
-- pro linie ist ein layer
-- mit 4 lines of code bekommt man eine anwendungsschicht, eine app im container
+- Keywords: `FROM`, `COPY`, `RUN`, `CMD`
+- Pro Zeile im Dockerfile → **ein Layer**
+- Baseimage = alles was im Image drin ist, wird weitervererbt
+- Mit wenigen Zeilen lässt sich eine App containerisieren
 
-***immutable software***
+---
+
+## Immutable Software
 - ![img_3.png](img_3.png)
-- jedesimage zieht ein weiteres image hinterher 
-- wenn im tiefsten image etwas kapput geht, badet man es bei der app aus 
-- wir patchen keine software im laufenden container!!!
+- Images sind unveränderlich („immutable“)  
+  → **keine Patches im laufenden Container!**
+- Wenn ein tiefes Baseimage fehlerhaft ist, wirkt sich das bis nach oben in der App aus
+- Lösung: neue Images bauen statt im Container zu patchen
 
-***grundidee eines containers***
+---
+
+## Grundidee eines Containers
 - ![img_4.png](img_4.png)
-- isolation der abhängigkeiten 
-- in der gesames anwendugnsschiht ist alles drin was ich brauche, also auch verschiedene abhängigkeiten 
-- nachteil:
-  - mehr speicher
-  - ein mechanismus der regelmässig monitort, die verschiedene abhängigkeit
-  - man müsste manuell die images patchen
-  - automatisiertes testing, lifecycle management um dieses problem zu beheben 
+- Isolation aller Abhängigkeiten in einem Paket
+- Vorteil: Alles, was die App braucht, ist enthalten
+- Nachteil:
+  - mehr Speicherbedarf
+  - regelmäßiges Monitoring der Dependencies notwendig
+  - manuelles Patchen der Images wäre nötig
+- Lösung: Automatisiertes Testing & Lifecycle Management
 
-***Images and Container***
-- ein image ist ordner auf einem dateisystem
-- ein staack von snapchats eines dateisystem die man übereinander legt
-- pro layer schaut er ob image änderungen hat
-- wenn container beendet, image steht noch 
-- grundsätzlich container immer remove
-- workflow:
-  - lokal image bauen im gitlab CI, danach build prozess pusht die einzelnen layer (jedes layer eine hashsumme), und dann pullt docker
-  - wenn layer vorhanden sind, lässt es, pull nur die neuen layer
-- images richtig generieren 
+---
 
-***detailed view of layer***
+## Images and Container
+- **Image** = gestapeltes Abbild der benötigten Pakete/Software, um einen Prozess zu starten
+  - kann mehrfach geteilt und wiederverwendet werden
+- **Container** = ein laufender Prozess basierend auf einem Image
+  - Lifecycle wie ein normaler Prozess
+- Workflow:
+  1. Image lokal bauen (z. B. über GitLab CI)
+  2. Build-Prozess pusht Layer (Hash-basiert) in Registry
+  3. Beim Pull werden nur neue Layer heruntergeladen
+- Best Practice: Container nach Benutzung entfernen, Images sauber generieren
+
+---
+
+## Detailed View of Layers
 - ![img_5.png](img_5.png)
-- wenn mehrere images, gleiche baseimage verwenden 
-- überlegen wie dockerfile aufbauen
-  - grosse elemente weiter unten im OIC-image
-  - elemente die häufig ändern, eher in obere layer
-- bei chatbots: LLM wo im image stehen: möglichst weit unten 
-- was braucht man wirklich? kleine baseimages machen 
-- bsp java app:
-  - zum entwickeln braucht man JDK, zum laufen lassen nur runtime
-  - maven braucht man nicht zum starten, nur java
-- das was hier drauf steht ist für containerisieren sehr wichtig 
-- kleine images zur runtime, nur was man braucht 
+- Große, selten geänderte Elemente → **unten im Image**
+- Häufig veränderte Inhalte → **oben im Image**
+- Dadurch können unveränderte Layers wiederverwendet werden (Caching)
+- Beispiel: LLM bei Chatbots → weit unten platzieren
+- Für Runtime nur kleine Baseimages verwenden (z. B. JRE statt JDK)
 
-***Registry***
+---
+
+## Registries
 - ![img_6.png](img_6.png)
-- in der regel autoamtisch gebuildet
-- kann als images eines repo gesehen werden 
-- erreichbar via URL
-- aufpassen vor public images
-- docker.io machen request quota 
-- nicht deren images verwenden, stattdessen einen mirror verwenden 
+- Images werden automatisch gebaut und in einer Registry gespeichert
+- Registry = Repository für Images, erreichbar via URL
+- Vorsicht bei **Public Images** (Sicherheitsrisiko + Request-Quotas, z. B. Docker Hub)
+- Lösung: eigene Registry oder Mirror verwenden
 
-***baseimage***
-- ChatGPT soll hier in ein par punkte erklären was es ist, mit beispiel 
+---
 
-***out of image, into the container***
-- docker run und dann startet er einen container
-- aus einem blueprint image, viele container starten
-- der prozess hat im container drin id1
-- im container kann man sachen ausführen 
-  - docker exec 
+## Baseimage
+Ein Baseimage ist das **Fundament eines Dockerimages**.  
+Es enthält das Grundsystem (meist ein minimales Linux oder nur Laufzeitumgebung) und definiert damit:
+- welche Bibliotheken und Tools zur Verfügung stehen
+- wie groß die Angriffsfläche ist
+- welche Abhängigkeiten enthalten sind
 
-***how to bring application into a container?***
-- ![img_7.png](img_7.png)
+**Beispiele:**
+- `alpine` – sehr klein, beliebt für schlanke Images
+- `distroless` – ohne Bash, nur Laufzeitumgebung
+- `ubi` (RedHat Universal Base Image)
+- `chainguard` – sicherheitsoptimierte Images
 
-***images and stages***
+---
+
+## Out of Image, into the Container
+- `docker run <IMAGE>` → startet Container
+- Wichtige Punkte:
+  - Port-Mapping (`-p`)
+  - Volume-Mapping (`-v`)
+  - Hauptprozess muss **PID 1** sein
+- Nützliche Befehle:
+  - `docker ps` → Container anzeigen
+  - `docker exec` → Prozess im Container ausführen
+  - `docker inspect` → Infos zum Container
+
+---
+
+## How to bring your application into a container?
+1. Anwendung schreiben + Abhängigkeiten definieren
+2. Dockerfile erstellen
+3. Image bauen
+4. Optional: Image in Registry pushen
+5. Container starten
+
+![img_7.png](img_7.png)
+
+---
+
+## Images and Stages
 - ![img_8.png](img_8.png)
-- keine stageabhängigen images bauen 
-- ein image bauen und dieses durch test umgebung machen und dass dann deployen
-- releaenummer nicht wiederverwenden
-- jedes releasenummer muss unique sein
+- Kein stageabhängiges Image pro Umgebung bauen
+- Stattdessen: **ein Image** durch alle Umgebungen (Test → Prod) durchlaufen lassen
+- Jede Release-Nummer muss **eindeutig** sein (nicht wiederverwenden!)
 
-***Dockerfile and Image***
+---
+
+## Dockerfile and Image
 - ![img_9.png](img_9.png)
-- alpine ist ein gutes baseimage 
-- welche key-words generieren layer 
-- problem im build:
-  - viele sache die ich nicht haben will -> wegen node
-- das laufende image ist sehr klein und dünn
-- das build hat alles was es braucht um es überall zu bauen 
-- in der produktion hingegen soll man nicht wieder bauen 
-- das nennt man multi-stage dockerfile 
-- mehrere from etc. 
-- ![img_10.png](img_10.png)
-- security/lifecycle checks laufen auf prod build(letzte stage), letzter teil
+- Layer erzeugende Keywords: `FROM`, `RUN`, `COPY`, `WORKDIR`
+- Metadaten: `EXPOSE`, `ENV`, `CMD`, `ENTRYPOINT`
+- Multi-Stage Builds:
+  - Build-Stage: mit allen Tools
+  - Run-Stage: nur schlanke Runtime
+- Security/Lifecycle Checks laufen auf der letzten Stage (Prod-Image)
 
-***how to build an image? full image***
-- build und run time in ein image -> viel werkzeuge die ich nicht braucht, grosses image
-- vorteil:
-  - einfach zu maintainen 
-  - cleane und transpartente struktur
-- nachteil:
-  - grosses image
-  - grosse angriffsattacke
-  - unnötige werkzeuge darin
+---
 
-***how to build an image? multi stage***
-- vorteil:
-  - separat build und run stage
-  - kleinere run image mit kleinerem angrissfläche
-- nachteil:
-  - komplizierter zu entwicklen 
-  - nicht so transparent zum warten 
+## How to build an image?
+### Full Image
+- **Vorteil**: einfach, transparent, sauber
+- **Nachteil**: groß, viele unnötige Tools, große Angriffsfläche
 
-***how to build an image? build packs***
-- vorteil:
-  - dockeriamge ohne dockerfile
-  - auto detect frameworks
-- nachteil:
-  - New project, bugs occur
-  - Complicated architecture, hard to track errors in framework
+### Multistage Build
+- **Vorteil**: separates Build- und Run-Image → kleine Laufzeit-Images
+- **Nachteil**: komplizierter zu entwickeln, weniger transparent
 
-***choice of baseimge***
-- alpine: small
-- distroless: no bash
-- chainguard
-- ubi
-- je grössr base image, umso mehr unnötiges ist drin
-- werkzeug zum wissen was drin ist:
-  - syft
+### Build Packs
+- Dockerimage ohne Dockerfile
+- Frameworks werden automatisch erkannt
+- **Vorteil**: schnell und einfach starten
+- **Nachteil**: komplexe Architektur, schwer zu debuggen, Bugs möglich
 
-***best practices for building images***
-- einen main prozess der startet 
-- eine applikation ein image
-- ohne root, wenn man nicht muss -> user setzen
-- grosse teile nach unten
-- images scannen: syft und grype
-- nicht irgendwelche public images
+---
 
+## Choice of Baseimage
+- Alpine: klein
+- Distroless: keine Shell
+- Chainguard: sicherheitsoptimiert
+- UBI: RedHat Universal Base Image
+- Je größer das Baseimage, desto mehr unnötige Komponenten
 
-***für nächste woche***
-- link zu assignement 3:
-  - https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/assignments/assignment03.html
-- kann framework als SaaS agieren?
-- docker file im root verzeichnis
-- dockerfile mit build und run und muss Dockerfile heissen
-- recherchieren was base image ist
-  - klein und minimal
-- container anfangen zu bauen 
-- saubere dockerfiles 
-- app muss im dockefile baubar sein 
-- names konvention einhalten 
+Tooling:
+- **Syft** → Software Bill of Materials (SBOM) generieren
+- **Grype** → Security Scans
+
+---
+
+## Best Practices for Building Images
+- Ein Hauptprozess (PID 1)
+- Sich schnell ändernde Teile nach oben schichten
+- Überflüssige Pakete entfernen
+- Nicht als Root laufen (wenn nicht notwendig)
+- Möglichst kleine Images bauen
+- Layers wiederverwenden
+- Images regelmäßig scannen
+- Tagging-Strategie etablieren
+- Vorsicht mit Public Images
+
+Quelle: [Google Cloud Blog – Best practices](https://cloud.google.com/blog/products/containers-kubernetes/7-best-practices-for-building-containers?hl=en)
+
+---
+
+## Für nächste Woche
+- Link zu Assignment 3:  
+  [Assignment 03 – DevOps Foundations](https://spd.pages.fhnw.ch/module/devops/templates/reports/devops-foundations/hs25/assignments/assignment03.html)
+- Kann Framework als SaaS agieren?
+- Dockerfile ins **Root-Verzeichnis**
+- Dockerfile muss **`Dockerfile`** heißen
+- Dockerfile enthält **Build- und Run-Stage**
+- Saubere Dockerfiles erstellen
+- Applikation muss baubar sein
+- Namenskonventionen einhalten
