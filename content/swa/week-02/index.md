@@ -61,7 +61,7 @@ tags = ["swa"]
 ## Aufgabe: Gaming Platform (Iteration #1)
 
 ### Szenario
-- Eine **Gaming Plattform** soll entworfen werden:
+- Eine **Gamingplattform** soll entworfen werden:
   - Spieler registrieren sich mit Name, Account, Passwort, Rolle (Player, Admin, Provider).
   - Login mit Account und Passwort.
   - Spiele müssen von Admins hinzugefügt werden, bevor sie im Katalog erscheinen.
@@ -82,7 +82,7 @@ tags = ["swa"]
 ---
 
 ### Development View
-- Abgeleitet aus den Sequenzdiagrammen:
+- Abgeleitet aus den Sequenzdiagrammen in der Logical View:
   - Sequenz-Titel → Klassen in Java.
   - Ergebnis: Klassendiagramm (Analysemodell).
 - Danach Übergang zum Systemdesign:
@@ -112,7 +112,7 @@ tags = ["swa"]
 - **Logical, Development, Process und Physical View** werden in einem Szenario konsistent zusammengedacht.
 - Szenario-Driven Design:
   - Schrittweise von Szenarien → Logical View → Development View → Prozess & Deployment.
-  - Endgültig Umsetzung in Java.
+  - Endgültige Umsetzung in Java.
 
 ---
 
