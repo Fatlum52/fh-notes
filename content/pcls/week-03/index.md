@@ -180,6 +180,86 @@ tags = ["pcls"]
   - kombinieren vom besten der besten welt 
   - nicht selbes tool für gleichen purpose
 
+***What is Terraform / Opentofu***
+- ![img_6.png](img_6.png)
+- [Bücher](https://learning.oreilly.com/library/view/terraform-in-depth/9781633438002/OEBPS/Text/01.html#heading_id_8)
+- möglich zum server/maschinen aufsetzen
+- open library, einfach zu installieren
+- in terraform verschiedene files
+- in den files gibt es verschiedene module, nicht mehr als blöcke
+- diese blöcke werden von cli gelesen
+- über die provider werden die module transoforiert in http-request
+- diese werden gegen API geschossen
+- cloud-anbieter unabhängig rein von der sprache her 
+- wichit zu wissen:
+  - die module sind nicht cloud-provider unabhängig, also beim implementieren schauen 
+- state:
+  - ds was terraform, nach durchlauf, persisitiert ins backend in json 
+- (03-2-iac-infra.pdf) auf seite 3 sind beispiele
+- da provisionieren wir security-group
+- wenn man das ausührt, mit referent auf folgende variable:
+  - ![img_7.png](img_7.png)
+- diesen namen gibt man dann beim cloud-provider an
+
+***Terraform workflow***
+- .tf -> terraform
+- wenn man changes machen will, dann macht man das, danach
+- init:
+  - download modules, providers
+  - initialisiert backend 
+- plan:
+  - refresh gegen echten state of infrastructure
+  - gegenprüfen gegen code
+  - generiert DAG mit actions to aligh infrastructure 
+- apply:
+- wichtig:
+  - einen terraform run nicht unterbrechen!
+
+***Terraform State***
+- state wird gepseichert in einem riesen grossen json
+- unter operate/terra form state:
+  - es loggt alle states 
+
+***IaC configuration Mgmt***
+- task:
+  - install nginx
+  - generate nginx-config
+  - restart nging
+- ainsible:
+  - idempotenc
+  - no extra agent, just ssh
+  - no extra state
+
+***inventory***
+- alles server zum orchestrieren beschreiben
+- kann dynmaic sein
+- ![img_8.png](img_8.png)
+
+***Puppet***
+- ![img_9.png](img_9.png)
+
+***SaltStack***
+- ![img_10.png](img_10.png)
+
+
+
+## Aissgnement 03
+- IaC for IaaS
+- für 6er, ein cloud-init und einen eval user mit ssh-key etc
+- ein repo wo die infrastrktur drin liegt 
+  - mit ssh
+  - regelmässige update, package, 
+- wenn neues docker image kommt, wird es ausgerollt
+- bonus task:
+  - continously
+
+
+
+
+
+- compute/instances/ID
+- 
+
 
 
 
