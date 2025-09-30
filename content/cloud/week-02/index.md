@@ -251,7 +251,7 @@ Abgabe erstes Projekt: **09.10.2025**
   ```
   → alle VMs auf Node01
 
-- WebUI: Port 8086
+- WebUI: Port 8006
 - root-Login sehr sensibel (starkes PW!)
 
 ***Fragen***
