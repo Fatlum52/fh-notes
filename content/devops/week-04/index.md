@@ -65,7 +65,6 @@ tags = ["devops"]
 - mittlerweile geht es besser und schöner
 - mit den native build
 
-
 ---
 
 ***Java and Native?***
@@ -170,7 +169,7 @@ tags = ["devops"]
 - am besten dependencies mit grossen firmen dahinter
 - wenn man das teil baut, die packages cachen
   - man wird resilienter
-  - wenn man ein package auf maven central löscht, aber man hat es im cache, kann man immerhin bauen 
+  - wenn man ein package auf maven central löscht, aber man hat es im cache, kann man immerhin bauen
 
 ---
 
@@ -218,7 +217,7 @@ tags = ["devops"]
   - wäre der durch gekomme, könnte man auf jeden server drauf, der ssh nutzt
   - social engineering vom feinsten
   - es folgen ganz gezielte attacken auf pakete
-- dritte attacke: npm 
+- dritte attacke: npm
   - transitive abhängigkeit wo ein stealth-injection gemacht wurde
   - dieses paket wurde 2 milliarden mal heruntergeladen
   regelmässig patchen
@@ -257,7 +256,7 @@ tags = ["devops"]
 
 ---
 
-## Nächstes assignement:
+## Nächstes assignement
 
 - Kalenderwoche 44, Sonntag ist abgabe Milestone 1
 - LLM Integration
