@@ -75,7 +75,8 @@ tags = ["swa"]
   - Volatilität (Wahrscheinlichkeit von Änderungen)
   - Konfliktgrad mit anderen Bedingungen (Trade-offs nötig?)
   - Strategische Relevanz (trägt es zu Unternehmenszielen bei?)
-
+  - die kosten der änderung die entstehen würden
+  
 ---
 
 ### Architecture Approach
