@@ -15,161 +15,163 @@ Abgabe zweites Projekt: **30.10.2025**
 
 ## Container
 
-***What is a container?***
+### What is a container?
 
-- proxomos sind emulatoren
-- cotainer sind ein anderer ansatz
-- datei system, ressourcen und prozessraum nutzen
-- container muss nicht aus images bestehen
+- Proxmox/VMs **virtualisieren/emulieren** Hardware (Hypervisor).
+- Container fahren einen anderen Ansatz: sie nutzen **Kernel-Features** des Hosts (Namespaces + cgroups) und laufen als **normale Prozesse** – nur sauber isoliert.
+- Kapseln **Dateisystem, Ressourcen und Prozessraum**.
+- Typisch startest du Container **aus Images** (mehrschichtiges, portables Dateisystem).
+- Best Practice: **ein Hauptprozess pro Container** (klare Lifecycle-Semantik).
 
 ---
 
-***Containers are disruptive…***
+### Containers are disruptive…
 
 ![image.png](image.png)
 
-- egal was drin läuft (workload) kann ich nehmen und auf maschine laufen lassen
-- so bekommt man basis für agile software entwickelt
-- nicht mehr als ein linux prozess
-  - hat overhead eines prozesses
-- container nimmt ganze Anwedungsschciht(AS)
-  - abstrahiert hardwarde und kernel
-- problemlos provisioniere, starten, stopp etc.
-- gegensatz zu VM, kein systemd, bootprozess etc.
-- horizontal skalieren geht instant
-- sehr portabel
-- gesamte AS zippen und übers netzwerk schieben
-- alles ist drin, libs, packages etc.
+- Egal welcher **Workload**: als Container portabel auf (fast) jedem Linux-Host startbar.
+- Grundlage für **agile Entwicklung** und **schnelles Deployment**.
+- Overhead ungefähr wie bei einem normalen Prozess.
+- Kein klassischer Bootpfad (kein systemd in „echten“ App-Containern).
 
 ---
 
-***… but what are containers?***
+### … but what are containers?
 
 - ![image-1.png](image-1.png)
-- nutzen so viel ram wie auch der prozess ram braucht
-- starten schneller weil ohne startprozess, systemd etc.
-  - kann jeder prozess sein, java, python...
-- eine vm ist isoliert, aus vm auszubrechen ist schwer
-- bei container kann man durch falsche verwendung sicherheitslücken erschaffen
-- bsp: filesystem kann man rein mounten
-  - docker run ubuntu:latest /:/opt
-    - ich maunte das ganze root verzeichnis in /opt
-- aus container kommt man leichter raus als aus vm
-- schwer zu wissen, was man in einem container alles machen kann
-- immer nur einen prozess in einem container
+- Belegen so viel RAM, wie der Prozess braucht (plus wenig Overhead).
+- **Starten sehr schnell**, weil ohne OS-Boot.
+- Isolation ≠ VM-Isolation: falsche Mounts/Capabilities → **Security-Risiken**.
+- Beispiel riskanter Mount:
+
+```bash
+docker run --rm -it -v /:/opt ubuntu:latest bash
+```
+
+→ Host-Root ins Container-FS binden = **no-go**.
+
+- „**One process per container**“ hilft bei Stabilität, Logs, Restarts.
 
 ---
 
-***We all us Docker …***
+### We all use Docker …
 
 - ![image-2.png](image-2.png)
-- läuft auf einer container engine dann
+- Docker = **CLI + Engine**.  
+- **Images** sind Layer-Stacks, **Container** sind laufende Instanzen dieser Images.
 
 ---
 
-***Containerization VS Virtual Machines***
+### Containerization VS Virtual Machines
 
 - ![image-3.png](image-3.png)
+- **VMs**: eigener Kernel + eigenes Userspace-OS → starke Isolation, mehr Overhead.
+- **Container**: teilen sich den **Host-Kernel**, isolieren per Namespaces/cgroups → leichter, schneller, aber vom Kernel-Hardening abhängig.
 
 ---
 
-***Recap: Paravirtualized Environments***
+### Recap: Paravirtualized Environments
 
 - ![image-4.png](image-4.png)
+- Gäste laufen „kernel-nah“ (Hypervisor-aware).  
+- Effizienter als volle Emulation; Bindung an Host-Mechanik bleibt.
 
 ---
 
-***Containerization***
+### Containerization
 
 - ![image-5.png](image-5.png)
-- das zeig ist stein alt
-- verschiedene level:
-  - app level
-  - os level
-- kann container so bauen dass sie ein komplettes os haben
-- erster prozess der gestartet ist, war ein systemd
-- in container kann man jeden prozess rein schreiben
+- Historisch **alt** (chroot ist steinalt).
+- Ebenen:
+- **Application-Level**: schlanke Container nur mit App + Runtime.
+- **OS-Level**: „fette“ RootFS mit init/systemd möglich (dann eher wie Mini-VM).
+- PID 1 im Container kann jeder Prozess sein (java, python, …).
 
 ---
 
-***Under the hood: What is a container?***
+### Under the hood: What is a container?
 
 - ![image-6.png](image-6.png)
-- docker container nach start oder stopp löschen
-- erst dann ist prozess echt gestoppt
-- container soll lebel wie ein prozess
+- Container = **Prozess(e) mit Isolationsschicht**. Lifecycle wie bei Prozessen (Start/Stop/Exit-Codes).
+- **Keine Bootzeit**, direkter Kernel-Zugriff über Namespaces/cgroups.
+- Portabel dank Image-Format; reproduzierbare Builds.
 
 ---
 
-***Such containers are ooooooooooooold***
+###  Such containers are ooooooooooooold
 
-- docker war (2013) eigentlich nicht mehr wie ein frontend das LXC nutzt
-
----
-
-***How to implement a Container from scratch?***
-
-- ich brache drei sachen changeroot, namespaces, cgroups
-- chroot:
-  - sagen wo der neue root ist
-  - irgendwo im host file system liegt das filesystem von einem container
-- namespaces:
-  - mit chatgpt ergänzen
-- cgroups:
-  - sagen er soll nur bestimmte anzahl cpu's haben
-  - mit chatgpt ergänzen
+- **chroot** (sehr alt) → Root-Pfad eines Prozesses verschieben.
+- **LXC** (Linux Containers) → nutzt chroot + Namespaces + cgroups.
+- **Docker** (seit 2013) startete als komfortables Frontend, heute eigene Komponenten.
 
 ---
 
-***Chroot***
+###  How to implement a Container from scratch?***
+
+- Drei Bausteine:
+- **chroot** → Dateisystem-Root prozesslokal umbiegen.
+- **namespaces** → was der Prozess „sieht“ (PIDs, Netz, Mounts, UIDs, IPC, UTS).
+- **cgroups** → was der Prozess **bekommt** (CPU, RAM, IO, Netzlimits).
+
+---
+
+### Chroot
 
 - ![image-7.png](image-7.png)
 - ![image-8.png](image-8.png)
-- man kann sagen wo das neue root liegen soll
+- Legt fest, **wo** das neue `/` eines Prozesses liegt (innerhalb des Host-FS).
+- Mit Mount-Namespaces kombiniert wirkt das Umfeld „wie eigenes System“.
 
 ---
 
-***Cgroups***
+### Cgroups
 
 - ![image-9.png](image-9.png)
-- regeln die ich fest lege
-- diese regeln sind festgelegt in dateien
-- kann in hirarchie festlegen
-- wie schaut so eien aus?:
-  - ![image-10.png](image-10.png)
-- ab jetzt langsam durch man pages navigieren
-- hirarchie of file system:
-  - ![image-11.png](image-11.png)
-- cgroup geht auf prozess
-- jetzt kann man für einen prozess einen bestimme cgroup erstellen, z.B. um weniger CPU zu bekommen
-- wir müssen solche auslastungen mit LXC auf der plattform machen
+- Regeln/Quotas als **Dateien** in einer **Hierarchie** (v1: Controller getrennt, v2: unified).
+- Steuerung von **CPU/Memory/IO/Netz** pro Prozessgruppe.
+- cgroup wirkt **auf Prozesse** (und deren Kinder).
+- In der Übung: mit LXC Limits setzen (z. B. weniger CPU).
 
 ---
 
-***Namespaces***
+### Namespaces
 
 - ![image-12.png](image-12.png)
 - ![image-13.png](image-13.png)
-- virtuelles filesystem auf linux
-- neu was container machen:
-  - prozesse kann man clustern
-  - p6 bist jetzt in einem eigenen namespace, du denkst du bist p1, auf host ist er es aber nicht
-- prozesse können geclustert werden
-- können sagen prozess läuft in eigenem namespace
-  - bekommt eigene cgroup
-- ![image-14.png](image-14.png)
-- ![image-15.png](image-15.png)
-- ![image-16.png](image-16.png)
+- Virtuelle Sichten auf Kernel-Ressourcen:
+- **PID**: eigener Prozessbaum (im Container denkst du, dein Prozess ist „PID 1“).
+- **NET**: eigene Netz-Stacks/Interfaces/Ports.
+- **MNT**: eigene Mount-Tabelle (was „eingehängt“ ist).
+- **UTS**: eigener Hostname/Domainname.
+- **IPC**: eigene Shared-Memory/Message-Queues.
+- **USER**: Mapping von UIDs/GIDs (root im Container ≠ root auf dem Host).
+- Systemaufrufe:
+- `clone()` → neuen Prozess samt Namespace erzeugen.
+- `unshare()` → aktuellen Prozess in neuen Namespace lösen.
+- `setns()` → Prozess an bestehenden Namespace anhängen.
+- Zusammenspiel: **Namespaces = Sicht**, **cgroups = Limit**.
 
 ---
 
-***Putting it all together, lxc/lxd***
+### Putting it all together, lxc/lxd
 
 - ![image-17.png](image-17.png)
-- lxc ist command-line interface
+- **lxc** = CLI-Werkzeugkiste; **lxd** = „Daemon + UX“ für LXC (Images, Profiles, Networking, Storage).
+- Gut zum Experimentieren mit Namespaces/cgroups auf OS-Level.
 
 ---
 
-***Docker***
+###  Docker
 
-![image-18.png](image-18.png)
+- ![image-18.png](image-18.png)
+
+- Fokus auf **App-Container**: ein Prozess, schnell, reproduzierbar.
+- **Image-Build** (Dockerfile) → **Image** in Registry → **Run** auf beliebigen Hosts.
+- **Compose** zum Orchestrieren mehrerer Services (abhängig, Netz, Volumes).
+- Security-Basics:
+- Prinzip **Least Privilege** (Capabilities reduzieren, rootless wenn möglich).
+- Vorsicht mit **Mounts**, besonders Host-Root/`/var/run/docker.sock`.
+- **Read-only** FS, **no-new-privileges**, **Drop Caps** wo möglich.
+- Operational:
+- Logs stdout/stderr, Restart-Policies, Healthchecks.
+- Versionierte Images/Tags, reproduzierbare Builds.
