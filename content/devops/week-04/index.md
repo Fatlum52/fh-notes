@@ -14,255 +14,198 @@ tags = ["devops"]
 
 ## Reflektion Assignment 3
 
-- Angeben, welches Dockerfile
-- die images mit dem SHA-Wert versehen
-- multi stage
-- GraalVM für native build, ohne runtime
-- base imgae von quay.io/quarkus-ubi9-quarkus-mandrel-builder-image
-- base image: [micro-Image](https://quay.io/repository/quarkus/quarkus-micro-image?tab=info)
-- eine stage für dependencies herunterladen, eine zum bauen
-- so wenig dependencies wie möglich im maven oder sonst wo, nur die sachen reinmachen die es wirklichkeit braucht
-- README.md anlegen und genau schauen wie gebaut wird
+- Angeben, **welches Dockerfile** verwendet wird.
+- Images **mit festem Digest (SHA)** referenzieren.
+- **Multi-Stage Build** verwenden.
+- **GraalVM** für Native Builds (ohne JVM-Runtime zur Laufzeit).
+- Builder-Base: `quay.io/quarkus/quarkus-ubi9-quarkus-mandrel-builder-image`
+- Runtime-Base: **Quarkus micro-image** (sehr klein).
+- Eigene **Stages** für Dependency-Download und Build trennen (Cache-Effekte!).
+- **So wenig Dependencies wie möglich** (Maven/Gradle nur das Nötige).
+- **README.md** mit präziser Build-/Run-Anleitung, inkl. `docker buildx`, Tags, Digest-Pins.
 
 ---
 
-## Cloud Efficienty
+## Cloud Efficiency
 
-***Cost and Workload***
+### Cost and Workload
 
-- keine schlaue ressourcen auslastung
+- Ohne clevere Ressourcenplanung verschwendet man schnell CPU/RAM.
+- **Requests/Limits** in Kubernetes bestimmen Scheduling → beeinflusst **Kosten direkt**.
+- **Memory** ist oft der limitierende Faktor, CPU eher konstant; Memory-Sizing sauber festlegen.
 
----
+### Container Platforms, Pay as you go
 
-***Container Platforms, Pay as you go***
+![image-1.png](image-1.png)
 
-- ![image-1.png](image-1.png)
-- orchestrierung nimmt container und schiebt ihn dort wo er läuft
-- node01 -> serverinstanzen und diese könne atmen
+- Orchestrierung (z. B. Kubernetes) packt Workloads **auf passende Nodes**.
+- **Pod-Größe** (Requests/Limits) beeinflusst **Cluster-Scale-Out** → Kosten.
+- Node-Pools können „atmen“ (hoch/runter skalieren).
 
----
+### Costs of infrastructure
 
-***Costs of infrastructure***
+- Laufzeitkosten sind berechenbar (CPU, RAM, Storage, Traffic).
+- **RAM-Kosten** fallen oft stärker ins Gewicht als reine vCPU-Kosten.
+- Für Kostenoptimierung: **rechte Größenordnung** wählen, Leerlauf reduzieren, Limits sauber setzen.
 
-- laufzeit kosten gut rechenbar
-- die wahren kosten der infrastrktur
+### Excurse: Java and the Cloud?
 
----
+- Klassische JVMs hatten lange **kein volles cgroups-Bewusstsein** (heute besser).
+- Typische Kostentreiber: **GC-Overhead**, **Fork-Join-Pool**, **Compiler-Threads**.
+- Containerisierte JVMs müssen **explizit** über Container-Limits informiert werden (heute via Flags/Auto-Detect).
 
-***Excurse: Java and the Cloud?***
-
-- einen hohen verschnitt in memory bei java
-- kommt von der JVM
-- containiserte JVM weiss nicht, das sie in einem container läuft
-- eine JVM will mehrere prozesse warten
-
----
-
-***What about Java?***
+### What about Java?
 
 ![image-2.png](image-2.png)
 
-- mittlerweile geht es besser und schöner
-- mit den native build
+- Moderne Runtimes/Frameworks (z. B. **Quarkus**) reduzieren **Startup-Zeit** und **Memory-Footprint** deutlich.
+- **JIT-JVM** weiterhin sinnvoll für durchgehend CPU-lastige Services; **Native** stark für „cold-start-sensitive“ Workloads.
 
----
+### Java and Native?
 
-***Java and Native?***
 ![image-3.png](image-3.png)
 
-- AOT = Ahead of time compiling
+- **AOT** (Ahead-of-Time) kompiliert zur Binärdatei → extrem schneller Start, weniger RAM.
 
----
-
-***Native Images with GraalVM***
+### Native Images with GraalVM
 
 ![image-4.png](image-4.png)
 
-- schneller
-- weniger memory consumption
-- nachteil:
-  - builds gehen länger
-  - zur runtime könnte es fehler geben, dass es nicht läuft
-  - teilweise keine JVM-Tools
+- **Pro:** Instant Startup, sehr niedriger RAM-Verbrauch.
+- **Contra:** Längere Builds; teils **Reflection/Proxies/Serialization/JNI** nur mit Konfiguration; weniger JVM-Tools zur Laufzeit.
 
----
-
-***Solutions: Specialized JVM (GraalVM) and Framework
-(Quarkus)***
+### Solutions: Specialized JVM (GraalVM) and Framework (Quarkus)
 
 ![image-5.png](image-5.png)
 
----
+- Kombination: **GraalVM + Quarkus** liefert kleine, schnelle Services.
+- Pattern: **Builder-Image** (Graal/Mandrel) → **Runtime-Image** (micro).
 
-***Computation example***
+### Computation example
 
-- ![image-6.png](image-6.png)
+![image-6.png](image-6.png)
 
----
+- Beispielhafte Rechnung: **Native** reduziert RAM signifikant → mehr Pods pro Node → **geringere Kosten** bei gleichem Budget.
 
-***“Modern” languages***
+### “Modern” languages
 
 ![image-7.png](image-7.png)
 
-- sprachen evaluieren nach effizient
+- Sprachen nach **Effizienzzielen** betrachten: Compute vs. Memory vs. Startup.
+- In „typischen“ Microservices ist **Memory** oft der harte Constraint.
 
 ---
 
 ## Dependency Management
 
-***Challenge?***
+### Challenge?
 
 ![image-8.png](image-8.png)
 
-- alle microservices muss man kontinuierlich pflegen und überprüfen
-- jeder micro services hat einen riesen baum vom abhängigkeiten
-- wieso kontinuierlich und nicht nur zur build-zeit monitoren?:
-  - nach jahren kann eine vurnebility entstehen
-  - services haben einen lifecycle
+- Viele Microservices ⇒ **permanente Pflege** der Abhängigkeiten.
+- **Transitive Dependencies** erzeugen große, intransparente Bäume.
 
----
-
-***resolving dependencies***
-
-- wenn ein build scheitert, muss man von vorne weg alles rückverfolgen
-
----
-
-***Clear access from sourcecode base***
+### Clear access from sourcecode base
 
 ![image-9.png](image-9.png)
 
-- eine 12 faktor app vertraut nie auf implizite dependencies
-- also immer alles explizite dependincies
-- dependencies framework brauchen
+- **Twelve-Factor**: **keine impliziten Systempakete**.  
+  Alles **explizit deklarieren** (Manifest), Tools nicht stillschweigend voraussetzen.
+- **Reproduzierbarkeit** > „funktioniert lokal“.
 
----
+### Which dependency management frameworks do you know?
 
-***Which dependency management frameworks do you know?***
+- **Java**: Maven, Gradle  
+- **JS/TS**: npm, pnpm, yarn  
+- **Python**: pip/pip-tools, Poetry  
+- **Go**: Go Modules  
+- **Rust**: Cargo  
+- **PHP**: Composer  
+- Immer **sprachenzentriert**, aber Grundprinzip gleich: Versionen **pinne**n, Lockfiles nutzen.
 
-- maven composer
-- npm
-- gradle
-- zentrisch zur programmiersprache
-- meistens sehr unterschiedlich
-
----
-
-***Dependency Trees***
+### Dependency Trees
 
 ![image-10.png](image-10.png)
 
-- riesen zoo an imges nur für ein kleines hello world
+- Selbst kleine Demos ziehen **viele** Artefakte.
+- Visualisierung & „Pruning“ helfen (nur nötige Teile ziehen).
 
----
-
-***Large Dependency Trees***
+### Large Dependency Trees
 
 ![image-11.png](image-11.png)
 
-- riesen grosse tree -> intransparent
-- npm libs können gelöscht werden
-- wenn man ein transitives package gelöscht wird, fällt vorne in der app alles zusammen
-- teilweise, nicht gut lizensiert
-- teileweise nicht gut gesichert
-- regelmässig die dependencies vor den füssen führen
-- am besten dependencies mit grossen firmen dahinter
-- wenn man das teil baut, die packages cachen
-  - man wird resilienter
-  - wenn man ein package auf maven central löscht, aber man hat es im cache, kann man immerhin bauen
+- Probleme: **Intransparent**, **inkonsistent**, **unsicher**, **unlizenziert**.
+- Maßnahmen:
+  - **Installierte Pakete prüfen**
+  - **Transitives Scannen** in der CI
+  - **Artefakt-Cache** (resilient gegen Registry-Ausfälle/Entfernungen)
 
----
-
-***Further problems of dependency management***
+### Further problems of dependency management
 
 ![image-12.png](image-12.png)
 
-- konflikte können entstehen
-- versionsnummer clashen aufeinander
-- dependencie-zyklen kann man bauen, aber so schisst man sich ins knie
+- **Konflikte** (Version Clash, Diamond-Deps), **Zyklen**.
+- Strategien:
+  - **Dependency-Graph** regelmäßig prüfen
+  - **Sandboxing/Vendor-Modus** erwägen
+  - **Konsequentes Version-Pinning**, semantische Versionierung beachten
 
----
+### Software Bills of Material
 
-***Software Bills of Material***
+- **SBOM** = maschinenlesbare Metadaten zu Komponenten (inkl. Lizenz/Copyright).
+- Liefert **Transparenz** in der Supply Chain; gehört **zur App**.
+- Tools wie **Syft** generieren SBOMs aus Source/Images.
 
-- wie kriegt man transparenz rein?
-- ein SBMO ist machinenlesbares meta daten format
-  - vergleichbar mit beipackzettel
-- diese SBOMS haben copyright, lizenz etc drin
-- diese nimmt man und legt sie bei der App bei
-- kann man generieren
-- ein werkzeug heisst syft
-  - direkt auf sourcecode gemacht
-  - kann man auch direkt auf ein image machen
-  - da sieht man auch dependencies von den base imagaes und deren transitiven packete etc.
-
----
-
-***Why? Supply Chain Attacks / Log4Shell***
+### Why? Supply Chain Attacks / Log4Shell
 
 ![image-13.png](image-13.png)
 
-- hauptangriffsvektor: supply chain attacken
-- erste attacke: log4shell
-  - war eine attacke vor 3-4 jahren
-  - haupt logging framework
-  - eine klasse geladen hinter einer ip-adresse
-  - das war der hammer, ein stab kam zusammen
-  - wissen wo log4j läuft, auf allen ebenen verteilt
-  - ein kleines skript gemacht, wo alles scannt
-  - container ebene ist wichtig, ist auf dem execution pfad
-  - war ein bug der ausgenutzt wurde
-- zweite attacke: XZ-Backdor
-  - eine backdor auf ssh
-  - wäre der durch gekomme, könnte man auf jeden server drauf, der ssh nutzt
-  - social engineering vom feinsten
-  - es folgen ganz gezielte attacken auf pakete
-- dritte attacke: npm
-  - transitive abhängigkeit wo ein stealth-injection gemacht wurde
-  - dieses paket wurde 2 milliarden mal heruntergeladen
-  regelmässig patchen
+- **Supply-Chain-Angriffe** sind zentraler Risikofaktor.
+- **Log4Shell**: massiver Impact; zeigt, warum **Transparenz + schnelles Patchen** Pflicht sind.
 
----
+### Why? Supply Chain Attacks / XZ-Backdoor
 
-***Supply Chain Attacks***
+- Hintertür in Build-/Release-Kette; **Social Engineering** bis in Maintainer-Kreise.
+- Lehre: **Vertrauen ist kein Security-Mechanismus** → Reviews, Reproduzierbarkeit, Provenance.
 
-- anzhal transitive abhängigkeit ist nicht messbar
-- 13% der downloads sind immernoch angreifbar
-- es gibt immernoch builds, die heruntergeladen werden
-- supply-chain-attacken sind die grössten angriffe bei software bauen
+### Why? Supply Chain Attacks / npm Libraries Compromised
 
----
+- Hohe **Reichweite** durch Basistools/Utilities.
+- **Stealth-Payloads** möglich (z. B. API-Hooks, Wallet-Manipulation).
+- Konsequenz: **Transitive Deps regelmäßig scannen**, Lockfiles prüfen.
 
-***Vulnerabilities of Software***
+### Supply Chain Attacks
+
+- Anzahl transitiver Dependencies **kaum manuell beherrschbar**.
+- **13 %** der Log4j-Downloads verweisen noch auf verwundbare Versionen → Altlasten bleiben lange im Umlauf.
+- **Fazit:** Supply-Chain-Risiken sind **Top-Bedrohung** beim Bauen von Software.
+
+### Vulnerabilities of Software
 
 ![image-14.png](image-14.png)
 
-- was machen wir dagegen?
-- distro less sind extrem minimal, nicht mal eine shell drin
-- jedes system hat eine oberfläche, schnittstellen, prozesse etc.
-- die oberfläche wird angegriffen, wenn verwundbarkeiten vorhanden sind
-- häufig weiss man nicht was der aufführungspfad ist
-- pakete darf man patchen
-- critical und cve ausmertzen
-- schauen das man eine automatismus hat um vulnerbilitys zu entdecken
+- **Weniger Bibliotheken** = meist weniger Angriffsfläche – aber **Größe ≠ Sicherheit**.
+- **Distroless** hilft (keine Shell/Package-Manager), aber **Execution-Path** ist entscheidend.
+- Patch-Strategie: **kritische CVEs** zeitnah fixen, automatisches **Vuln-Scanning** (CI/CD).
 
----
-
-***Tools***
+### Tools
 
 ![image-15.png](image-15.png)
 
-- trivy kann man root filesystem scannen
+- **Trivy**: Filesystem/Container/Repo-Scanner (Vulns/Secrets/Misconfigs).
+- **Grype**: CVE-Scanner für Container/FS.
+- **Syft**: SBOM-Generator (Source & Image).
+- Praxis: **Syft → SBOM**, **Grype/Trivy → Scan**, Ergebnisse in CI **failen** lassen (Schwellenwerte).
 
 ---
 
-## Nächstes assignement
+## Nächstes Assignement
 
-- Kalenderwoche 44, Sonntag ist abgabe Milestone 1
-- LLM Integration
-- Am ende des tages auf verschiedene arten machen
-- das was wir hier bauen, können wir in anderen modulen verwenden
-- hinten dran eine schnittstelle via http-get-request reden können
-- im get request oben in den url etwas angeben
-- wichtig:
-  - weiter cc-commits
+- **KW44**, Abgabe **Milestone 1** (Sonntag).
+- **LLM-Integration** (mehrere Varianten ok).
+- Artefakte sollen **wiederverwendbar** sein (auch in anderen Modulen).
+- Hinten dran eine **HTTP-Schnittstelle** (GET mit Parametern in der URL).
+- Wichtig:
+  - Weiterhin **Conventional Commits (cc-commits)**.
+  - Pipelines mit **SBOM + Vulnerability-Scan** aufsetzen.
+  - **Dependency-Updates** automatisieren (Renovate/Dependabot).
