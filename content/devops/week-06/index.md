@@ -14,151 +14,159 @@ tags = ["devops"]
 
 ## Reflektion Assignment 5
 
-- ab übernächste woche wird es steile lernkurve -> kubernetes
+- Ab **übernächster Woche** wird’s eine **steile Lernkurve: Kubernetes**. Fokus: Deployments sauber strukturieren, Images korrekt versionieren, Trennung von Build und Deploy konsequent durchziehen.
 
-## wichtig für devops
+---
 
-- Skaffold
-  - eine lokale umgebung
-  - [Skaffold](https://skaffold.dev/)
-  - relative pfaden müssen stimmen
-- dind -> docker in docker
-- andere möglichkeit images zu bauen:
-  - buildpacks
-- kaniko
-- in pipeline:
-  - stage build-application macht vorallem mvn package
+## Wichtig für DevOps
 
-***todos***
+- **Skaffold**  
+  Lokale Dev-Loop für Container/K8s. Achtung auf **relative Pfade** (Build-Kontext, Manifeste).  
+- **dind (Docker-in-Docker)**  
+  Variante, um in CI Docker-Builds laufen zu lassen. Alternativen beachten (Kaniko/Buildpacks), wenn „privileged“ nicht möglich ist.  
+- **Buildpacks**  
+  Container ohne Dockerfile bauen; identifiziert Sprache/Framework automatisch. Gut für standardisierte Pipelines.  
+- **Kaniko**  
+  Baut Docker-Images **ohne Docker-Daemon**. Ideal in restriktiven Runnern.  
+- **Pipeline-Grundsatz**  
+  Stage **`build-application`** führt primär den **Applikationsbuild** aus (z. B. `mvn package`). Image-Build und Push als **eigene** Schritte planen – **Build & Deploy strikt trennen**.
 
-- vulnerability scan in pipeline
-- SBOM in pipeline
-- mit timeouts arbeiten
-- template arbeiten
-- aufzeichnen wann wird wo was gemacht, einen sketch für uns
-- schritte, die nicht abhängig sind, parallelizieren (scan und sbom, analysesteps)
+**To-dos (ausbauen, teilweise parallelisieren):**
+
+- **Vulnerability Scan** in der Pipeline (z. B. Trivy/Grype)  
+- **SBOM** generieren (z. B. Syft/CycloneDX)  
+- **Timeouts** für Jobs setzen (hängen nicht ewig)  
+- **Templates/Components** nutzen (DRY)  
+- **Ablauf dokumentieren**: „Wer macht wann was?“ – Sketch/Diagramm je Stage  
+- **Unabhängige Schritte parallel** ausführen (z. B. Scan und SBOM nach dem Build)
 
 ---
 
 # Continuous Integration / -deployment
 
-### Breaking News - Strengthening npm security
+### Breaking News – Strengthening npm security
 
-- wenn mir mit tokens areiten, die vorgefertigen verwenden
+- Kürzere **Token-Lebenszeit**, TOTP wird abgelöst, **Passkeys** und **Trusted Publishing (OIDC)** im Kommen. Heisst für uns: Token rotieren, wo möglich OIDC nutzen.
 
 ### Building Software and deploying it
 
+- **Bauen** und **Deployen** sind unterschiedliche Domänen. Unterschiedliche Risiken, andere Werkzeuge.
 - ![image.png](image.png)
-- keine wartungen nachts machen
 
 ### Build and Release
 
+- Release-Prozess klar definieren (Tagging, Artefakte, Changelog). Build reproduzierbar halten.  
 - ![image-1.png](image-1.png)
 
 ### Build and Deploy-Pattern
 
+- **Build und Deploy trennen!**  
+  → Mehr **Stabilität/Robustheit**  
+  → Gleiches **Artefakt** für Test/Prod (Stage-Parity, 12-Factor)  
+  → Orientierung am **Release-Workflow** der VCS-Plattform  
+  → Fokus heute: **Build**
 - ![image-2.png](image-2.png)
-- bauen und deployen sind zwei paar schuhe
-- unbedingt trennen
-- erhäht stablität und robustheit
-- wenn deploy nicht funktioniert, kann ich ein altes artefakt nehmen und testen
-- build kann ich auf release workflow legen
-- build und deploy trennen!!
-- wenn ich 3. software habe, muss ich die nicht bauen
 
-### Why to use a Build System?
+### Why use a Build System?
 
-- ![image-3.pg](image-3.png)
-- ![image-4.png](image-4.png)
-- ![image-5.png](image-5.png)
-- software zu bauen auf laptop ist keine gute idee
-- ich will unabhängige app haben
-- beim bauen will ich eine single source of build haben
-- wenn ich auf ci nicht bauen kann, aber lokal schon, dann ist der fehler lokal, wie ich baue halt
-- unabhängige plattform
-- credentials nicht in source code einpacken
-- buildsystem erlaubt dieses als verschlüsselt zu hinter legen -> CI/CD variables
-- transparenten status bei build
-- zum beispiel linting nicht ausgeführt
-- busfaktor:
-  - anzahl personen die umgefahren werden können, bis eine app nicht läuft?
-- bei bus faktor == 1, sofort handeln
-- ein buildsystem, erhöht den bus-faktor um einiges
+- **Unabhängige Plattform:**  
+  **Single Source of Truth** (VCS) & **Single Source of Build** (CI)  
+  Version des Build-Tools definieren, **Guardrails** (Tests/Analyse), **Transparenz** schaffen.
+  - ![image-3.png](image-3.png)
+- **Zentrales Credential-Handling:**  
+  Sichere Anbindung an **Registries**, **Analyse-Plattformen** (z. B. SonarQube), **Issue-Tracker**, Zusatz-Testframeworks. Secrets nicht im Code, sondern **CI/CD-Variablen**.
+  - ![image-4.png](image-4.png)
+- **Transparenter Build-Status:**  
+  Team-Alignment, Release-Fähigkeit, Test-Status, Prioritäten – jederzeit sichtbar.
+  - ![image-5.png](image-5.png)
+- **Bus-Faktor erhöhen:**  
+  Kein „Person X ist Single-Point-of-Failure“. CI/CD erhöht die Resilienz. Bei Bus-Faktor == 1: sofort handeln.
 
 ### Modern CI-Systems
 
-- viel getan die letzten jahre
+- CI hat sich stark weiterentwickelt: deklarative Pipelines, Caching, OIDC-Federation, Komponentenbibliotheken.
 
-### Build as Code, Gitlab
+### Build as Code, GitLab
 
-- irgendwo ein file wo vorliegt, dort steht drin, was für ein build ich benutze
-- ich pushe code an repo, repo triggert ci-system und er holt rezept vom repo, wie bauen, und dann builded er
+- Pipeline als Code im Repo.  
+- **Ablauf:** 1) Push → 2) CI Trigger → 3) Pipeline-Definition laden → 4) Build → 5) Notify.  
 - ![image-6.png](image-6.png)
-- bevor es das gibt, erstelle man einen job manuell
-- kein system haben irgendwo ne automatisierung, kein manuelles bauen
 
-### wie baue ich so etwas?
+### GitLab Web IDE
 
-- pipeline entwickeln in pipeline edior in webbrowser machen
-- weil direkt feedback
-- lokal müsste man nonstop commit and push
+- Schnelle Pipeline-Iterationen direkt im Browser (Feedback-Loop verkürzen).
 
-### Gitlab-CI Development
+### GitLab-CI Development
 
-- komponenten in ci-pipeline
-- bei ähnlichen services, zum beispiell connetting world und eliza beide quarkus, dann kann man auslagern
+- Komponenten einer Pipeline modular denken; bei ähnlichen Services (z. B. mehrere Quarkus-Services) **auslagern** und wiederverwenden.
 
-### Gitlab-Registry
+### GitLab-Registry
 
+- Aggregierte Sicht über Projekte/Repos, **direkter Zugriff** aus GitLab-CI, **Pull-Credentials** bereitstellen. Vor „Mutationen“ (Rewrites) **Registry bereinigen**.  
 - ![image-7.png](image-7.png)
-- speichert images
-- pull token auf dieser ebene hinterlegen (auf projekt ebene)
-- access token mit minimalen rechten anlegen
-- auf teamgruppe erstellen mit read registry bei kubernetes dann
 
 ### Documentation
 
+- Relevante GitLab-Doku: **Keyword Reference**, **Pipelines**, **YAML-Referenz**, **Beispiele**.  
 - ![image-8.png](image-8.png)
 
-### Pipeline Libraries, Gitlab Components
+### Pipeline Libraries, GitLab Components
 
+- **Ziel:** Wiederverwendung – **DRY**.  
+- **Templates**: älter, gut integriert, Parametrisierung über **Variablen**.  
+- **Components**: neuer, **parametrisierte Bausteine** mit klaren Schnittstellen; ideal für einen **CI/CD-Katalog**.  
+- Achtung bei mehrfachem Konsum derselben Variablen; Komponenten sauber dokumentieren und versionieren.  
 - ![image-9.png](image-9.png)
-- securtity scans, SBOM erstellen, braucht man mehrfach
-- dont repeat yourself
-- templates ist der alte weg
-- neue weg sind components
-- umgebungsvariablen sind problem wenn mehrfach konsumiert
-- komponents:
-  - ich gebe dem externen komponent eine variable
-- es gibt ein template repo mit komponenten zum wieder verwenden bei ci-pipeline
 
-### Do's and dont's
+### Do’s and Don’ts
 
+- **Alles in den Sourcecode** (Infra- und Pipeline-as-Code).  
+- **Kein Rad neu erfinden** – vorhandene Libs/Methoden/Variablen nutzen.  
+- **Fail fast** und **einfach halten**.  
+- Bei **externen Services**: Timeouts setzen, **Fehlschläge optional** behandeln.  
+- **Build in Teilschritte** skizzieren:  
+  Welche **Stage** macht was? Was läuft **parallel**? Wo werden **Artefakte** übergeben?  
+- Vorsicht bei **mehreren Libraries**: Konflikte/Lifecycle-Themen früh erkennen.  
+- Rechne damit, dass nicht alles sofort klappt – Debugging kostet Zeit.  
+- **Referenzen** pflegen (Doku/Quellen/Code).  
+- **Token rotieren**, Kalender für Schlüssel-Abläufe nutzen.  
+- **Quotas** im Blick: Logs, Laufzeit, Anzahl Artefakte.  
 - ![image-10.png](image-10.png)
 
-### Beyond Simple Building, SLSA
+### Beyond Simple Building – SLSA
 
+- Software-Supply-Chain absichern (Provenance, reproduzierbare Builds, unveränderliche Artefakte). SLSA als Rahmenwerk verstehen und schrittweise umsetzen.
 - ![image-11.png](image-11.png)
-- Supply-chain Levels for Software Artifacts
-- build-chain ist schützenswert
 
-### beyond simple building: chatops, dependency mgmt
+### Beyond Simple Building: ChatOps, Dependency Mgmt
 
-- ![image-12.png](image-12.png)
+- Automatisierung ausweiten: Notifications, Paket-Lifecycle, Issue- und PR-Management. Renovate/Dependabot & Co. für Dependencies. ChatOps für kurze Feedback-Loops.  
+- ![image-12.png](image-12.png) :contentReference[oaicite:20]{index=20}
 
-## Assignement 06
+---
 
-- prüfung in vorletzter woche (KW50, 08.12.25, 19:15)
-- prüfung mit campla
-  - eine woche vor prüfung testen (KW49)
-- letztes vor abgabe
-- gitlab component basteln
-- components sollen release bar sein
-- für zusatzpunkte:
-  - git jobs, externe dependencies scannen
-  - renovate bot
-  - binding zu einem teams channel
-  - einfach etwas was über den scope geht, nicht einfach eine pipeline
-- in meta json, jede einzelnen component auflisten
-- abgabe devops: Sonntag, 02.11.25, 23:59
-- wochenende vor abgabe, taucht sebastian ab
+## Konkrete Pipeline-Skizze (an unseren To-dos ausgerichtet)
+
+1. **build-application**  
+   - `mvn -B -ntp clean package` (bzw. Quarkus native build, wenn nötig)  
+   - Artefakt: Jar/Binary hochladen
+
+2. **build-image**  
+   - `docker build` (oder **Kaniko**/**Buildpacks** als Alternative)  
+   - Tag aus Version ableiten, **immutable tag** verwenden
+
+3. **security-scan (parallel)**  
+   - Trivy/Grype gegen Image, **Fail on high/critical** nach Policy
+
+4. **sbom (parallel)**  
+   - SBOM (CycloneDX/SPDX) erzeugen, als Artefakt speichern
+
+5. **push-image**  
+   - Push in GitLab-Registry, signieren/attestieren (wenn möglich)
+
+6. **deploy (separat, manuell/auto)**  
+   - K8s/ECS/AKS – **eigenständige Stage**, nutzt das bereits gebaute Image
+
+Damit erreichen wir: klare **Trennung Build/Deploy**, reproduzierbare Artefakte, Sicherheit (Scan/SBOM) und bessere Parallelisierung.
+
+---
