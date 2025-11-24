@@ -1,6 +1,6 @@
 +++
 title = "Week 10"
-date = 2025-11-16
+date = 2025-11-17
 [taxonomies]
 authors = ["fatlum"]
 tags = ["devops"]
