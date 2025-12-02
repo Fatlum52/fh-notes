@@ -1,0 +1,161 @@
+
+--- Page 1 ---
+Software Architecture  
+Basic Terms and Concepts    
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Classical Architecture  .................................................................... 3 
+2 Enterprise Business and Operating Model  ..................................... 3 
+3 System  .......................................................................................... 4 
+4 Architecture Disciplines  .................................................................  4 
+5 System Architecture  ...................................................................... 5 
+6 Softwar e Architecture  ................................................................... 6 
+7 Prepare Exercise ............................................................................ 6 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Classical Architecture  
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch. Versuche n Sie zu ver-
+stehen, wie klassische Architektur als Ausgangspunkt für das Verständnis von Soft-
+warearchitektur dient. Wenn Ihnen  Begriffe unklar sind, nutzen Sie  zusätzliche Quel-
+len oder frage n Sie  gezielt bei ChatGPT nach.  
+ Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] ( aka: SWA- Buch)  – Kapitel:  
+o 3.1 Classic Architecture as Starting Point  
+o 3.2 From Classic Architecture to Software Architecture  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+Erschliessen Sie sich ein Verständnis der unten aufgelisteten Konzepte  – z.B., in-
+dem Sie das Konzept für sich definieren, aber zum Beispiel auch dadurch, dass sie sich 
+konkrete Fragen dazu notieren, warum sich ihnen das Konzept auch nach eigener Re-
+cherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst . 
+• Architecture Conditions, Means, and P urpose 
+• Architecture = Architecture Process + Architecture Process Result  
+ 
+2 Enterprise Business and Operating Model  
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch. Versuche n Sie  dabei  
+zu verstehen, wie Business Model und Operating Model zusammenhängen. Versu-chen Sie weiter zu verstehen, w as eine Archite cture Function ist, wie Architecture 
+Function und Operating Model zusammenhängen und welche typischen Beiträge 
+eine Architecture Function entlang einer generalisierten Wertschöpfungskette in Un-
+ternehmen (Enterprise) leistet. Wenn Ihnen  Begriffe unklar sind, nutzen Sie  zusätzli-
+che Quellen oder fragen Sie  gezielt bei ChatGPT nach.  
+ Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, and executing [Arn old 20 22] ( aka: EAF -Buch ) – Kapitel:  
+o 1.5 Enterprise Architecture Function  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+Erschliessen Sie sich zusätzlich ein Verständnis der unten aufgelisteten Konzepte – 
+z.B., indem Sie jedes  Konzept für sich definieren, aber zum Beispiel auch dadurch , 
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ dass sie sich konkrete Fragen dazu notieren, warum sich ihnen das Konzept auch nach 
+eigener Recherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst. Ziehen Sie zu-
+sätzlich  in Betracht eine Konzept karte ( Concept -Map ) zu skizzieren, in der Sie die Be-
+ziehungen der unten gelisteten Konzeptbegriffe untereinander herausarbeiten.  
+• Business Model  
+• Operating Model  
+• Architecture Function  
+• Value Delivery Chain  
+• Architecture C ontributions  
+ 
+3 System  
+Bitte arbeiten Sie alle Slides dieses Kapitels sorgfältig durch. Notieren Sie sich da-
+bei, welche Aspekte ganz generell ein System ausmachen, bzw. wann man von einem 
+System sprechen kann. Wenn Ihnen  Begriffe unklar sind, nutzen Sie  zusätzliche Quel-
+len oder fragen Sie  gezielt bei ChatGPT nach.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-ers [Vogel, Arnold et  al 2011] (aka: SWA- Buch) – Kapitel:  
+o 3.3 Architecture and the System Concept  
+o 3.4 Architecture and the Building Blocks of a System  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+Erschliessen Sie sich zusätzlich ein Verständnis der unten aufgelisteten Konzepte – 
+z.B., indem Sie jedes Konzept für sich definieren, aber zum Beispiel auch dadurch , 
+dass sie sich konkrete Fragen dazu notieren, warum sich ihnen das Konzept auch nach 
+eigener Recherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst. Ziehen Sie zu-
+sätzlich in Betracht eine Konzeptkarte ( Concept -Map
+) zu skizzieren, in der Sie  die Be-
+ziehungen der unten gelisteten Konzeptbegriffe untereinander herausarbeiten.  
+• Teleological versus Ontological System Perspective  
+• Social versus Sociotechnical versus Technical System  
+• System – Whole versus P arts 
+• Static versus Dynamic System Per spective  
+ 
+4 Architecture Disciplines 
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch. Versuche n Sie dabei, 
+die drei zentralen Architekturd isziplinen nicht nur zu benennen, sondern auch deren 
+--- Page 5 ---
+5 
+© Ingo Arnold  – Software Architecture  
+ jeweilige Rolle im Unternehmen zu verstehen.  Wenn Ihnen  Beg riffe unklar sind, nut-
+zen Sie zusätzliche Quellen oder fragen Sie  gezielt bei ChatGPT nach.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, 
+and executing [Arno ld 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.4.1 Enterprise Architecture Discipline  
+o 6.4.2 Domain Architecture Discipline  
+o 6.4.3 Solution Architecture Discipline  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+Erschliessen Sie sich zusätzlich ein Verständnis der unten aufgelisteten Konzepte – 
+z.B., indem Sie jedes Konzept für sich selbst definieren, aber zum Beispiel  auch 
+dadurch, dass sie sich konkrete Fragen dazu notieren, warum sich ihnen das Konzept 
+auch nac h eigener Recherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst. Zie-
+hen Sie zusätzlich in Betracht eine Konzeptkarte ( Concept-Map ) zu skizzieren, in der 
+Sie die Beziehungen der unten gelisteten Konzeptbegriffe untereinander herausar-
+beiten.  
+• Enterprise Architecture  
+• Domain Architecture  
+• Solution Architecture  
+• Granularity  
+• Planning versus Transformation Architecture  
+ 
+5 System Architecture  
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch.  Das Ziel dieses Kapitels 
+ist, Ihnen einen Überblick über das Spektrum von Aspekten zu geben, die mit System Architecture assoziiert sind, bzw. für ein Verständnis von System Arch itecture rele-
+vant sind. Insofern ist keiner der in diesem Kapitel ausgelegten Aspekte erschöpfend besprochen, sondern vielmehr nur sehr grob skizziert, bzw. journalistisch illustriert. Versuchen Sie dennoch (bei aller Oberflächlichkeit meiner Hinweise) die  dargestell-
+ten Aspekte sowie deren Auswirkung auf, bzw. Zusammenhang zu System Architec-ture zu verstehen. Wenn Ihnen  Begriffe unklar sind, nutze n Sie  zusätzliche Quellen 
+oder frage n Sie  gezielt bei ChatGPT nach.  
+ Weitere nützliche Informationen und Erläuterungen finden Sie  insbesondere in: 
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+--- Page 6 ---
+6 
+© Ingo Arnold  – Software Architecture  
+ 6 Software  Architecture  
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch.  Arbeiten Sie dabei ins-
+besondere für sich heraus, in welchem Zusammenhang Software Architecture zum 
+Konzept des vorherigen Kapitels (i.e., System Architecture) steht. Verschaffen Sie sich 
+anschliessend einen Überblick über die fünf Software Architecture Def initionen im 
+vorliegenden Kapitel und notieren Sie sich sowohl Gemeinsamkeiten als auch Unter-
+schiede zwischen den Definitionen. Welche Definition erscheint Ihnen die bedeu-
+tendsten Punkte zu machen?  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie insbesondere in:  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+7 Prepare Exercise  
+Bitte bereiten Sie die Übung für die Präsenzzeit in der kommenden Woche vor, 
+indem sich mit der Aufgabenstellung sowie den von mir vorgegebenen Sz enarien, 
+bzw. Anwendungsfällen vertraut machen  (i.1-BSc_SWA_GamePlatform.pptx) . 
+ 
+Slides 4 -7: Überblick über die Plattformidee, einschließlich einschränkender Anmer-
+kungen . 
+ Slides 8 -22: Übersicht über die bereits entwickelten und weiter verfeinerten An-
+wendungsfälle, einschließlich einer entsprechenden Anwendungsfallübersicht.  

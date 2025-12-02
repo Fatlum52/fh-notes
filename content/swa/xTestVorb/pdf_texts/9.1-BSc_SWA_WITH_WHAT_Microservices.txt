@@ -1,0 +1,1958 @@
+
+--- Page 1 ---
+Software Architecture
+Architecture Means –Microservices- based Architecture
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold©Ingo Arnold
+Copyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. 
+You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo ArnoldLecture Opening
+Architecture Orientation Framework
+3Architecture WITH WHAT discusses the broad range of architectural means 
+architects use to plan, develop, and operate architectures. Thus what we consider 
+here is the architect's toolbox, if you wish. [Vogel, Arnold et al 2011] . 
+
+--- Page 4 ---
+@ Ingo Arnold©Ingo Arnold
+Lecture Opening
+Motivation
+Microservices are not a trend , but a response to real organizational and 
+technical scaling problems .
+Traditional monoliths provide centralized simplicity , but suffer from (a) tight
+coupling of UI/logic/data, (b) limited modifiability and deployment inflexibility , as 
+well as (c) slow scaling.
+Microservices enable independent deployment , team ownership , 
+autonomous pipelines , fine-grained scalability , improved modularization & 
+decoupling, and reuse across applications, even unknown future contexts.
+The principles remain the same (modularity, abstraction, SoC, explicit 
+interfaces), but microservices push them further .
+4
+--- Page 5 ---
+@ Ingo Arnold©Ingo Arnold
+Lecture Opening
+Learning Objectives
+You …
+■Define Microservice Architectures and explain how they differ from monoliths in all 4+1 Views.
+■Model Microservices in Logical, Development, Process, and Physical Views.
+■Explain key Microservice Patterns, including …
+•API Gateway
+•Service Registry
+•Messaging
+•Hexagonal Architecture
+■Apply Microservice Persistence Patterns:
+•Database per Service
+•Event Sourcing and Change Data Capture (CDC)
+•Saga Pattern
+■Describe Security Mechanisms in Microservices (Firewall Proxy, RBAC, XACML).
+■Discuss Organizational Impact of adopting the Microservices -oriented Architecture Style.
+5
+--- Page 6 ---
+@ Ingo Arnold©Ingo Arnold
+ 6Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Lifecycle Management
+■Organizational Impact
+--- Page 7 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+7Microservices in the context of modern Software Architecture are not a 
+fashion, buta response to real organizational and technical scaling problems .
+Modularity has always
+been a goal of good
+Software Architecture .
+However, a monolithic
+Application is defined by the 
+fact that its modules are allpart
+of the same deployment unit .
+Microservices go further regarding 
+Modularization, with each Microservice
+representing its own deployment unit 
+and also being largely self -contained .
+--- Page 8 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+8Microservices in the context of modern Software Architecture are not a 
+fashion, buta response to real organizational and technical scaling problems .
+This allows Microservices to 
+be reused in different
+Application contexts …
+--- Page 9 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+9Microservices in the context of modern Software Architecture are not a 
+fashion, buta response to real organizational and technical scaling problems .
+… even in those that were not 
+known at the time a 
+Microservice was designed
+and developed.
+--- Page 10 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+10The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Modularity & Abstraction . Clear Building Blocks with explicit interfaces promote loose coupling and 
+high cohesion. 
+Information Hiding & Separation of Concerns . Hide internal details and clearly separate 
+responsibilities as a basis for interchangeability.
+Design for Change & Open/Closed . Design with change in mind –keep Building Blocks open for 
+extension as well as closed against uncontrolled access.
+Explicit Interfaces & Interface Segregation . Design stable contracts with low commitment to 
+respective implementations.
+Traceability & Self- Documentation . Decisions and structures are traceable, and anchored in each 
+respective artifact.
+Basically all Architecture Principles aim 
+at reducing complexity and gaining 
+flexibility –especially through loose 
+coupling and high cohesion.
+--- Page 11 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+11The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Characteristics : Centralized
+administration, security , simple 
+operation (onedeployable ).
+Gaps : Close coupling of 
+UI/logic /data; poor 
+modifiability of individual parts.
+Drivers : Desire for distributed
+loads and Rich vs. Thin Client 
+discussion.
+--- Page 12 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+12The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : decoupling of data 
+storage and better separation of 
+Client /UIversus Server /DB. 
+Gaps : Business logic partly in 
+the Client , partly on the Server
+(e.g., within stored procedures 
+(vendor lock -in)).
+Drivers : Scalability , portability , 
+and less distributed (more 
+central) Business Logic .
+--- Page 13 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+13The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : Introduction of a middle 
+layer for Business Logic , improved 
+scaling & flexibility.
+Gaps : Deployment still as large 
+units . Business Logic often 
+strongly horizontally layered.
+Drivers : Reuse & loose 
+coupling across process 
+boundaries .
+--- Page 14 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+14The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : Component 
+orientation as a larger 
+reuse /deployment unit. Broker
+platforms encapsulate remoting.
+Gaps : Mostly synchronous
+RPC coupling, heavy 
+IDL/WSDL contracts .
+Drivers : Robustness , decoupling in 
+time (asynchrony) & space (smaller & 
+independent deployment units).
+--- Page 15 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+15The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : Message -oriented middleware
+& publish- subscribe decouple
+producers /consumers asynchronously . 
+Transactions possible .
+Gaps : Central ESBs become
+bottlenecks/governance hubs , 
+service interfaces are still “ heavy ”.
+Drivers : Smaller, independently 
+deployable units with team
+ownership .
+--- Page 16 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+16The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : Better domain 
+division , avoidance of “god 
+components”. Adaption of 
+DDD/bounded contexts .
+Gaps : Deployment 
+remains monolithic .
+Drivers : Autonomous
+deployments per domain
+components .
+--- Page 17 ---
+@ Ingo Arnold©Ingo Arnold
+Motivation
+Microservices are not a passing trend
+17The fundamental principles for high-quality architectures have remained
+largely unchanged –both for monolithic and for microservice-based applications .
+Progress : Independently deployable
+services with own data. 
+Y-/Z-/X-scaling (function, partition, cloning). 
+Teams own services end- 2-end. 
+Hexagonal architecture separates business
+logic from consumers via adapters . 
+Pub/Sub for loose, anonymous coupling.
+--- Page 18 ---
+@ Ingo Arnold©Ingo Arnold
+ 18Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 19 ---
+@ Ingo Arnold©Ingo Arnold
+Definition
+Overview
+19How Microservice Architectures are defined in the Software Industry …
+The distinctive characteristics of Microservice 
+Architectures and hence their differentiation from 
+monolithic Architectures can be highlighted
+particularly well using the 4+1 View Model .A Microservice Architecture organizes an application into a collection of loosely coupled , 
+fine-grained services that communicate via lightweight protocols . 
+A Microservice Architecture is characterized by the ability to develop and deploy services
+independently , improving modularity, scalability, and adaptability. 
+However, it introduces additional complexity , particularly in managing distributed systems
+and inter- service communication , making the initial implementation more challenging 
+compared to a monolithic architecture . [Wikipedia]
+--- Page 20 ---
+@ Ingo Arnold©Ingo Arnold
+ 20Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 21 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Scenarios
+21I pick a Use Case from Bankolino's CandidateInsight application to illustrate 
+the distinctive characteristics of Microservice Architectures.
+Use Case Name Candidate submits job application and receives feedback
+Description A candidate applies via the Bankolino portal. Their application is processed, 
+stored, analyzed, and made available to the hiring team via several microservices.
+Actor Candidate (external), Hiring Manager (internal)
+Flow of Events 1.Candidate uploads application documents via the Application Portal.
+2.The Application Portal informs the Candidate of received documents and analyzes the candidate’s resume. 
+3.The Application Portal notifies the Hiring Manager of the newly analyzed resume.
+4.The Hiring Manager sees the analysis result in the Review Dashboard .
+Precondition Candidate and Hiring Manager areregistered and logged intoplatform .
+Postcondition New candidate resume is created .
+--- Page 22 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Logical View
+22The focus of the Logical View, as you know, is to describe how the Building 
+Blocks of a solution (possibly microservices) cooperate to realize a given use case.
+For the Logical View , it does not 
+matter whether the Building
+Blocks we consider for the 
+realization of a scenario are 
+Objects (in the OO sense), 
+Components , Microservices , or 
+Organizational Building Blocks 
+(e.g., people). 
+--- Page 23 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Logical View
+23The focus of the Logical View, as you know, is to describe how the Building 
+Blocks of a solution (possibly microservices) cooperate to realize a given use case.
+Typically, in a first step , inter -
+component cooperation will 
+be investigated on a 
+conceptual -logical level .
+On a rather technical level of cooperation, 
+however, this view could also be presented 
+in greater detail (IBM refers to this level as a 
+“Technical Walkthrough”) and highlight a 
+Pub-Sub infrastructure that brokers 
+events between components . 
+--- Page 24 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Development View
+24The Development View provides , as we know, information about the design 
+time structures that can be derived from the Logical View.
+Wewill remain in the Development View 
+for a little longer, but in the next Zoom 
+level we will look at design time 
+structures from the perspective of the 
+associated Java Deployment Unit .
+Despite this example involving
+coarse -grained structures (e.g., 
+Components, Microservices), the 
+UML diagram type Class Diagram
+is well suited for capturing a 
+Development View model .
+--- Page 25 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Development View
+25The Development View provides , as we know, information about the design 
+time structures that can be derived from the Logical View.
+Each Microservice has its own
+repository with its own build
+pipeline and deployment
+automation.
+Microservices Isolation : Noshared
+repository , noshared database .
+Autonomous pipelines : Each
+Microservice can be versioned, tested , 
+and delivered independently .
+--- Page 26 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Process View
+26Latest when looking at the Process View , Microservice Architectures and 
+Monolithic Architectures diverge significantly . 
+While wewould see one or a 
+fewexecution environment(s)
+for a Monolithic Application …
+--- Page 27 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Process View
+27Latest when looking at the Process View , Microservice Architectures and 
+Monolithic Architectures diverge significantly . 
+…to which we would have to 
+map thestructures of the 
+Development View …
+
+--- Page 28 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Process View
+28Latest when looking at the Process View , Microservice Architectures and 
+Monolithic Architectures diverge significantly . 
+… Microservice Architectures
+typically have one execution 
+environment per Microservice .
+--- Page 29 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Process View
+29Latest when looking at the Process View , Microservice Architectures and 
+Monolithic Architectures diverge significantly . 
+Of course, inthe Process View , the 
+structures of the Development View 
+(Microservices in this case) must also 
+be mapped to the runtime 
+environment structures .
+--- Page 30 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Process View
+30Latest when looking at the Process View , Microservice Architectures and 
+Monolithic Architectures diverge significantly . 
+In contrast to Monoliths , we do not 
+seeany shared JVM or in-process 
+calls between modules here. 
+In Microservice Architectures , we instead have 
+service -to-service communication via
+networks or other communication middleware . 
+--- Page 31 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+31Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+The example here shows
+hardware -related services from 
+AWS –a cloud hyperscaler.
+The physical system design 
+proposes a single AWS region 
+(e.g., eu -central -1), … 
+… distributed across two
+availability zones (AZ-A / AZ -B) for 
+high availability .
+Virtual Private Cloud (VPC) 
+networks form a logical
+network boundary .
+--- Page 32 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+32Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+Finally, we will look at 
+how platform
+processes are 
+mapped to “physical” 
+hardware .
+--- Page 33 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+33Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+React frontend as a 
+static website in S3.
+Global delivery via 
+Content Delivery 
+Network (CDN)
+(CloudFront).
+--- Page 34 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+34Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+Each microservice runs as a pod
+in a K8s cluster with replicas
+distributed across AZ-Aand AZ-B.
+--- Page 35 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+35Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+Fully managed Kafka cluster 
+with 3 brokers (multi -AZ) for 
+event communication.
+--- Page 36 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+36Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+Amazon RDS (PostgreSQL) per service . Isolated DB
+per Microservice (database- per-service pattern).
+--- Page 37 ---
+@ Ingo Arnold©Ingo Arnold
+4+1 View Model Context
+Physical View
+37Finally , the Physical View today often no longer considers actual physical
+components , but rather former physics that have been emulated via cloud 
+services (i.e., Software ). 
+S3for storage of 
+application documents 
+(e.g., CVs, app letters).
+--- Page 38 ---
+@ Ingo Arnold©Ingo Arnold
+ 38Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 39 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language
+39Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+--- Page 40 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language
+40Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+--- Page 41 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language
+41Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+--- Page 42 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language
+42Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+--- Page 43 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Communication Patterns
+43Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+On the following slides, I provide 
+an overview of a selection of 
+Communication Patterns .
+--- Page 44 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Communication Patterns
+44Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization –Communication Patterns . 
+Discovery . How does a client of a service determine 
+the IP address of a service instance so that, for 
+example, it makes an HTTP request?
+External API . How do clients of our application 
+communicate with the services?
+Communication Style . What kind of IPC 
+mechanisms should be used (e.g., publish-
+subscribe, messaging, RPC).
+Reliability . How can we ensure that communication 
+between services is reliable even though service can be unavailable ?
+Transactional Messaging . How should we integrate 
+the sending of messages and publishing of events with database transactions that update business 
+data?
+--- Page 45 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Deployment Patterns
+45Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization –Deployment Patterns. 
+Infrastructure patterns solve problems 
+that are mostly infrastructure issues outside 
+of software development. 
+Application infrastructure patterns are 
+adressing infrastructure issues that also 
+impact software development.
+Application patterns cope with problems faced by software developers, directly. 
+A Microservice Architecture 
+Pattern Language consists of a 
+variety of groups of patterns .
+Next, I provide an overview of a 
+Microservice -related Deployment 
+Patterns .
+--- Page 46 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Deployment Patterns
+46Microservice Architectures suggest a broad set of patterns as useful means for 
+their realization –Deployment Patterns. 
+A broad variety of options for 
+Microservice deployments 
+exist nowadays. 
+Deploying Microservices -
+based applications is much 
+more complex than deploying a 
+monolithic application.
+The traditional approach is to 
+deploy services in a language -
+specific packaging format .
+More modern approaches deploy
+Microservices into Virtual 
+Machines (VM) , Containers, 
+Pods, or Serverless Technology
+(e.g., AWS Lambda).
+--- Page 47 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –API Gateway Pattern
+47An API Gateway acts as a single entry point for all client requests . It routes , 
+transforms, aggregates, or filters requests to microservices that it façades.
+The forces that the API 
+Gateway Pattern
+addresses are … 
+Clients should be decoupled
+from the internal service 
+topology and evolution.
+Security concerns (authentication, 
+authorization, throttling) should be 
+handled consistently .
+Different clients (web, mobile, 
+partner) may require different
+aggregations or representations .
+Changes to internal APIs 
+should notbreak client 
+integrations .
+Centralized policies (logging, 
+monitoring, metrics) must be
+enforceable .
+--- Page 48 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –API Gateway Pattern
+48An API Gateway acts as a single entry point for all client requests . It routes , 
+transforms, aggregates, or filters requests to microservices that it façades.
+Typical features of an 
+API Gateway are...
+Routing. Forwarding requests 
+to appropriate service 
+instance(s).
+
+--- Page 49 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –API Gateway Pattern
+49An API Gateway acts as a single entry point for all client requests . It routes , 
+transforms, aggregates, or filters requests to microservices that it façades.
+Typical features of an 
+API Gateway are...
+Routing. Forwarding requests 
+to appropriate service 
+instance(s).
+Aggregation. Combining responses 
+from multiple services (see Façade 
+Pattern).
+
+--- Page 50 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –API Gateway Pattern
+50An API Gateway acts as a single entry point for all client requests . It routes , 
+transforms, aggregates, or filters requests to microservices that it façades.
+Typical features of an 
+API Gateway are...
+Routing. Forwarding requests 
+to appropriate service 
+instance(s).
+Cross -cutting concerns . 
+Authentication, version- based 
+routing, logging, SSL termination.
+Aggregation. Combining responses 
+from multiple services (see Façade 
+Pattern).
+Protocol translation. Convert 
+between external (Http/REST, 
+GraphQL) and internal (gRPC, 
+AMQP) protocols.
+--- Page 51 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Service Registry Pattern
+51A Service Registry is a central database that maintains a directory of all 
+currently active service instances and their network locations .
+The forces that the 
+Service Registry Pattern
+addresses are … 
+Dynamic Environments . 
+Service instances are created 
+and destroyed continuously.
+Fault Tolerance . Requests must 
+be rerouted if an instance fails.
+Scalability . Multiple instances 
+of the same service may exist.
+Decoupling. Clients should not 
+depend on hard -coded 
+addresses.
+Performance . 
+Discovery should be fast 
+and locally cacheable.
+Consistency . Registry 
+data must remain 
+accurate and up to date.
+--- Page 52 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Service Registry Pattern
+52A Service Registry is a central database that maintains a directory of all 
+currently active service instances and their network locations .
+Service Registries change the paradigm
+of discovering Services from 
+navigational -imperative to declarative …
+... and can hence base Service 
+discovery entirely on attributes such 
+as service capability , price , or SLA.
+--- Page 53 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Service Registry Pattern
+53A Service Registry is a central database that maintains a directory of all 
+currently active service instances and their network locations .
+Further, Service Registries are 
+often integrated into API 
+Gateways such that the API 
+Gateway performs service 
+lookups for respective clients .
+--- Page 54 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern
+54The Messaging Pattern replaces synchronous service dependencies with 
+asynchronous message exchange. 
+The Messaging Pattern is a 
+cornerstone of scalable, resilient , 
+and decoupled architectures …
+… However , it requires careful 
+design of message semantics , 
+delivery guarantees , and monitoring
+to maintain system integrity .
+The Messaging Pattern connects
+services via a Message Bus (or Pub- Sub 
+Topic ) that allows them to transfer data 
+messages asynchronously . 
+Services that form the distributed 
+system connect with the message 
+bus to exchange data messages 
+with other services. 
+Clients can initiate
+collaborations with remote 
+services by sending them data 
+messages asynchronously . 
+The remote services process the received
+messages and return their responses (if 
+there are any), asynchronously to the 
+clients via messages containing the 
+processing results .
+--- Page 55 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+55Example of a self -describing (XML) message containing staff of a company.
+<company>
+<staff id="1001">
+<firstname >ingo</firstname >
+<lastname> arnold</ lastname>
+<nickname> ingo</nickname >
+<salary currency= "CHF" >0</salary >
+</staff>
+<staff id="2001">
+<firstname >jonas</firstname>
+<lastname> arnold</ lastname>
+<nickname> joni</nickname >
+<salary currency= "CHF" >100000 </salary >
+</staff>
+<staff id="2002">
+<firstname >luis</firstname >
+<lastname> arnold</ lastname>
+<nickname> loisl</nickname >
+<salary currency= "CHF" >150000 </salary >
+</staff>
+</company>
+--- Page 56 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+56Two types of parsers exist for parsing XML input . 
+Both types differ in their approach to parsing, with each parser type having its 
+strengths and weaknesses.
+DOM (i.e., document object model) Parsers …
+allow programs to access and update the content and structure of XML documents dynamically .
+read an XML document into memory and represent it as a tree; each node of the tree represents a 
+particular piece of data from the original XML document.
+because the tree structure is a standard programming mechanism for representing data, 
+traversing and manipulating the tree using Java is relatively easy , fast, and efficient .
+main drawback is that the entire XML document has to be read into memory to create the tree. 
+This might decrease the performance of an application as the XML documents get larger .
+--- Page 57 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+57DOM Parser example in Java.
+--- Page 58 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+58Using a DOM1Parser to parse and read the XML file.
+publicclassXmlDomParser {
+private staticfinalString FILENAME = "./src/com/fhnw /patterns/xmlparser /company.xml";
+publicstaticvoidmain(String[] args) {
+// Instantiate the Factory
+DocumentBuilderFactory dbf= DocumentBuilderFactory.newInstance();
+try{
+DocumentBuilder db= dbf.newDocumentBuilder ();
+Document doc= db.parse (newFile(FILENAME));
+System.out.println ("Root Element :" + doc.getDocumentElement(). getNodeName());
+// get <staff>NodeList list= doc.getElementsByTagName ("staff");
+for(inti= 0; i< list.getLength(); i++) {
+Node node= list.item (i);
+if(node.getNodeType() == Node.ELEMENT_NODE ) {
+Element element = (Element) node;
+// get staff's attributeString id= element.getAttribute ("id");
+1)Document Object Model
+--- Page 59 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+59// get text
+String firstname = element.getElementsByTagName( "firstname" ).item(0).getTextContent();
+String lastname = element.getElementsByTagName( "lastname").item(0).getTextContent ();
+String nickname = element.getElementsByTagName( "nickname").item(0).getTextContent ();
+NodeList salaryNodeList = element.getElementsByTagName ("salary");
+String salary= salaryNodeList.item (0).getTextContent();
+// get salary's attributeString currency = 
+salaryNodeList.item (0).getAttributes(). getNamedItem ("currency" ).getTextContent();
+System.out.println ("Current Element :" + node.getNodeName());
+System.out.println ("Staff Id : " + id);
+System.out.println ("First Name : " + firstname);
+System.out.println ("Last Name : " + lastname );
+System.out.println ("Nick Name : " + nickname );
+System.out.printf( "Salary [Currency] : %,.2f [%s]%n%n ", Float.parseFloat( salary), 
+currency);
+}
+}
+} catch(ParserConfigurationException | SAXException | IOException e) {
+e.printStackTrace();
+}
+}
+}Using a DOM1Parser to parse and read the XML file.
+1)Document Object Model
+--- Page 60 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+60
+Using a DOM1Parser to parse and read the XML file.
+1)Document Object Model
+--- Page 61 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+61SAX (i.e., simple API for XML) Parsers …
+provide a platform -independent and neutral standard interface for event -based XML parsing .
+SAX defines events that can occur as a parser is reading through an XML document , such as 
+the start or the end of an element.
+Programmers provide handlers to deal with different events as the document is parsed . 
+--- Page 62 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+62Using a SAX1Parser to parse and read the XML file.
+publicclassMyHandlerSax extends DefaultHandler {
+private StringBuilder currentValue = newStringBuilder();
+@Override
+publicvoidstartDocument() {
+System.out.println("Start Document");
+}
+@Override
+publicvoidendDocument() {
+System.out.println ("End Document" );
+}
+@Override
+publicvoidstartElement( String uri, String localName, String qName , Attributes attributes) {
+// reset the tag valuecurrentValue.setLength (0);
+System.out.printf( "Start Element : %s%n ", qName);
+if(qName.equalsIgnoreCase ("staff")) {
+// get tag's attribute by name
+String id= attributes.getValue ("id");
+System.out.printf("Staff id : % s%n", id);
+}if(qName.equalsIgnoreCase ("salary")) {
+// get tag's attribute by index, 0 = first attribute
+String currency = attributes .getValue(0);
+System.out.printf("Currency :%s%n ", currency);
+}
+}
+1)Simple API for XML
+--- Page 63 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+63@Override
+publicvoidendElement (String uri, String localName , String qName ) {
+System.out.printf ("End Element : %s%n ", qName);
+if(qName.equalsIgnoreCase( "name")) {
+System.out.printf("Name : % s%n", currentValue .toString());
+}
+if(qName.equalsIgnoreCase( "role")) {
+System.out.printf("Role : % s%n", currentValue .toString());
+}
+if(qName.equalsIgnoreCase( "salary")) {
+System.out.printf("Salary : %s%n ", currentValue.toString ());
+}
+if(qName.equalsIgnoreCase( "bio")) {
+System.out.printf("Bio : % s%n", currentValue.toString ());
+}
+}
+}Using a SAX1Parser to parse and read the XML file.
+1)Simple API for XML
+--- Page 64 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+64publicclassXmlSaxParser {
+private staticfinalString FILENAME = "./src/com/fhnw/patterns/xmlparser /company.xml";
+publicstaticvoidmain(String[] args) {
+SAXParserFactory factory = SAXParserFactory.newInstance();
+try{
+SAXParser saxParser = factory.newSAXParser ();
+MyHandlerSax handler = newMyHandlerSax ();
+saxParser .parse(FILENAME, handler);
+} catch(ParserConfigurationException | SAXException | IOException e) {
+e.printStackTrace ();
+}
+}
+}Using a SAX1Parser to parse and read the XML file.
+1)Simple API for XML
+--- Page 65 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern (XML Excursus)
+65
+Using a SAX1Parser to parse and read the XML file.
+1)Simple API for XML
+--- Page 66 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern
+66Message Oriented Middleware is abbreviated MOM . A MOM decouples clients 
+andservers. If the MOM supports ACID -transactions, clients andservers donot 
+have to be available at the same time. 
+A Sender can puta message
+into a message queue while
+the Receiver is down . 
+If a Receiver wants to know
+about a new (relevant) 
+message a Sender has sent, 
+then 2 options exist . 
+In this case, the Receiver queries
+the Queue for new messages
+until the MOM transmits it to the 
+Receiver …
+Transactional brackets around the entire
+transaction guarantee that the message in 
+the MOM queue will beprocessed by the 
+Receiver once it comes back up again.
+--- Page 67 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern
+67Message Oriented Middleware is abbreviated MOM . A MOM decouples clients 
+andservers. If the MOM supports ACID -transactions, clients andservers donot 
+have to be available at the same time. 
+A Sender can puta message
+into a message queue while
+the Receiver is down . 
+Transactional brackets around the entire
+transaction guarantee that the message in 
+the MOM queue will beprocessed by the 
+Receiver once it comes back up again.
+If a Receiver wants to know
+about a new (relevant) 
+message a Sender has sent, 
+then 2 options exist . 
+…while in this case the Receiver 
+implemented a call -back method 
+which it registered with the server. 
+The server will call the client and 
+deliver results once they are 
+available.  
+…while in this case the 
+Receiver implemented a 
+call-back method which it 
+registered with the MOM.
+The MOM will callthe 
+registered call-back 
+method and deliver
+results to Receiver
+whenever they arrive . 
+--- Page 68 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern
+68A variety of Message Delivery characteristics can be distinguished and usually 
+delegated to the MOM :
+Delivery cardinality (e.g., a message is delivered once and only once).
+Delivery guarantees (e.g., delivery is guaranteed even if a participating system is down).
+Message priority .
+Message correlation (i.e., correlation identifiers to re- correlate coarse messages).
+Message synchronicity (e.g., asynchronous versus synchronous messaging).
+Error handling (e.g., dedicated error queues, monitoring agents).
+Messaging model (e.g., point -2-point versus publish -subscribe model).
+--- Page 69 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Messaging Pattern
+69Contrasting the remoting models Messaging and Broker (RPC -Style).
+Feature Messaging- Style Broker (RPC- Style)
+Metaphor Post office -like Telephone -like
+Client / Server 
+synchronizationAsynchronous –clients and servers may 
+operate at different times and speedsSynchronous –clients and servers must 
+run parallelly. Servers must keep up with 
+request loads
+Client / Server sequencingNo fixed sequence Servers must be available for service before clients can talk to them
+Style Queued Call return
+Partner needs to be availableNo Yes
+Load balancing Single queue can be used to implement FIFO 
+or priority -based policyRequires a separate TP -Monitor
+Support for 
+transactionsYes (some products). Message queue can participate in the commit synchronizationNo (not common). Requires transactional RPC
+Message filtering Yes No
+Performance Slow. An intermediate hop is required Fast
+Asynchronous 
+processingYes. Queues and triggers are required Limited. Requires threads and tricky code 
+for managing threads
+--- Page 70 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Layered System Pattern
+70Unlike the classic horizontal layering of systems (i.e., layers pattern), …
+… in the context of microservices tasks are divided into domain objects …  
+Each domain object (i.e., microservice) has its business logic , data storage 
+logic and adapters and, if necessary, presentation logic and adapters. 
+--- Page 71 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Layered System Pattern
+71This results in a matrix-like organization of solutions adapting the 
+microservices pattern . 
+If presentation aspects of 
+microservices are well 
+decoupled from their business 
+logic (e.g., via standardized 
+data input s (DTO)), 
+presentation components can 
+be used flexibly and combined 
+across different microservices.Business Logic 
+building blocks of a microservice should be stateless if possible to enable easy on/off and easy replication. 
+--- Page 72 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Scalability Patterns
+72Microservices offer scalability that goes beyond what monolithic applications 
+typically offer . This is made visible viathe Scalability Cube . 
+One
+InstanceMany 
+InstancesOne
+PartitionMany 
+Partitions
+MonolithMicroservices
+X-axis scaling is 
+also known as 
+horizontal 
+duplication.
+Scale by cloning 
+instances. Z-axis scaling is also known as 
+data partitioning.
+Scale by splitting similar things, 
+such as by customer ID.Y-axis scaling is also known 
+as functional decomposition.
+Scale by splitting things that 
+are different, such as by 
+function
+--- Page 73 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Scalability Patterns
+73Microservices offer scalability that goes beyond what monolithic applications 
+typically offer . This is made visible viathe Scalability Cube . 
+X-Axis scaling load balances requests 
+across multiple instances
+Multiple instances of an application are
+runbehind a load balancer .
+The load balancer distributes requests
+among the N identical instances of the 
+application.
+This is a great way of improving the 
+capacity and availability of an application.
+--- Page 74 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Scalability Patterns
+74Microservices offer scalability that goes beyond what monolithic applications 
+typically offer . This is made visible viathe Scalability Cube . 
+Z-Axis scaling routes requests based
+on attribute(s) of a request
+Z-axis scaling also runs multiple
+instances of an application behind a load 
+balancer.
+Unlike X -axis scaling, each instance is 
+responsible for only a subset of the 
+data.
+The load balancer in front of the instances 
+uses a request attribute to route it to the 
+appropriate instance .
+An application might , for example, route
+requests using an userId attribute .
+Z-axis scaling is a great way to scale an 
+application to handle increasing 
+transaction and data volumes.
+--- Page 75 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Pattern Language –Scalability Patterns
+75Microservices offer scalability that goes beyond what monolithic applications 
+typically offer . This is made visible viathe Scalability Cube . 
+Y-Axis scaling splits an application into a set of services, 
+with each service being responsible for a particular function.
+X-axis and Z-axis scaling
+improve the application ’s 
+capacity and availability . 
+However, neither approach 
+solves the problem of 
+increasing development and 
+application complexity .
+To solve those, one needs to 
+apply Y -axis scaling , or 
+functional decomposition .
+Y-axis scaling is applied by
+splitting a monolithic 
+application into a set of services
+--- Page 76 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Hexagonal Architecture
+76The Hexagonal Architecture style organizes the logical view in a way that 
+places the business logic at the center. 
+Instead of the presentation layer the 
+application has one or more inbound 
+adapters that handle requests from the 
+outside by invoking the business logic .
+Similarly, instead of a data persistence 
+tier, the application has one or more 
+outbound adapters that are invoked by the 
+business logic and invoke external 
+applications. 
+A key characteristic and benefit of this 
+architecture is that the business logic 
+does not depend on the adapters . 
+Instead the adapters depend on the 
+business logic . 
+The business logic has one or more 
+ports . A port defines a set of operations
+and may be a Java interface. 
+
+--- Page 77 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Hexagonal Architecture
+77The Hexagonal Architecture style organizes the logical view in a way that 
+places the business logic at the center.
+An inbound port is an API exposed by the 
+business logic, which enables it to be 
+invoked by external applications. An 
+example of an inbound port is a service 
+interface, which defines a service’s public 
+methods. 
+An outbound port is how the business 
+logic invokes external systems. An 
+example of an outbound port is a repository interface, which defines a collection of data 
+access operations. 
+Surrounding the business logic are 
+adapters. As with ports, there are two types 
+of them: inbound and outbound adapters . 
+
+--- Page 78 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Hexagonal Architecture
+78The Hexagonal Architecture style organizes the logical view in a way that 
+places the business logic at the center.
+An inbound adapter handles requests
+from the outside world by invoking an 
+inbound port . An example of an inbound 
+adapter is a Spring MVC Controller that 
+implements either a set of REST endpoints 
+or a set of web pages. Another example is a 
+message broker client that subscribes to messages. Multiple inbound adapters can 
+invoke the same inbound port.
+An outbound adapter implements an 
+outbound port (i.e., sub -typing) and 
+handles requests from the business logic 
+byinvoking an external application or 
+service . An example of an outbound 
+adapter is a data access object (DAO) class that implements operations for accessing a 
+database. Another example would be a proxy class that invokes a remote service. 
+
+--- Page 79 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Hexagonal Architecture
+79The Hexagonal Architecture style organizes the logical view in a way that 
+places the business logic at the center.
+An important benefit of the hexagonal 
+architecture style is that it decouples the 
+business logic from the presentation 
+and data access logic in adapters.
+The business logic does not depend on 
+either the presentation logic or the data access logic.
+The business logic can be invoked va 
+multiple adapters each of which implements a particular API or UI.
+The business logic can also invoke 
+multiple adapters , each one of which 
+invokes a different external system.
+Hexagonal architecture is a great way to 
+describe the architecture of each service 
+in a microservice architecture in terms of Kruchten’s logical view . 
+
+--- Page 80 ---
+@ Ingo Arnold©Ingo Arnold
+Architecture Patterns
+Hexagonal Architecture (Monolith)
+80Also Monoliths frequently adapt a hexagonal architecture style above their 
+lower level modularization approaches .
+Monolithic Architecture is an Architecture 
+Style in which the monolithic nature of an 
+overall solution becomes particularly 
+evident in the development view (
+single deployment unit) and in the process 
+view (single operating process and 
+infrastructure).
+At the same time, meaningful
+modularization of components can 
+certainly still be found within singular
+deployment units (i.e., modular monolith).
+
+--- Page 81 ---
+@ Ingo Arnold©Ingo Arnold
+ 81Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 82 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+82In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data.  
+Changes in one 
+service’s data schema 
+can unintentionally
+affect others .
+Transactions spanning
+multiple services become 
+complex .
+Problem : If multiple services share
+a single centralized database , this 
+introduces tight coupling and 
+shared data ownership.
+--- Page 83 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+83In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+The Forces that the Database 
+per Service Pattern needs to 
+address are … 
+Autonomy : Each service 
+should evolve its data model 
+without impacting others .
+Duplication : Some 
+data may need to be 
+replicated or cached .
+Consistency : Some 
+clients require cross -
+service data integrity .
+Transactions : Distributed
+transactions are difficult
+and expensive.
+Integration: Services still 
+need to share information
+meaningfully .
+--- Page 84 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+84In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+The Solution tothe described 
+problem and forces has the 
+following ingredients . 
+Assign each service its own private 
+database –physically and logically 
+isolated from other services.
+Other services that need information 
+must use the owning service’s 
+public API rather than querying the 
+database directly .
+Each database can use
+the storage technology 
+best suited to its service
+(polyglot persistence):
+--- Page 85 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+85In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+The Solution tothe described 
+problem and forces has the 
+following ingredients . 
+Cross -service consistency is 
+achieved via …
+… Event Sourcing 
+Pattern .
+--- Page 86 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+86In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+Cross -service consistency is 
+achieved via …
+… Event Sourcing 
+Pattern .
+Adapting the Event Sourcing 
+Pattern , changes to the system state 
+are stored as immutable events …
+… and not the 
+mutated state itself .
+Other services do 
+notobtain their data
+through direct 
+database queries , 
+but rather by
+consuming these 
+events and deriving
+their own local 
+states from them.
+--- Page 87 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+87In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+The Solution tothe described 
+problem and forces has the 
+following ingredients . 
+Cross -service consistency is 
+further achieved via …
+… Change Data 
+Capture (CDC).
+--- Page 88 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+88In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+Cross -service consistency is 
+further achieved via …
+… Change Data 
+Capture (CDC).
+ A service writes to 
+its own database .
+CDC inthe DB reads the 
+change directly from the 
+transaction log …
+Other services can 
+consume the event and 
+update their local state .
+… and sends
+an event such 
+as …
+
+--- Page 89 ---
+@ Ingo Arnold©Ingo Arnold
+Persistence
+Database per Service Pattern
+89In a Microservice architecture, each service is supposed to manage itsown
+business functionality and respective data. 
+The Solution tothe described 
+problem and forces has the 
+following ingredients . 
+Cross -service consistency 
+can also be achieved via …
+… the Saga Pattern
+A saga coordinates a 
+distributed business 
+transaction that spans
+multiple services by dividing
+the overall transaction into
+local ACID transactions (i.e., 
+local per service).
+Instead of a global two- phase 
+commit , a saga uses events
+and compensation actions .
+Step 1 : Each service performs
+a valid operation locally (e.g., 
+Order Service saves an order).
+Step 2 : Services communicate via events (e.g., 
+Order Services sends OrderCreated Event. 
+Step 3 : Compensation actions are 
+executed in case of errors (e.g., 
+Release order reservation in case the 
+payment failed).
+--- Page 90 ---
+@ Ingo Arnold©Ingo Arnold
+ 90Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 91 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+91The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Clients can only access 
+microservices viathe API 
+Gateway with an 
+integrated Firewall Proxy .
+--- Page 92 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+92The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+When a client sends a 
+request to a microservice
+and the client's 
+authorization has notyet 
+been checked (see 
+Stateful Firewall Proxy ) …
+… the Firewall Proxy first checks
+the request against the Access 
+Rule Base (e.g., by checking the 
+payload of the request).
+--- Page 93 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+93The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Ifthe request is 
+accepted , …
+… the Firewall Proxy 
+dispatches the request to 
+the protected
+Microservice .
+--- Page 94 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+94The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Ifthe request is not 
+accepted , …
+… the Firewall Proxy 
+denies access to the 
+Microservice .
+--- Page 95 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+95The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Very generally 
+spoken …
+… Firewall Proxy supports the 
+detailed filtering of service 
+requests for Microservices on 
+a packet and payload level …
+… which helps to identify
+cyber attacks above 
+networking protocols
+Further, security checks are 
+separated from Microservices
+which addresses the Separation 
+of Concerns (SoC) principle . 
+The security policy applied by a Firewall 
+Proxy is often captured in a rule base that 
+is separate from the proxy itself …
+… which supports declarative variation in 
+security policies (i.e., without modifying
+the proxy implementation ).  
+Finally, implementing Firewall Proxy as a 
+Stateful Firewall avoids payload inspections
+for requests received from already 
+established and checked connections
+--- Page 96 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+96The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Policy definitions 
+typically entail …
+… a set of context attributes 
+like for example time, 
+location , security zone ) …
+--- Page 97 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+97The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Policy definitions 
+typically entail …
+… a set of context attributes 
+like for example time, 
+location , security zone ) …
+… a Subject attempting to 
+access a Resource (e.g., 
+system or user ) …
+--- Page 98 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+98The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Policy definitions 
+typically entail …
+… a set of context attributes 
+like for example time, 
+location , security zone ) …
+… a Subject attempting to 
+access a Resource (e.g., 
+system or user ) …
+… an Activity that is allowed to 
+be performed on a Resource
+(e.g., CRUD, execute) …
+--- Page 99 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+99The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+Policy definitions 
+typically entail …
+… a set of context attributes 
+like for example time, 
+location , security zone ) …
+… a Subject attempting to 
+access a Resource (e.g., 
+system or user ) …
+… an Activity that is allowed to 
+be performed on a Resource
+(e.g., CRUD, execute) …
+… finally, a Resource
+(e.g., Microservice , 
+Database)
+--- Page 100 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+100The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+A widely adopted approach 
+for managing and granting
+access rights is role-based 
+access control (RBAC).
+Instead of assigning 
+individual access 
+rights to each subject , 
+a set of roles is defined, 
+such as administrator, 
+user , or guest .
+Human and technical actors
+(Subjects ) are assigned one
+or more roles , through which 
+the subjects acquire
+privileges .
+Depending on the privileges
+of these roles , subjects can 
+then access microservices 
+in a controlled manner.
+RBAC is more 
+manageable / scalable 
+than assigning rights to 
+each individual subject .
+An RBAC structure also 
+makes it easier to 
+enforce the structures of 
+complex organizations .
+--- Page 101 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+101The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+A widely adopted approach 
+for managing and granting
+access rights is role-based 
+access control (RBAC).
+Instead of assigning 
+individual access 
+rights to each subject , 
+a set of roles is defined, 
+such as administrator, 
+user , or guest .
+Human and technical actors
+(Subjects ) are assigned one
+or more roles , through which 
+the subjects acquire
+privileges .
+Depending on the privileges
+of these roles , subjects can 
+then access microservices 
+in a controlled manner.
+RBAC is more 
+manageable / scalable 
+than assigning rights to 
+each individual subject .
+An RBAC structure also 
+makes it easier to 
+enforce the structures of 
+complex organizations .
+--- Page 102 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+102The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+RBAC also often supports
+role hierarchies .
+Role hierarchies define
+inheritance relationships 
+between roles .
+In this example , 
+permissions (Pi) are 
+assigned based on roles .
+A Subject assigned the role 
+R2has the ( composite ) 
+permissions of R1and R2.
+--- Page 103 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+103The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+The XACML model from OASIS 
+extends a role-based system with an 
+attribute -based privilege system …
+The Policy Administration 
+Point (PAP) manages
+access privilege policies .
+… and divides the corresponding
+privilege system into a series of 
+function points (PxP).
+The Policy Information Point 
+(PIP) provides attributed
+objects (i.e. a resource, 
+subject, environment)
+The Policy Enforcement Point (PEP) 
+intercepts the access request to a 
+resource and sends a request to the 
+PDP to obtain the access decision , 
+which it then acts upon.
+Finally , the Policy Decision Point
+(PDP) evaluates whether the request
+is permissible or not based on the 
+access request , policies , and 
+resource attributes .
+--- Page 104 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+104The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+This example shows how the 
+XACML model and its PxP
+function points secure a 
+typical web application …
+--- Page 105 ---
+@ Ingo Arnold©Ingo Arnold
+Security
+Firewall Proxy
+105The Firewall Proxy Pattern introduces a security proxy that is often integrated
+into API gateways to control access to microservices.
+… while this example illustrates a 
+typical application to application 
+security setup . 
+--- Page 106 ---
+@ Ingo Arnold©Ingo Arnold
+ 106Lecture Agenda
+■Motivation
+■Definition
+■4+1 View Model Context
+■Architecture Patterns
+■Persistence
+■Security
+■Organizational Impact
+--- Page 107 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication
+107Melvin Conway researched and described the phenomenon of organizational 
+replication (i.e., the impact organizational forces have on Systems) already in 1968.
+“Any organization that designs a system will inevitably produce a 
+design whose structure is a copy of the organization’s 
+communication structure . 
+The very act of organizing a design team means that certain design 
+decisions have already been made , explicitly or otherwise. 
+Given anydesign team organization , there is a class of design 
+alternatives which cannot beeffectively pursued by such an 
+organization because the necessary communication paths do not 
+exist .”
+From Conway's publication 
+"How do committees 
+invent?" from 1968! 
+--- Page 108 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication
+108Melvin Conway researched and described the phenomenon of organizational 
+replication (i.e., the impact organizational forces have on Systems) already in 1968.
+“If you want to make a living flower , you do not build it 
+physically , with tweezers, cell by cell. You grow it from 
+the seed .” [Alexander 1979]
+Alexander compares the relationship
+between the architecture of a system 
+and the architecture of the organization 
+responsible for designing it with the 
+relationship between a living flower and 
+the seed from which it grew .
+Christopher Alexander 
+presents a compelling 
+analogy in “The Timeless 
+Way of Building” . 
+--- Page 109 ---
+@ Ingo Arnold©Ingo Arnold
+Organizations are like seeds , 
+and the technical systems they 
+useor produce are like flowers . 
+Organizations replicate their 
+inherent (communication) designs
+in the technical systems they 
+useor produce .
+This means that an organization’s
+(communication) design inevitably 
+influences and significantly shapes the 
+design of their technical systems . Organizational Impact
+Organizational Replication
+109Melvin Conway researched and described the phenomenon of organizational 
+replication (i.e., the impact organizational forces have on Systems) already in 1968.
+--- Page 110 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication
+110Melvin Conway researched and described the phenomenon of organizational 
+replication (i.e., the impact organizational forces have on Systems) already in 1968.
+Organizational replication is a 
+phenomenon you can observe
+at all levels of architecture . 
+At the enterprise level , you can 
+anticipate the architecture of enterprise
+systems by examining the design of the 
+enterprise operating model . 
+At the domain level , you examine the 
+structures of your domain organizations 
+in order to anticipate the architecture of 
+your Big Systems (aka: domains). 
+At the solution level , you explore the 
+structures of projects or operationally
+responsible organizations to predict your 
+landscape asset designs (e.g., the design
+of a new application ). 
+The enterprise’s organizational structure is 
+replicated in your enterprise system architecture .
+--- Page 111 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication and Microservices
+111In the context the organizational replication phenomenon, a few aspects are to 
+specifically be considered , regarding microservices-oriented solution architecture .
+Technical organizations tend to orient 
+themselves towards technical 
+structures in software design (e.g., 
+technically oriented layer architecture ).
+In the context of 
+microservices, 
+this approach 
+must be avoided.
+Rather technical organizations must adapt the 
+organizational structures of the business organization to 
+design microservices with a focus on business capabilities .
+--- Page 112 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication and Microservices
+112In the context the organizational replication phenomenon, a few aspects are to 
+specifically be considered , regarding microservices-oriented solution architecture .
+When solutions are viewed as larger 
+wholes , their development is 
+typically carried out within 
+corresponding projects .
+However, Microservices suggest that each service team is 
+responsible for its services throughout their entire lifecycle 
+(i.e., based on Amazon's “you build it, you run it” principle).
+Project Orientation Product Orientation
+This product mentality 
+stems from the focus on 
+business capabilities .
+--- Page 113 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication and Microservices
+113In the context the organizational replication phenomenon, a few aspects are to 
+specifically be considered , regarding microservices-oriented solution architecture .
+The advantage of an overarching
+application that is modularized only 
+internally is that it offers its modules
+a comprehensive context .
+Contextual aspects that are 
+automatically shared by all 
+modules include , e.g., value 
+systems, privilege models , or 
+domain ontologies .
+The lack of an application- wide context in 
+microservices means that services must be 
+contextualized much more explicitly in terms of domain 
+ontologies , privilege models , value systems, etc., or 
+that the necessary contextual information must be 
+organized by the services themselves.
+--- Page 114 ---
+@ Ingo Arnold©Ingo Arnold
+Organizational Impact
+Organizational Replication and Microservices
+114In the context the organizational replication phenomenon, a few aspects are to 
+specifically be considered , regarding microservices-oriented solution architecture .
+As a final point , let's consider
+a crucial prerequisite for the 
+success of a microservice-
+oriented architecture 
+approach in an organization.
+First , sharing 
+Microservices withother 
+parts of an organization 
+requires a fundamental 
+willingness to share .
+Second, searching and reusing
+existing services requires a 
+willingness to reuse something
+that an organization did not 
+create itself .
+Both of these prerequisites can 
+be completely counteracted by 
+an organization’s culture , 
+incentive system , etc.
+--- Page 115 ---
+@ Ingo Arnold©Ingo Arnold
+ 115■Definition and Core Characteristics
+•Microservice architectures consist of loosely coupled , fine-grained services that can be developed , 
+tested , deployed , and scaled independently .
+•Communication is vialightweight protocols (REST, events, messaging).
+•Advantages are …
+•Higher modularity
+•Scalability
+•Team autonomy
+•Disadvantages are …
+•Increased distributed system complexity
+•Observability challenges
+•Operational overheadWrap -Up
+--- Page 116 ---
+@ Ingo Arnold©Ingo Arnold
+ 116■Architecture Patterns
+•Communication Patterns …
+•API Gateway . Single entry point, routing, aggregation, security, protocol translation.
+•Service Registry . Manages dynamic service endpoints for discovery.
+•Messaging . Asynchronous decoupling, MOM guarantees, XML- based messaging
+•Layered System in Microservices. Domain- oriented vertical slices instead of horizontal mega- layers.
+•Scalability Patterns (X/Y/Z). X: cloning operational nodes, Y: functional decomposition, Z: partitioning by data- segment.
+•Hexagonal Architecture
+•Business logic is isolated by (a) inbound ports/adapters (controllers, message subscribers) and (b) outbound ports/adapters (DB 
+adapters, service proxies).
+•Perfectly aligns with microservice design.Wrap -Up
+--- Page 117 ---
+@ Ingo Arnold©Ingo Arnold
+ 117■Persistence Patterns
+•Database per Service …
+•Each Microservice owns its private schema and database.
+•No shared Database access.
+•Enables autonomy but requires new consistency mechanisms.
+•Cross -Service Consistency Mechanisms
+•Event Sourcing Pattern stores changes as events, not state. On the other side downstream services reconstruct local state.
+•CDC (Change Data Capture) extracts Database changes from transaction logs and publishes them as events.
+•Saga Pattern organizes distributed transactions via local ACID steps as well as compensation actions.
+■Security Patterns
+•Firewall Proxy …
+•Filters requests before reaching microservices.
+•Declarative rule base for payload inspection and access control.
+•Stateful versions skip repeated checks for established sessions.
+•RBAC
+•Access rights assigned to roles, not individuals. Further, RBAC supports role hierarchies.
+•XACML Model
+•Privilege system with PAP, PIP, PDP, PEP supports attribute -based access control (ABAC) for complex policies.Wrap -Up
+--- Page 118 ---
+@ Ingo Arnold©Ingo Arnold
+ 118■Organizational Impact
+•Conway's Law …
+•Organizations replicate their communication structures in system design.
+•Microservices require business -aligned, not technically aligned, team structures.
+•Product Teams (“You build it, you run it”)
+•Each microservice team is responsible for the full lifecycle.
+•Opposes project -driven delivery structures.
+•Loss of Application -Wide Context
+•Without a monolith’s global context, microservices must explicitly maintain (a) domain ontologies, (b) privilege models as well as 
+(c) value systems.
+•Cultural Preconditions
+•Success requires willingness to share and reuse services across the organization.Wrap -Up
+--- Page 119 ---
+@ Ingo Arnold©Ingo Arnold
+Questions
+119

@@ -1,0 +1,185 @@
+
+--- Page 1 ---
+Software Architecture
+Architecture Context
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo ArnoldCopyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo Arnold
+Architecture Context
+Enterprise & Domain vs. Solution &Software Architecture
+Enterprise and Domain Architects view a landscape of solutions (systems) as 
+“the system ” for whose adequate architecture / design they are responsible. 
+3
+Solution & Software Architects 
+are responsible for designing
+individual Solutions (Systems).
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo Arnold
+Architecture Context
+Enterprise & Domain vs. Solution &Software Architecture
+Solution Architects are responsible for the architecture of a ( single ) Solution
+and thus for ensuring that it adequately addresses the given requirements .
+4
+At the Solution level , we distinguish
+between the Solution as a Whole , which must 
+be composed from many existing Building 
+Blocks (Functional  & Operational) ...
+Software Part 
+under DesignSolution as a
+Whole
+… and the Part of a Solution whose 
+Building Blocks do not yet exist and 
+which we hence must design and 
+code -level implement ourselves.
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo Arnold
+Architecture Context
+Enterprise & Domain vs. Solution &Software Architecture
+Solution Architects are responsible for the architecture of a ( single ) Solution
+and thus for ensuring that it adequately addresses the given requirements .
+5
+Front- End Systems include 
+client -side technology platforms
+like client devices, operating 
+systems, or web browsers.
+Software Part 
+under DesignSolution as a
+Whole
+Back- End Systems 
+(consumers and providers) 
+represent other Solutions
+which provide or consume
+data and services to/from 
+the given Solution …
+… for example, via 
+APIs , or other 
+integration broker 
+platforms .
+Execution Environments 
+provide run-time 
+containers like JEE web -
+application servers, 
+Component platforms , etc.
+Network Operating Systems (NOS) 
+provide fundamental services to 
+all operated systems (e.g., 
+distributed connectivity, file, naming, 
+directory, or time services).
+Next , let's take a look
+atthe part of a 
+Solution that the 
+Software Architect is 
+broadly responsible 
+for designing .
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo Arnold
+Architecture Context
+Enterprise & Domain vs. Solution &Software Architecture
+Solution Architects are responsible for the architecture of a ( single ) Solution
+and thus for ensuring that it adequately addresses the given requirements .
+6Software Part 
+under DesignSolution as a
+Whole
+Even here, where a Software 
+Architect designs structures largely 
+individually , Building Blocks exist
+on which she can usually build .
+Typical Building Blocks are libraries that 
+enable connectivity and information 
+exchange between the Solution under 
+design and already existing Solutions 
+(e.g., JDBC, JMS, RMI) …
+... but also libraries that provide access to the 
+execution environment and underlying NOS 
+services (e.g., Servlet/JSP, EJB, JNDI).
+Next , let's take a look atthe 
+part of the Software 
+Design that the Software 
+Architect is specifically
+responsible for designing .
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo Arnold
+Architecture Context
+Enterprise & Domain vs. Solution &Software Architecture
+Solution Architects are responsible for the architecture of a ( single ) Solution
+and thus for ensuring that it adequately addresses the given requirements .
+7Solution as a
+Whole
+These 3 areas are the 
+core responsibilities of a 
+Software Architect .
+Software Part 
+under Design
+Use Case Realizations . 
+Components and component
+collaboration to establish
+required Functionality .
+Quality Attribute Realizations . 
+Components and component
+collaboration to establish required
+Qualities (e.g., Security, Performance, 
+Availability, Modifiability).
+Business Components (Domain Model) . 
+Core Business Components and 
+complementary components that help 
+realize related technical aspects.
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo Arnold 8■Enterprise, Domain, Solution, and Software Architecture
+•Enterprise Architecture (EA) and Domain Architecture (DA) consider the entire system 
+landscape of an organization or domain as their design object .
+•Enterprise Architecture : focuses on alignment between business strategy , processes, and IT capabilities .
+•Domain Architecture : focuses on specific business/technical domains and the architecture of the domain as a whole .
+•Both operate at a strategic and cross- system level .
+•Solution Architecture (SA) focuses on the architecture of a single solution (system ).
+•Ensures that the solution meets all functional and non-functional requirements , constraints , and assumptions . 
+•Balances business needs, technical feasibility , and integration constraints .
+•Operates ata project or solution delivery level .
+•Software Architecture (SWA) is a subset of Solution Architecture concerned with the internal
+structure of the software being designed and implemented .
+•Defines how software components are structured and interact to fulfill required functionality and quality attributes .Wrap -Up
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo Arnold 9■Solution Architecture (asa whole )is composed of …
+•Existing Parts
+•Functional or operational components already available (e.g., existing services, databases, middleware).
+•Examples: integration APIs , message queues, authentication systems .
+•Parts that need to be designed
+•New components developed specifically for the current solution .
+•The software architect focuses on this part – designing the internal architecture while ensuring proper integration with existing 
+systems.Wrap -Up
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo Arnold 10■Software Architect ’s core Responsibilities
+•Use Case / Scenario Realizations
+•Designing components and their collaborations to fulfill functional requirements .
+•Focus on system behavior and control flow for actor use cases or scenarios.
+•Quality Attribute Scenario (QAR) Realizations
+•Ensuring non-functional requirements (e.g., performance, scalability, security, modifiability).
+•Includes architectural mechanisms such as caching , redundancy , monitoring , or abstraction .
+•Business Components (Domain Model)
+•Defining and structuring the core domain logic and related business components .
+•Represents key entities, services, and rules that embody business knowledge .
+•All three fields above must be balanced and interconnected to create a coherent software 
+architecture.Wrap -Up
+--- Page 11 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+11

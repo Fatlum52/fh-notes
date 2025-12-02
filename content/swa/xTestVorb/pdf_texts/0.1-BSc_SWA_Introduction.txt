@@ -1,0 +1,270 @@
+
+--- Page 1 ---
+Software Architecture
+Introduction
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo Arnold 2
+Lecturing 
+@ University of Basel
+•Software Architecture
+•Software Life- Cycle Management 
+@ University of Applied Sciences North- Western Switzerland
+•Software Architecture (BSc)
+•Managing IT in a digitized World –IT Architecture Module (MSc)
+•IT Management (CAS)Work History
+Enterprise and Solution Architecture Consulting GmbH –CEO (5 years)
+Novartis ― Head Architecture Management (18 years)IBM ― IT Architect (3 years)
+Ciba Geigy ― Head Business Solutions (5 years)Education
+Computer Science (Informatik)Publications
+Books
+•Enterprise Architecture Function ― a pattern language for planning, building, and executing 
+(2022)
+•Software Architecture ― a comprehensive framework and guide for practitioners 
+(2011)
+•Software -Architektur ― Grundlagen Konzepte Praxis (2005, 2008) 
+Papers & Forum Speeches•Ingo Arnold
+Miscellaneous
+Family•2 sons (both studied computer science)@ University of Cooperative Education, Lörrach
+•Object -Oriented Programming
+•Advanced Software -Engineering
+•Software Design Patterns
+Sports•Climbing, Mountainbiking, SnowboardingOther
+•Curious , broadly interested , nature lover , 
+appreciate good books , deep and open conversations , ... ingo.arnold@architectural -thinking.ch
++41 79 760 07 02
+Ingo Arnold@LinkedIn
+Module Opening
+
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Motivation
+3Your …
+■Name
+■Experience and background
+■Software architecture conception and expectations
+■…
+Go to and enter the code on the screen.    https://menti.com
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Logistics
+4■Room and time : Room as communicated. Time: 08:15 to 11:00 / 12:15 to 15:00.
+■We will usually have 15 minute breaks every 45 minutes (i.e., two per lecture).
+■Your active participation and questions are prerequisites for your learning success. 
+■Basic knowledge of the object -oriented paradigm , the Java programming language, 
+and software design patterns are prerequisites for this course.
+■I do not prescribe tools that we use. However, examples are mostly based on the 
+Eclipse IDE.
+■All lecture handouts (mostly PDF files) will be regularly uploaded to the lecture decks 
+location.
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Approach)
+5■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium!
+The initial lecture is an exception because I will guide you through myset of slides .
+For all subsequent lectures , youwill work through a set of slides containing relevant software 
+architecture knowledge at home so that you come prepared to the next lecture . 
+During clas s, we will jointly apply what you have learned at home .
+The theoretical knowledge slide sets form the core of my teaching materials. 
+What I have not done (not managed to do ) to date is to create videos in which I explain the slide set 
+material in more detail. 
+However, I have structured the slide sets so that they can also serve as a script in addition to 
+providing clear illustrations. In this respect, the slide sets are sufficiently self-explanatory .
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo Arnold
+Module Opening
+Few Things up- front – Learning (Approach) 
+6■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+In addition to the slide sets , you will receive further instructions for working through individual slide 
+set chapters in the form of accompanying documents (‘_Instruction’). 
+The accompanying document 
+(‘_Instruction’) also contains questions to 
+answer and literature references that refer 
+you to further sources of information. 
+Crucial resources I’ll be referring heavily 
+are the two books to the right . 
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Approach)
+7■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+You are of course also welcome to use ChatGPT or similar tools at home to help you learn the 
+theoretical material covered in the slide set in a more personalised way.
+Further, you will receive literature lists at the end of each slide deck.
+Ifyou still have questions after working through an appropriate slide set, please make a note of them 
+and bring them with you to the next lecture . 
+I will answer any open questions at the beginning of each lecture and before moving on to the 
+application of what you have just learned . 
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Approach)
+8■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+The learning concept behind the revised lecture is described below.
+Discover new aspects, 
+gain insights, understand 
+things and store them in 
+your short -term memory .
+Lecture slide decks, Instruction documents. 
+Individual , at your paceFrom short -term to long-
+term memory , 
+remembering learning 
+experiences.
+Instruction documents including learning tasks and questions. 
+Individual , small , at your 
+pacePutting what you have 
+learned into practice, 
+applying it to new tasks.
+Practical exercises, case 
+studies, training tasks. 
+Cooperation, at group 
+pace
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Approach)
+9■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+The learning concept behind the revised lecture is described below.
+
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Approach)
+10■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+Preparation phase misconceptions
+Preparation ≠ Scrolling through PPT decks.
+Tasks and questions in the Instruction documents are essential elements.
+Ask questions –even during the preparation phase.
+The aim of preparation is not a perfect understanding, but rather being able to participate in the classroom phase. 
+If you are unable to participate in a unit (e.g. due to illness), join in with the current topic and catch up on what you 
+have missed later.
+--- Page 11 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Time M anagement )
+11■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+Pay attention to what you do and how long you do something! 
+If you get stuck, break out of your inner loop and start asking questions
+Use discussion forums in Teams, chat, email, etc.
+Form groups and support each other
+Collect questions for the classroom phase
+Don't be a perfectionist when it comes to learning tasks
+It's (often) not about finding the (perfect) solution
+It's (also) about thinking things through to understand a given problem and see a solution shine through it
+It's about learning from experience, including what doesn't work (‘those who fail productively learn more’)
+--- Page 12 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (Failure)
+12■I have completely revamped the Software Architecture lecture for this semester. 
+In this respect, this semester is a premium! (continued)
+“The greatest teacher, failure is.” (Yoda)
+“Negative results are just what I want. They’re just as valuable to me as positive results. I can never find 
+the thing that does the job best until I find the ones that don’t.” (Thomas Edison)
+“Wirwerden Fehler feiern !” (Christian Spannagel)
+--- Page 13 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up- front – Learning (MS Teams)
+13■One Channel per module
+Use them to conduct discussions and ask questions.
+Help others by answering questions.
+■Chat/call for study groups in the preparation phase
+■Channel “General” –under “Files”
+Slide decks
+Instruction documents
+Exercises
+
+--- Page 14 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Few Things up-front – Exam 
+■Exam
+At the end of the semester, you will write 
+an exam . 
+At the same time, you will write a preliminary exam in the middle of the 
+semester, 50% of which will be included in the final semester grade. 
+14
+--- Page 15 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Learning Objectives
+You ...
+■know the architecture elaboration process for systematically developing a 
+solution to a given problem
+■can analyze requirements with respect to their architectural significance and 
+ensure traceability between requirement and design
+■know important architectural views on the design of software systems
+■are able to represent the design of systems in architectural views and recognize 
+architectural decisions coded in them 
+■can justify own design decisions and develop own system architectures
+■can evaluate system architectures as a whole and in parts with respect to their 
+advantages and disadvantages
+15
+--- Page 16 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Cornerstone Systems and Information
+My contact details
+Phone: +41 79 760 0702
+eMail: ingo.arnold@fhnw.ch (ingo.e.arnold@outlook.com )
+Webex https://fhnw.webex.com/meet/ingo.arnold
+Lecture decks location
+FHNW -share
+IT Support
+it-support@fhnw.ch / +41 61 228 50 50
+16
+--- Page 17 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Structure and Order
+17
+The high-level structure of the lecture is based on the book Software Architecture: 
+A Comprehensive Framework and Guide for Practitioners [Vogel, Arnold et al 2011] . 
+
+--- Page 18 ---
+@ Ingo Arnold
+©Ingo Arnold
+Module Opening
+Structure and Order
+18
+The strict differentiation of dimensions and their isolated consideration is only 
+useful for rough orientation purposes. Software architecture is a holistic discipline 
+and this entirety is lost when it is considered too particularized. 
+--- Page 19 ---
+@ Ingo Arnold
+©Ingo ArnoldModule Opening
+Structure and Order
+19
+Nevertheless, we will use the dimensions as an overarching orientation framework 
+and place short introductions to each dimension at its beginning. 
+
+--- Page 20 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+20
+
+--- Page 21 ---
+@ Ingo Arnold
+©Ingo ArnoldBibliography
+Lecture
+[Arnold 2022]
+Arnold, Ingo, Enterprise Architecture Function ― a pattern language for planning, designing, and executing , 
+Springer Science and Business Media, Berlin Heidelberg, 2022
+[Vogel, Arnold et al 2011]
+Vogel, Oliver; Arnold, Ingo; Chugtai, Arif; Kehrer, Timo, Software Architecture: A Comprehensive Framework 
+and Guide for Practitioners , Springer Science and Business Media, Berlin Heidelberg, 2011
+21

@@ -1,0 +1,92 @@
+
+--- Page 1 ---
+Software Architecture  
+View Model  
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Architecture View Model  ............................................................... 3 
+2 Kruchten 4+1 View Model  ............................................................. 3 
+3 Development View to Logical View  ................................................ 4 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Architecture View Model  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch. Versuchen Sie, 
+den Unterschied zwischen Model , View, Viewpoint und View Model zu verstehen. 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] ( aka: SWA- Buch)  – Kapitel:  
+o 4. Architecture Perspectives (WHERE)  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+Erschliessen Sie sich ein Verständnis der unten aufgelisteten Konzepte  – z.B., in-
+dem Sie das Konzept für sich definieren, aber zum Beispiel auch dadu rch, dass sie sich 
+konkrete Fragen dazu notieren, warum sich ihnen das Konzept auch nach eigener Re-
+cherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst . 
+• Modelling  and Model  
+• Modelling N omenclature   
+• Metamodel  
+• View  and Viewpoint  
+• View Model  
+• Architecture Description  
+ 
+2 Kruchten 4+1 View Model  
+Bearbeiten Sie diesen Abschnitt mit besonderem Fokus auf dem Verständnis der 
+4+1 Sichten des View Models von Philipp Kruchten. Warum spricht das View Model 
+von 4+1 Sichten und nicht von 5 –  welcher kategori sche Unterschied wird an dieser 
+Stelle von Philipp Kruchten gemacht? Sehen Sie sich auch die Beispiele im Foliensatz 
+genau an  und fragen Sie sich kritisch, in welchem Ausmass  der in den Beispielen zum 
+Ausdruck kommende Einsatz des 4+1 View Models wirklich sinnvoll ist . Überlegen Sie 
+weiterhin, ob Ihnen wichtige Sichten in diesem View Model fehlen und falls ja, dann 
+welche.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] (aka: SWA- Buch) – Kapitel:  
+o 4.2.3 4+1 View Model  
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ • den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+ 
+Erschliessen Sie sich zusätzlich ein Ve rständnis der unten aufgelisteten Konzepte – 
+z.B., indem Sie jedes  Konzept für sich definieren, aber zum Beispiel auch dadurch , 
+dass sie sich konkrete Fragen dazu notieren, warum sich ihnen das Konzept auch nach 
+eigener Recherche mit Hilfe von z.B. ChatGPT noch nicht erschliesst . 
+• Scenario  
+• Logical Viewpoint vs. Logical Vie w 
+• Development Viewpoint vs. Development V iew 
+• Process Viewpoint vs. Process View  
+• Physical Viewpoint vs. Physical View  
+ 
+3 Development View to Logical View  
+Bitte arbeiten Sie  alle Slides dieses Kapitels sorgfältig durch. Fragen Sie sich, wie 
+Programme die von ihnen gewünschten Effekte zur Laufzeit erzielen und wie wir die-
+sen Aspekt eines Programms repräsentieren. Fragen Sie sich weiter, wie wir Pro-
+grammcode zur Entwurfszeit  entwickeln und wie dieser mit den Effekten, die das Pro-
+gramm zur Laufzeit erzielen soll, im Zusammenhang steht . Die Entwicklung welcher 
+der beiden Sichten (Logical View versus Development View) ist kreativ in dem Sinn,  
+dass bei ihrer Entwicklung viele Freiheitsgrade existieren versus wenig kreativ im ent-
+sprechenden Sinn?  Was fordert  das Low Representational Gap (LRG) Principle und 
+welche Problematik  wird in dem gegebenen Beispiel aufgezeigt? Wenn Ihnen  Kon-
+zepte  unklar sind, nut zen Sie  zusätzliche Quellen oder frage n Sie  gezielt bei ChatGPT 
+nach.  
+ Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+  

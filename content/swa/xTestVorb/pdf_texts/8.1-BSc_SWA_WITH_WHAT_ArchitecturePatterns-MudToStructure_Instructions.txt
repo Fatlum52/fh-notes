@@ -1,0 +1,149 @@
+
+--- Page 1 ---
+Software Architecture  
+Architecture Patterns  
+(From Mud t o Structure)  
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Pattern  ........................................................................................ 3 
+2 Architecture Pattern  .................................................................... 3 
+3 From Mud to Structure  .................................................................  4 
+3.1 Domain Model  ............................................................................. 4 
+3.2 Domain Object  ............................................................................. 4 
+3.3 Layers  ........................................................................................... 4 
+3.4 Model -View -Controller  ................................................................ 5 
+3.5 Pipes and Filters  ........................................................................... 5 
+3.6 Shared Repository  ........................................................................ 5 
+3.7 Microkernel  .................................................................................. 5 
+3.8 Reflection  ..................................................................................... 6 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Pattern  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und beantworten 
+Sie anschliessend die folgenden Fragen:  
+• Was ist die „innere Natur“ und was ist der Zweck von Mustern aus einer Archi-
+tektursicht?  
+• Aus welchen drei Grundbausteinen bestehen alle Patterns?  
+• Was ist eine Mustersprache (englisch: Pattern Language)  und ich welcher Be-
+ziehung steht eine Pattern Language zu einzelnen Patterns? 
+• Machen Sie frei einen Vorschlag für eine Ihnen gut bekannte Domäne und nen-
+nen Sie mindestens fünf Patterns, die in einer entsprechenden Pattern Langu-age Ihrer Do mäne sinnvoll existieren könnten.  
+• Wenn Sie die Möglichkeit haben, sich das Buch von Christopher Alexander ( A 
+Pattern Language ) genauer  anzusehen: was ist ein Pattern für Mr. Alexander 
+und wie stellt er sich vor, dass man mit seinem Buch arbeitet, bzw. dieses als 
+methodisches Werkzeug verwendet?  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in : 
+• Software Architecture: A Comprehensive Framework and Guide for Practition-ers [Vog el, Arnold et al 2011] (aka: SWA- Buch) – Kapitel:  
+o 6.3.4 Architecture Patterns  
+o 6.3.5 Pattern Languages  
+• Enterprise Architecture Function ― a pattern language for planning, designing, and executing [Arnold 2022] (aka: EAF- Buch) – Kapitel:  
+o 1.6 Pattern Language  
+o 2. Architecture Function Pattern Language  
+• A Pattern Language
+ [Alexander 1977]  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+2 Architecture Pattern  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Was sind Unterschiede und was sind Gemeinsamkeiten von Architecture Pat-terns und Design Patterns ?  
+• Überlegen Sie kritisch, was für und was eventuell gegen die Unterscheidung „Architecture vs. Design Patterns“ spricht.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in: 
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ • den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.   
+ 
+3 From M ud to S tructure  
+Nutzen Sie ChatGPT oder andere Quellen  ganz grundsätzlich in den nun folgenden 
+Kapiteln , um zentrale Konzepte weiter zu vertiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• den folgenden Unterkapiteln.  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.   
+3.1 Domain Model  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Um was für eine Art Muster handelt es sich hier, mit anderen Worten: wie 
+unterscheide t sich dieses Muster von den Mustern Layers, Model -View -Con-
+troller, Pipes and Filters, Shared Repository, Microkernel oder Reflection?  
+• Recherchieren Sie zu Eric Evans ’ “Domain -Driven Design”  und fassen Sie für 
+sich in kurzen Worten zusammen, was die Kernge danken des DDD -Ansatzes 
+sind.  
+3.2 Domain Object  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Wo haben wir das Konzept, das dem „Domain Object“ Pattern zugrunde liegt, bereits kennengelernt?  
+• Wie kann das Adapter Pattern genutzt werden, um die Verbindung zwischen Interface und implementierender Komponente besonders lose zu gestalten?  
+3.3 Layers  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Welche konkreten Anwendungen des Layers -Patterns  kennen Sie ? 
+• Zwischen welchen Anforderungsfeldern sollten Sie bewusst abgewogen ha-ben, bevor Sie sich z.B., für eine strikte Anwendung des Layers -Pattern ent-
+scheide n? 
+--- Page 5 ---
+5 
+© Ingo Arnold  – Software Architecture  
+ • Entlang welcher Kriterien werden Layers in einem entsprechenden Design ty-
+pischerweise identifiziert ? 
+• Welches ist der wichtige Unterschied in Bezug auf Abhängigkeiten zwischen 
+Layers, der zwischen einer Development View und einer Logical View Betrach-
+tung besteht?  
+3.4 Model -View -Controller  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Welches ist di e Kern -Idee dieses Musters und welche Rolle be sitzen jeweils 
+seine zentralen Bausteine?  
+• Welche konkreten Anwendungen des MVC -Patterns kennen Sie?  
+3.5 Pipes and Filters  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die fo lgenden Fragen:  
+• Welches ist die Kern -Idee dieses Musters und welche Rolle be sitzen jeweils 
+seine zentralen Bausteine?  
+• Welche konkreten Anwendungen des Pipes and Filters -Patterns kennen Sie  
+über die von mir beispielhaft genannten hinaus ? 
+• Was ist die Kern -Idee des Chain of Responsibility Patterns und wo deckt sich 
+dieses mit dem Pipes and Filters Muster, bzw. wo setzen die beiden Muster 
+unterschiedliche Akzente?  
+3.6 Shared Repository  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Welches ist die Kern -Idee dieses Musters und welche Verantwortung überneh-
+men  jeweils seine zentralen Bausteine?  
+• Was sind Herausforderungen dieses Musters, für die man im konkreten An-
+wendungsfall Antworten finden  muss ? 
+3.7 Microkernel  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Welches ist die Kern -Idee dieses Musters und welche Verantwortung überneh-
+men jeweils seine zentralen Bausteine?  
+--- Page 6 ---
+6 
+© Ingo Arnold  – Software Architecture  
+ • Was ist die Kern -Idee des Mediator Patterns und wo deckt sich dieses mit dem 
+Microkernel Muster, bzw. wo setzen die beiden Muster unterschiedliche Ak-
+zente?  
+3.8 Reflection  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Fragen:  
+• Welches ist die Kern -Idee dieses Musters und welche Verantwortung überneh-
+men jeweils seine zentralen Bausteine?  
+• Welche Anwendungen dieses Musters kennen Sie über die von mir gegebenen Beispiele hinaus?  
+• Wie gehen Sie grundsätzlich an das  Design eines Systems heran, wenn Sie die 
+Adaption des Reflection Patterns in Betracht ziehen ? 
+ 

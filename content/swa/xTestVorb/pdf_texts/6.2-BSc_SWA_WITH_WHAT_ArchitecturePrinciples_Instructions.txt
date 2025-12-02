@@ -1,0 +1,249 @@
+
+--- Page 1 ---
+Software Architecture  
+Architecture Principles 
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Object -Orientation  ........................................................................ 3 
+2 Architecture Principles  .................................................................. 3 
+3 Single Responsibility Principle ....................................................... 4 
+4 Open / Closed Principle  .................................................................  5 
+5 Liskov Substitution Principle  .......................................................... 6 
+6 Interface Segregation Principle  ...................................................... 6 
+7 Dependency Inversion Principl e .................................................... 7 
+8 Overall Principles Questions  .......................................................... 7 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Object -Orientation  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ 
+• What is polymorphism?   
+A. The ability of a function to behave differently based on the number of  
+     arg uments  
+B. Defining methods with the same name in different classes  
+C. Objects of different types can be accessed through the same interface  
+D. A method that does not return any value 
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] (aka: SWA- Buch) – Kapitel: 
+o 6.2.2 Object Orientation  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+2 Architecture Principles  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ 
+• Which of the following is an example of loose coupling?   
+A. Tight dependencies between components  
+B. Use of interfaces to interact between modules  
+C. Hard-coded references between classes 
+D. Global variables shared across modules 
+ 
+• What is a key advantage of information hiding in software architecture?   
+A. Increased transparency of implementation details  
+B. Faster runtime performance  
+C. Easier maintenance and modification of modules  
+D. Reduced need for documentation  
+ 
+• Which of these principles enhances the ability to change software without af-
+fecting other modules?   
+A. Modularity  
+B. Tight Coupling  
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ D. Low Cohesion 
+E. Encapsulation  
+ 
+Weitere nützliche Informationen  und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] (aka: SWA- Buch) – Kapitel: 
+o 6.1 Architecture Principles  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.   
+ 
+3 Single Responsibility Principle  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple- Choice Fragen:  
+ 
+• According to the Single Responsibility Principle,  a class should:   
+A. Handle multiple responsibilities to be more efficient  
+B. Have only one reason to change  
+C. Always include input/output operations  
+D. Implement multiple interfaces  
+ 
+• What is the risk of violating the Single Responsibility Principle?   
+A. Easier maintenance  
+B. More cohesive classes  
+C. Increased coupling between classes  
+D. Faster performance  
+ • Which of the following is an example of a class adhering to SRP?   
+A. Logger  class that logs messages and handles user input  
+B. UserServi ce class that manages user authentication and email notifications  
+C. PaymentProcessor class that handles payment processing only  
+D. Customer  class that manages both customer data and order processing 
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+  
+--- Page 5 ---
+5 
+© Ingo Arnold  – Software Architecture  
+ 4 Open / Closed Principle  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ 
+• What does the Open/Closed Principle state?   
+A. A class should be open for extension and open for modification  
+B. A class should be closed for extension and open for modification  
+C. A class should be open for extension but closed for modification 
+D. A class should be closed for both extension and modification  
+ 
+• Which of the following is a common way to adhere to the Open/Closed Princi-
+ple?   
+A. Using conditional statements within a class  
+B. Exte nding classes through inheritance 
+C. Using global variables  
+D. Directly modifying class attributes  
+ 
+• How can the Open/Closed Principle help in software development?   
+A. It makes the code less flexible  
+B. It allows changes without affecting existing functionality 
+C. It reduces the number of classes  
+D. It forces developers to rewrite entire modules  
+ 
+• The Open/Closed Principle is violated if:  
+A. You add a new class for a new feature 
+B. You modify existing methods to add new behavior  
+C. You extend a class with new methods  
+D. You use interfaces to define behavior  
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+  
+--- Page 6 ---
+6 
+© Ingo Arnold  – Software Architecture  
+ 5 Liskov Substitution Principle  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ 
+• The Liskov Substitution Principle aims to:  
+A. Ensure subclasses can replace super classes without breaking  
+    functionality/semantics  
+B. Limit the use of inheritance  
+C. Reduce the number of su bclasses 
+D. Force the use of abstract classes  
+ 
+• A method that throws an exception when a superclass method does not  is: 
+A. Adhering to LSP  
+B. Violating LSP  
+C. Irrelevant to LSP  
+D. Partially following LSP  
+ 
+6 Interface Segregation Principle  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ • What is the main goal of the Interface Segregation Principle (ISP)?   
+A. To reduce the number of classes in a project  
+B. To make interfaces large enough to handle many behaviours  
+C. To ensure that clients do not depend on methods they do not use 
+D. To prevent the use of abstract classes 
+ 
+• How can the Interface Segregation Principle improve software design?  
+A. By making interfaces more generic and easier to implement  
+B. By creating fewer but larger interfaces  
+C. By ensuring classes only implement methods they actually need  
+D. By eliminating the need for abstract classes  
+ • Which example demonstrates adherence to ISP?  
+A. A Printer  interface with methods print , scan , and fax 
+B. A Vehicle  interface with methods for both flying and driving  
+C. Separate Printer  and Scanner  interfaces for print  and scan  methods  
+--- Page 7 ---
+7 
+© Ingo Arnold  – Software Architecture  
+ D. A MediaPlayer  interface with methods for play  and record  
+ 
+7 Dependency Inversion Principle  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantworten 
+Sie die folgenden Multiple -Choice Fragen:  
+ 
+• The Dependency Inversion Principle states:   
+A. High-level modules should depend on low -level modules  
+B. Low-level modules should depend on high -level modules  
+C. Both high -level and low -level modules should depend on abstractions  
+D. Abstractions should depend on details  
+ 
+• What is dependency injection in the context of the Dependency Inversion Prin-
+ciple?  
+A. Creating dependencies between two modules  
+B. Manually instantiating all objects within a class  
+C. Supplying dependencies to a class from outside, rather than creating them  
+     inside  
+D. Forcing a class to inherit from another  
+ 
+8 Overall Principles Questions  
+Bitte beantworten Sie die folgenden Multiple -Choice Fragen:  
+ 
+• What principle does the code below violate?   
+A. Open/Closed Principle  
+B. Liskov Substitution Principle  
+C. Single Responsibility Principle  
+D. Interface Segregation Principle  
+ 
+--- Page 8 ---
+8 
+© Ingo Arnold  – Software Architecture  
+  
+ 
+How could you refactor the above  code?  
+ 
+• Which modification could fix the LSP violation in the code snipped, below ? 
+A. Change Penguin  to override fly with different behavior  
+B. Create a NonFlyingBird  class that Penguin extends  
+C. Remove the fly  method from Bird 
+D. Add more methods to Penguin  
+ 
+ 
+ 
+  
+
+--- Page 9 ---
+9 
+© Ingo Arnold  – Software Architecture  
+ • Which principle is violated by the Worker interface  in the code snipped, be-
+low? 
+A. Open/Closed Principle  
+B. Liskov Substitution Principle  
+C. Interface Segregation Principle  
+D. Dependency Inversion Principle  
+ 
+ 
+  
+
+--- Page 10 ---
+10 
+© Ingo Arnold  – Software Architecture  
+ • How does the Notification class adhere to the Dependency Inversion Principle?  
+A. It directly creates an instance of EmailService  
+B. It depends on an abstraction ( MessageService ) 
+C. It uses inheritance instead of composition  
+D. It contains both high -level and low -level code  
+ 
+ 

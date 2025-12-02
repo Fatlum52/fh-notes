@@ -1,0 +1,678 @@
+
+--- Page 1 ---
+Software Architecture
+Architecture Means
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo ArnoldCopyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo ArnoldLecture Opening
+Architecture Orientation Framework
+3Architecture WITH WHAT discusses the broad range of architectural means 
+architects use to plan, develop, and operate architectures. Thus what we consider 
+here is the architect's toolbox, if you wish. [Vogel, Arnold et al 2011] . 
+
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo ArnoldLecture Opening
+Motivation
+The software architect's toolbox is huge and offers a broad variety of tools. While 
+no architect is an expert of all tools in that box, every architect should at least have an 
+overview of its drawers, sub-drawers and sub-sub-drawers.
+We will not be able to look at the entire toolbox in detail. In this deck I will only give 
+a rough overview of the toolbox. 
+In the following units, we will then delve further into selected topics.
+4
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo ArnoldLecture Opening
+Learning Objectives
+You …
+■gained an overview of the architect's toolbox.
+■understand the rough classification of the toolbox as well as its overall structure.
+■know some of the architectural tools in the toolbox, so that you can orientate 
+yourself in our following in-depth lectures.
+5
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo Arnold6Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Means
+Overview
+Different types of architecture means influence the architecture under construction 
+in different ways. The influence increases from the architecture principles right up to the 
+reference architecture.
+We will only dive deeper into a few selected principles, basic concepts, etc. in 
+addition to the overview provided in this deck. For further classification, my book is recommended accordingly. 
+7Principles
+ ConceptsTactics, 
+styles, and 
+patternsBasic 
+architecturesReference 
+architecturesInfluence on architecture
+Architecture means
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo Arnold8Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Principles
+Overview
+Architecture principles are proven guidelines that you should apply when developing 
+or modifying an architecture. However, they say nothing about how you should apply 
+these principles in concrete cases. 
+It is difficult to say that an architecture is good or bad in itself (it merely fulfils its 
+conditions more or less well). However, if you take general principles into account when designing a software architecture, you tend to get a good architecture. 
+9
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo ArnoldPrototypingPiecemeal 
+growthIncrementality
+is a form of is a form ofLoose 
+coupling
+Law of 
+DemeterAvoidance of circular 
+dependenciesis a form of is a form of
+Information 
+hiding
+Facade Layering Black boxis a form ofis a form of is a form of
+Modularity
+Open/closedaspect of modularity
+Abstraction
+Explicit 
+interfacesSeparation of interface and 
+implementationInterface 
+segregationLanguage supportis a form of is a form of
+is a form of is a form of is a form of
+Liskov 
+substitutionArchitecture Principles
+Overview
+Selected principles and their relationships.
+10ModularityAbstractionLoose 
+coupling
+Design for 
+changeHigh 
+cohesion
+realized by
+Self-documentationInformation 
+hidingSeparation 
+of concernsTraceabilityIncrementality
+abstractions for
+platform-
+independence; interfaces, ...is a form of
+realizes
+realizessupports
+unexpectedchangesleads to
+realized byrealized by
+is a form of
+(module abstraction)is a form of
+(modules as
+black boxes)
+is a form of
+(module creation)realizes
+realizes
+--- Page 11 ---
+@ Ingo Arnold
+©Ingo Arnold11Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 12 ---
+@ Ingo Arnold
+©Ingo Arnold
+Basic Architecture Concepts
+Overview
+Basic Concepts is what the name implies: essential paradigms and concepts of 
+architecture.
+In my book, this section starts with simple procedural approaches and then 
+gradually moves to more comprehensive approaches such as aspect orientation, 
+component orientation, and model -driven architecture. 
+12
+--- Page 13 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+13Procedural 
+ApproachesProcedures are a traditional and widely used means of structuring architectures. They allow the decomposition of a complex algorithm into repeatable individual algorithms. Procedures implement the principle of separation of concerns, since they make it possible to decompose a complex algorithmic problem into simpler subproblems
+Object Orientation Object orientation is based on the idea of bundling data processed by a 
+set of related procedures together with these procedures. The procedures 
+–called operations or methods in object orientation –can process their 
+data exclusively. In this way, object orientation attempts to directly implement the principle of information hiding and the principle of modularity
+--- Page 14 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+14Component 
+OrientationComponents are reusable, self -contained building blocks of an 
+architecture. The component orientation arose from the problem that objects implement the modularity principle, but are often too small to be used as reusable units. In addition one desires from a reusable system building block often further characteristics, like the implementation of non -
+functional requirements, or the simultaneous provision of several identical component instances for increasing the scalability. Component platform examples are DLLs, JavaBeans, ActiveX, JEE components like EJBs, 
+.NET components, CORBA components
+
+--- Page 15 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+15Meta Programming Many programming languages distinguish between the program as a set 
+of executable instructions and the data that the program works with. Actually, the programs themselves are also data. So in metaprogramming, programs are treated as data. Programs that use other programs (or themselves) as data are usually called metaprograms. 
+Meta programming techniques and technologies are reflection or 
+introspection capabilities (e.g., java reflection API), macro mechanisms 
+(e.g., C++ pre -processor changes the program before it is sent to the C++ 
+compiler)
+
+--- Page 16 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+16Generative System 
+CreationIf we look beyond software development, we see that in other engineering disciplines, processes are always automated when certain recurring tasks have to be performed in a similar way. The use of generative technologies in software development aims to adapt the degree of automation in the creation of software to that of other engineering disciplines. 
+Examples of generators are XSLT, annotation -based Javadoc generators, 
+IDL generators, “inline” keyword in C/C++
+
+--- Page 17 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+17Model -Driven 
+DevelopmentModel -driven software development (MDD) is when models are not only 
+used for documentation purposes, but are central artifacts of an 
+executable system. 
+A special case of the generative system creation discussed above. 
+Generator input is a system model while the generator output is the physical equivalent of the initially modelled system.
+Aspect Orientation Aspect orientation avoids spreading so -called crosscutting concerns 
+across the code or design. These are concerns that are general or go beyond the application logic. Security is an example of such a concern. 
+--- Page 18 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architecture Concepts
+Overview
+Brief overview of basic architecture concepts.
+18Scripting Languages 
+and Platform Object ModelsScripting languages are originally programming languages for controlling software systems. They typically use a two -language approach. The core 
+system is implemented in a programming language other than the scripting language, and the scripting language only handles the composition of the system components in an executable system. 
+Examples are JavaScript and the HTML DOM, or ABAP in SAP systems.
+--- Page 19 ---
+@ Ingo Arnold
+©Ingo Arnold19Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 20 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+In my book this section copes with architectural tactics, styles, and patterns. These 
+three means have in common that they describe principle solutions to certain recurring 
+problems in architectural design. 
+20
+
+--- Page 21 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+21Architecture Tactic Architectural tactics provide guidelines for implementing a wide variety of 
+quality features of the system being designed and its architecture. So, in principle, an architectural tactic helps you to get a first idea about a design problem. You can then develop this idea further and, for example, also use styles and patterns as further tools.
+ 
+  
+  
+   
+  
+   
+    
+ 
+  
+  
+  
+   
+  
+ 
+ 
+    
+   
+  
+ 
+   
+   
+--- Page 22 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+22Architecture Style An architectural style is a pattern of structural organization of a family of 
+systems. For them, an architectural style consists of the following elements: a set of building blocks that perform certain functions at runtime. A topological arrangement of these building blocks. A set of connectors that govern communication and coordination among the building blocks. A 
+set of semantic restrictions that specify how building blocks and connectors can be connected to each other. An architecture style primarily reflects the fundamental structure of a software system and its properties. 
+You can therefore use a style to categorize architectures. 
+Independent 
+components
+Communicating 
+processesEvent system
+Implicit call Explicit callCall-and-Return
+Layered 
+architectureObject -orientedMain program and 
+subroutineDataflow
+Batch/
+sequentialPipes and 
+FiltersData -centric
+Repository BlackboardVirtual machine
+InterpreterRule -based 
+systems
+--- Page 23 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+23Architecture Pattern In the context of software architecture, both design patterns and 
+architecture patterns are very important. They have in common that they usually represent structural, technical solutions. In general, design patterns describe more specific design solutions that have a local impact, while architecture patterns describe more system structures that have an 
+impact on the entire system. 
+Example chain of responsibility pattern
+example
+
+--- Page 24 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+24Architecture Pattern Example composite pattern
+example
+
+--- Page 25 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+25Architecture Pattern Apply the composite pattern for a simple expression interpreter
+example
+
+--- Page 26 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+26Architecture Pattern Apply the composite pattern for a simple expression interpreter
+example
+
+--- Page 27 ---
+@ Ingo Arnold
+©Ingo ArnoldArchitecture Tactics, Styles, and Patterns
+Overview
+Brief overview of tactics, styles, and patterns.
+27Architecture Pattern 
+LanguageA pattern language is a collection of semantically related patterns that provide solution principles for problems in a particular context. The focus of pattern languages is particularly on the relationships of the patterns in the language. Specifically, this means that the pattern descriptions are highly integrated –for example, in that the context of one pattern picks up 
+another pattern and that particular emphasis is placed on describing the pattern interactions
+Requirements Pattern A requirements pattern is a methodical tool that you can use to systematically develop "good" requirements. Like architecture patterns, requirements patterns refer to visibly recurring issues for which generally valid solution proposals can be formulated. A requirements pattern can thus take the form of a template for concrete requirements of a specific requirements category.
+--- Page 28 ---
+@ Ingo Arnold
+©Ingo Arnold28Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 29 ---
+@ Ingo Arnold
+©Ingo Arnold
+Basic Architectures
+Overview
+This section of my book discusses foundational architecture approaches that are 
+adopted in many systems. Basic architectures use the various architectural means 
+discussed earlier. They therefore represent a more concrete architectural guideline that you can use to structure entire systems. 
+29
+--- Page 30 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architectures
+Overview
+Brief overview of basic architectures.
+30Layered Architecture A fundamental issue of architectures that affects both functional and non -
+functional requirements is the partitioning of a system into groups of 
+similar functions or responsibilities. The layers style describe a typical solution. One applies layers in situations where one group of building blocks depends on another group of building blocks to perform its function, 
+and that group in turn depends on another group of building blocks, and so on. The layered pattern states that each layer groups a number of building blocks and the layer above it provides services through interfaces. 
+In each layer, the building blocks of that layer can freely interact with each 
+other. Between two layers, communication may only take place via the specified interfaces. 
+N-tier Architecture A tier is a means of structuring the distribution of software building blocks on hardware building blocks. A tier contains interrelated system building blocks (software and hardware building blocks) that are interconnected via a network. For example, the classic client -server model based on a two -
+tier architecture.
+--- Page 31 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architectures
+Overview
+Brief overview of basic architectures.
+31Client -Server 
+ArchitectureIn modern software architecture, client -server operation is of great 
+importance. Here, the user runs application programs (clients) on his 
+computer and these programs access the resources of the server. The resources are centrally managed, shared and made available. The client -
+server model is based on a simple request -response scheme. This means 
+that files no longer have to be transferred as a whole, but can be requested specifically.
+Publish Subscribe ArchitecturePublish -subscribe addresses the problem of informing a set of clients 
+about runtime events. Publish-subscribe allows the event consumer to register for specific event types. When such an event occurs, the event producer informs all registered consumers - for example, via a 
+publish/subscribe system. The publish -subscribe system thus decouples 
+the producer and the consumer of events.
+--- Page 32 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architectures
+Overview
+Brief overview of basic architectures.
+32Peer -2-Peer 
+ArchitecturePeer -to-peer (P2P) uses a number of equal peers. In the pure P2P 
+architecture structure, there is no central server. Each peer can offer and 
+take advantage of services on the network. The entire status of the system is distributed among the peers. Internally, P2P systems are partly implemented with standard middleware, but the user of a P2P system is 
+not aware of this. In the P2P architecture, one can add or remove a service at any time. Clients must therefore find out which services are currently available before using a service. 
+Middleware Middleware establishes a platform that provides application services for all aspects of distribution, such as distributed invocation, efficient access to the network, transactions, messaging and directory services, time services, security services, and more. Middleware establishes a type of network operating system (NOS) that makes the complexities of a distributed environment accessible to software developers efficiently and effectively. 
+--- Page 33 ---
+@ Ingo Arnold
+©Ingo ArnoldBasic Architectures
+Overview
+Brief overview of basic architectures.
+33Component Platforms Typical examples of component 
+platforms in the enterprise environment are JEE or .NET. These component platforms are based on the separation of 
+technical concerns and functional concerns for an information system. Examples of technical 
+concerns in the enterprise 
+environment include distribution, security, persistence, transactions, concurrency, and resource management. In other environments, such as embedded systems, other technical concerns may be 
+important. Functional 
+platform
+Technical
+platform/
+middleware
+Operating systemProgramming language & libraries- Persistence
+- Transactions
+- Deployment
+- Scheduling
+- Hardware access- Central entities
+- Central value types
+- Business rules
+- Business servicesApplication
+--- Page 34 ---
+@ Ingo Arnold
+©Ingo Arnold34Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 35 ---
+@ Ingo Arnold
+©Ingo Arnold
+Reference Architectures
+Overview
+Reference architectures combine general architectural knowledge and experience 
+with specific requirements for a coherent architectural solution for a particular problem 
+domain. They document the structures of the system, the essential system building blocks, their responsibilities and their interaction.
+35
+--- Page 36 ---
+@ Ingo Arnold
+©Ingo ArnoldReference Architectures
+IBM reference architecture examples
+IBM offers a range of reference architectures for selected topics.
+36
+https://www.ibm.com/cloud/architecture/
+--- Page 37 ---
+@ Ingo Arnold
+©Ingo ArnoldReference Architectures
+IBM reference architecture examples
+One of these reference architectures IBM calls business automation .
+37https://www.ibm.com/cloud/architecture/technical -decision- points/business -automation
+
+--- Page 38 ---
+@ Ingo Arnold
+©Ingo ArnoldReference Architectures
+IBM reference architecture examples
+The business automation reference architecture
+38https://www.ibm.com/cloud/architecture/architectures/dba- architecture/reference -architecture
+
+--- Page 39 ---
+@ Ingo Arnold
+©Ingo ArnoldReference Architectures
+IBM reference architecture examples
+Workflow management reference architecture
+39https://www.ibm.com/cloud/architecture/architectures/workflowDomain/reference- architecture
+
+--- Page 40 ---
+@ Ingo Arnold
+©Ingo Arnold40Lecture Agenda
+■Architecture Means
+■Architecture Principles
+■Basic Architecture Concepts
+■Architecture Tactics, Styles, and Patterns
+■Basic Architectures
+■Reference Architectures
+■Domain -Driven Design
+--- Page 41 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model
+41A Domain Model establishes a common language to consistently name and 
+understand key terms, concepts and their relationships in a given business 
+domain . 
+Rather, it is a living working tool that is meant to increase efficiency and 
+effectiveness of communication across a broad variety of stakeholders and to 
+evolve iteratively as a journey progresses . 
+Illustrative example of a simplified Domain Model for warehouse management:
+
+--- Page 42 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model
+42A Domain Model is nota technical data model or solution design (despite 
+being mis -concepted as such sometimes). 
+A Domain Model does notdefine any system architecture or implementation
+and does notclaim to be final and complete at any given point in time. 
+The aimof a Domain Model is to detect and avoid misunderstandings , facilitate 
+communication and create a Ubiquitous Language for sound technical and business 
+decisions –especially in interdisciplinary teams with different perspectives on the 
+domain. 
+--- Page 43 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model
+43A Domain Model provides the initial step in transforming requirements into a 
+sustainable software architecture and implementation. 
+In Eric Evans book Domain -Driven Design a Domain Model is a first (and yet 
+technology -agnostic) step in developing a sound software design . 
+
+--- Page 44 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model
+44We could have created a Domain Model for the gaming platform . 
+example
+
+--- Page 45 ---
+@ Ingo Arnold
+©Ingo Arnold
+Domain -Driven Design
+Domain Model –Domain- driven Design
+45Domain-driven design distinguishes the following components of the Domain 
+Model :
+Entities (reference objects)
+Value objects
+Aggregates
+Associations
+Service objects (services)
+Domain events
+Modules (modules, packages)
+Factories
+Repositories
+
+--- Page 46 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model –Domain- driven Design
+46Domain-driven design distinguishes the following components of the Domain 
+Model :
+Entities (reference objects)
+Objects of the model, which are not defined by their properties, but by their identity. For example, a person is usually 
+represented as an entity. Thus, a person remains the same person if his or her properties change; and he or she is different from another person even if the latter has the same properties. Entities are often modelled using unique identifiers.
+Value objects
+Objects of the model that do not have or require a conceptual identity and are thus defined solely by their properties. Value objects are usually modelled as immutable objects, which makes them reusable (cf. Flyweight) and distributable.
+Service objects (services)
+In domain -driven design, functionalities that represent an important concept of the domain model and conceptually 
+belong to several objects of the domain model are modelled as independent service objects. Service objects are usually stateless and therefore reusable classes without associations, with methods that correspond to the provided functionalities. These methods are passed the value objects and entities necessary to process the functionality.
+Aggregates
+Aggregates are combinations of entities and value objects and their associations to a common transactional unit. Aggregates define exactly one entity as the only access to the entire aggregate. All other entities and value objects may not be statically referenced from outside. This guarantees that all invariants of the aggregate and the individual components of the aggregate can be ensured.
+
+--- Page 47 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model –Domain- driven Design
+47Domain-driven design distinguishes the following components of the Domain 
+Model :
+Factories
+Factories are used to outsource the creation of domain objects to special factory objects. This is useful if either the 
+creation is complex (and, for example, requires associations that the subject object itself no longer needs) or the specific creation of the subject objects should be able to be exchanged at runtime. Factories are usually implemented by generating design patterns such as abstract factory, factory method or builder.
+Repositories
+Repositories abstract the persistence and search of business objects. Repositories separate the technical infrastructure and all access mechanisms to it from the business logic layer. For all business objects that are loaded via the infrastructure layer, a repository class is provided that encapsulates the loading and search technologies used from the outside. The repositories themselves are part of the domain model and thus part of the business logic layer. They are the only ones that access the objects of the infrastructure layer, which are usually implemented using the design patterns Data Access Objects, Query Objects or Metadata Mapping Layers.
+
+--- Page 48 ---
+@ Ingo Arnold
+©Ingo ArnoldDomain -Driven Design
+Domain Model –Domain- driven Design
+48Domain-driven design distinguishes the following components of the Domain 
+Model :
+Domain events
+Domain events are objects that describe complex, possibly dynamically changing, actions of the domain model that 
+cause one or more actions or changes in the domain objects. Domain events also enable the modelling of distributed systems. The individual subsystems communicate exclusively via domain -oriented events, so they are 
+strongly decoupled and the entire system is thus more maintainable and scalable.[9].
+Modules (modules, packages)
+Modules divide the domain model into functional (not technical) components. They are characterized by strong internal cohesion and low coupling between the modules.
+Associations
+Associations, as defined in UML, are relationships between two or more objects of the domain model. Here, not only static relationships defined by references are considered, but also dynamic relationships that arise, for example, only through the processing of SQL queries.
+
+--- Page 49 ---
+@ Ingo Arnold
+©Ingo Arnold 49■Architecture Means
+•Definition : All methodological tools, proven design blueprints, and mechanisms architects use to plan, 
+develop, and operate architectures.
+•Influence increases from principles → concepts → tactics/styles/patterns → basic architecture
+→ reference architectures .
+•Acts as the architect’s toolbox , linking theoretical foundations to practical design methods.
+■Architecture Principles
+•Definition : Proven , experience -based guidelines for developing or evolving architectures.
+•They do not prescribe how to implement , but help achieve good architectural quality.
+•Typical principles and relations:
+•Modularity (black -box, open/closed, information hiding)
+•Abstraction and Separation of Concerns
+•Loose coupling / High cohesion
+•Incrementality / Design for change
+•Explicit interfaces / Interface segregation
+•Traceability / Self -documentation
+•Principles form the foundation for robust , maintainable , and evolvable architectures .Wrap -Up
+--- Page 50 ---
+@ Ingo Arnold
+©Ingo Arnold 50■Basic Architecture Concepts
+•Purpose : Fundamental paradigms shaping software architectures.
+•Main concepts
+•Procedural approaches –break complex algorithms into manageable parts (separation of concerns).
+•Object Orientation (OO) –encapsulates data + behavior (information hiding, modularity).
+•Component Orientation –larger, reusable blocks combining functionality and non- functional aspects.
+•Meta Programming – programs treat code as data (reflection, macros).
+•Generative Systems –automate repetitive development tasks (e.g., code generators).
+•Model -driven Development (MDD) – models as primary artifacts; generators produce code.
+•Aspect Orientation –manages cross -cutting concerns (e.g., security, logging).
+•Scripting languages / platform object models – combine configuration and automation (e.g., JavaScript/HTML DOM).
+■Architecture Tactics, Styles, and Patterns
+•Common goal : Provide reusable solution approaches for recurring architectural problems .
+•Tactics
+•Target specific quality attributes (performance, security, availability, modifiability).
+•Serve as initial design heuristics before applying styles or patterns.Wrap -Up
+--- Page 51 ---
+@ Ingo Arnold
+©Ingo Arnold 51■Architecture Tactics, Styles, and Patterns
+•Styles ( aka: Architecture Patterns)
+•Define structural organization and relationships (dynamic and static) between components.
+•Examples are Layered Architecture, Client -Server, Pipes & Filters, Shared Repository.
+•Patterns and Pattern Languages
+•Capture proven design or architecture solutions atdifferent granularities.
+•Design patterns : local and fine- grained, at class -level (e.g., Composite, Chain of Responsibility).
+•Architecture patterns : system -wide and coarse- grained, at component -level (aka: Styles).
+•Requirements patterns provide blueprints for recurring types of requirement (e.g., reporting, printing, authN & authZ, 
+documentation).
+•Pattern languages interlink related patterns into coherent pattern “families ”.
+■Basic Architectures
+•Definition : Foundational architecture structures used across systems.
+•Combine multiple architecture means into practical frameworks .
+•Examples:
+•Middleware –abstracts distributed systems (transactions, messaging, security).
+•Component Platforms –enterprise frameworks (e.g., JEE, .NET) that separate functional from technical concerns.Wrap -Up
+--- Page 52 ---
+@ Ingo Arnold
+©Ingo Arnold 52■Reference Architectures
+•Definition : Combine general architectural knowledge with domain-specific requirements to 
+guide holistic (i.e., socio -technical ) solution design.
+•Serve as templates or blueprints that define key components , interactions, and best practices .
+•Example : IBM Cloud Reference Architectures (e.g., Business Automation, Workflow Management).
+•Goal : Ensure consistency , reusability , and faster architecture development across similar 
+problem domains for socio-technical systems .Wrap -Up
+--- Page 53 ---
+@ Ingo Arnold
+©Ingo Arnold 53■Domain-Driven Design
+•Purpose : Align software structures closely with the business domain.
+•Domain Model : shared language (aka: Ubiquitous Language ) representing key concepts and 
+their relationships .
+•Improves communication and understanding between Business and IT.
+•Not atechnical data model ; evolves iteratively.
+•Core elements:
+•Entities (aka: Reference Objects) –identity -based objects (e.g., Person).
+•Value Objects –immutable, property -based objects (e.g., Address).
+•Aggregates –consistency boundaries combining entities/value objects.
+•Repositories –abstract persistence, encapsulate data access.
+•Factories –control creation of complex domain objects.
+•Services –stateless operations spanning multiple objects.
+•Domain Events –capture important occurrences in the business domain.
+•Modules –cohesive functional groupings.
+•Associations –relationships between domain objects.
+•DDD bridges business understanding and software architecture structures – the first step from
+domain logic to software design .Wrap -Up
+--- Page 54 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+54
+
+--- Page 55 ---
+@ Ingo Arnold
+©Ingo ArnoldBibliography
+Lecture
+[Vogel, Arnold et al 2011]
+Vogel, Oliver; Arnold, Ingo; Chugtai, Arif; Kehrer, Timo, Software Architecture: A 
+Comprehensive Framework and Guide for Practitioners , Springer Science and 
+Business Media, Berlin Heidelberg, 2011
+55

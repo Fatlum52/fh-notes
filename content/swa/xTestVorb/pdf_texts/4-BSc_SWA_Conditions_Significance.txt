@@ -1,0 +1,129 @@
+
+--- Page 1 ---
+Software Architecture
+Exercise –Architecture Significance
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo ArnoldCopyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. 
+You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+3In this exercise, you will be given requirements for a new system that you are 
+expected to design and develop. 
+For each requirement , you need to consider how architecture-significant it is.
+A requirement is significant if the software design to which the requirement is 
+likely to lead is a design that is difficult to dismantle , change or adapt should the 
+requirement change in the future .
+elaborate
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+4You will be organised into six working groups and find requirements for a 
+fictitious software system on the following slides (each group receives 4 
+requirements to be assessed). 
+Your task is to …
+1.Briefly assess for each requirement whether it will significantly shape thearchitecture of an 
+appropriate system.
+2.For those requirements that lead tofar-reaching design decisions (i.e., architecture- significant 
+design decisions), sketch the resulting design .
+a.Sketch out the coarse- grained components that play a role in your design (question : 
+which components are needed ?).
+b.Select a component from (a) and suggest software architecture approaches at the next 
+level of detail for this component (question : which software design approaches do I 
+propose for a selected component from (a)?).
+3.Explain to what extent the design decisions you noted would be difficult to adapt or reverse if 
+the requirements changed.
+Work out your requirement assessments based on the following template: 4 -
+BSc_SWA_Conditions_Significance_Template.docx . 
+elaborate
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+5List of requirements and student groups to which they are assigned.
+No. Requirement Working Group Significance
+1 The system must be highly available 24/7. Group 1
+2 The system should display the company logo at the top left of each page. Group 1
+3 Users must log in with a username and password. Group 1
+4 All system functions must also be available via a mobile app. Group 1
+5 The system must process personal data in accordance with the GDPR. Group 2
+6 The data entry page should include a calendar component for date fields. Group 2
+7 The application must be available in German and English. Group 2
+8 All business processes must be traceable and auditable for audit purposes. Group 2
+9 The system must be integrated into the company's existing SAP environment. Group 3
+10 The background colour of the start page should be blue. Group 3
+11 The app should also be usable in landscape mode. Group 3
+12 The solution should be cloud-native (e.g. on AWS). Group 3
+13 The system should be configurable by business users without developer support. Group 4
+14 Users should be able to sort data records by columns. Group 4
+15 Password policies should require at least 8 characters and one capital letter. Group 4
+16 The system must be fully multi -client capable. Group 4
+elaborate
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+6List of requirements and student groups to which they are assigned.
+No. Requirement Working Group Significance
+17 The system must meet real -time requirements (e.g. responses within 50 ms). Group 5
+18 The system should automatically log out after 15 minutes of inactivity. Group 5
+19 Input fields should perform validations (e.g. email format). Group 5
+20 The system must be expandable by third parties (e.g. partner companies) via publicly 
+documented interfaces.Group 5
+21 The system must support machine learning (e.g. by training and using models based on usage data).Group 6
+22 The application should offer a print function for invoices. Group 6
+23 The system should allow users to reset their passwords themselves. Group 6
+24 The system must support rule-based decision logic that can be adapted by specialists at 
+runtime.Group 6
+elaborate
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+7Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Which were common characteristics of requirements that were architecture 
+significant?
+2.What is the extent to which the following types of requirements tend to be 
+architecture -significant (answers are provided in the respective Mentimeter)?
+elaborate
+
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+8Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”). 
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial 
+assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: 
+Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+elaborate
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo Arnold 9■Is provided in 4-BSc_SWA_Conditions_Significance -Solution. pdfWrap -Up
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+10

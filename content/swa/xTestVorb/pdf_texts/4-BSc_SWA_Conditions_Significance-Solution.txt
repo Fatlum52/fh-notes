@@ -1,0 +1,1513 @@
+
+--- Page 1 ---
+Software Architecture
+Exercise –Architecture Significance
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold©Ingo Arnold
+Copyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Architecture Context
+In today’s exercise, we will pursue Quality Attribute Driven Design, with a 
+special focus on addressing the non-functional requirements of a solution. 
+3
+Solution as a
+Whole
+Software Part 
+under Design
+Quality Attribute Realizations . 
+Components and component
+collaboration to establish required
+Qualities (e.g., Security, Performance, 
+Availability, Modifiability).
+--- Page 4 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+4In this exercise, you will be given requirements for a new system that you are 
+expected to design and develop. 
+For each requirement , you need to consider how architecture-significant it is.
+A requirement is significant if the software design to which the requirement is 
+likely to lead is a design that is difficult to dismantle , change or adapt should the 
+requirement change in the future .
+elaborate
+--- Page 5 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+5You will be organised into six working groups and find requirements for a 
+fictitious software system on the following slides (each group receives 4 
+requirements to be assessed). 
+Your task is to …
+1.Briefly assess for each requirement whether it will significantly shape thearchitecture of an 
+appropriate system.
+2.For those requirements that lead tofar-reaching design decisions (i.e., architecture -significant 
+design decisions), sketch the resulting design.
+a.Sketch out the coarse -grained components that play a role in your design (question: 
+which components are needed?).
+b.Select a component from (a) and suggest software architecture approaches at the next 
+level of detail for this component (question: which software design approaches do I 
+propose for a selected component from (a)?).
+3.Explain to what extent the design decisions you noted would be difficult to adapt or reverse if 
+the requirements changed.
+Work out your requirement assessments based on the Miro -Board shared via 
+E-Mail. 
+elaborate
+--- Page 6 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+6List of requirements and student groups to which they are assigned.
+No. Requirement Working Group Significance
+1 The system must be highly available 24/7. Group 1
+2 The system should display the company logo at the top left of each page. Group 1
+3 Users must log in with a username and password. Group 1
+4 All system functions must also be available via a mobile app. Group 1
+5 The system must process personal data in accordance with the GDPR. Group 2
+6 The data entry page should include a calendar component for date fields. Group 2
+7 The application must be available in German and English. Group 2
+8 All business processes must be traceable and auditable for audit purposes. Group 2
+9 The system must be integrated into the company's existing SAP environment. Group 3
+10 The background colour of the start page should be blue. Group 3
+11 The app should also be usable in landscape mode. Group 3
+12 The solution should be cloud- native (e.g. on AWS). Group 3
+13 The system should be configurable by business users without developer support. Group 4
+14 Users should be able to sort data records by columns. Group 4
+15 Password policies should require at least 8 characters and one capital letter. Group 4
+16 The system must be fully multi -client capable. Group 4
+elaborate
+--- Page 7 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+7List of requirements and student groups to which they are assigned.
+No. Requirement Working Group Significance
+17 The system must meet real -time requirements (e.g. responses within 50 ms). Group 5
+18 The system should automatically log out after 15 minutes of inactivity. Group 5
+19 Input fields should perform validations (e.g. email format). Group 5
+20 The system must be expandable by third parties (e.g. partner companies) via publicly 
+documented interfaces.Group 5
+21 The system must support machine learning (e.g. by training and using models based on 
+usage data).Group 6
+22 The application should offer a print function for invoices. Group 6
+23 The system should allow users to reset their passwords themselves. Group 6
+24 The system must support rule- based decision logic that can be adapted by specialists at 
+runtime.Group 6
+elaborate
+--- Page 8 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+8Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).example
+
+--- Page 9 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+9Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).
+Architecture Significance: Yes.example
+
+--- Page 10 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+10Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).
+Architecture Significance: Yes.Why : 
+This requirement necessitates profound changes to data storage , state management, 
+and synchronization logic . 
+It also leads to design considerations and decisions regarding conflict handling, 
+versioning , and reconciliation strategies.example
+
+--- Page 11 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+11Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).example
+Local Storage persists data
+and pending commands in 
+an offline situation. 
+The Mobile Client
+interacts with users and 
+buffers changes locally .
+The Sync Service controls
+synchronization and synchronizes
+locally stored data once the system
+comes online again.
+The Backend API receives
+synchronized commands and applies
+changes to the Backend System once
+the solution comes online again .
+The Synch Conflict 
+Resolver identifies and 
+resolves conflicts in 
+concurrent changes .
+Let's see what further 
+measures a software
+architect might take here.
+We begin with a high -leve l 
+overview of the essential
+components for supporting the 
+given offline requirements .
+The Sync Service 
+also manages the 
+commands queue .
+Commands represent user
+transactions that have been 
+performed by the mobile client 
+in offline -mode (e.g., changing 
+a customer record ).
+
+--- Page 12 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+12Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).example
+The sequence diagram shows the 
+cooperation between key components 
+when modifying a customer record in 
+offline mode .
+
+--- Page 13 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+13Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).example
+As soon as the mobile app comes back
+online , a corresponding event triggers
+synchronization with the backend .
+
+--- Page 14 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+14Requirement : The system must be capable of offline operation (e.g., for mobile 
+use without network coverage).example
+The Command Pattern can be used
+to fully represent a transaction
+made in offline mode and store it 
+locally (e.g., in commandQueue ).
+ A Command object
+stores/represents a transaction in 
+a dedicated object that contains all 
+the relevant Tx information . 
+This allows us to pass commands (i.e., 
+transactions) as method parameters (e.g., 
+later to the backend API), delay the 
+execution of a command /request, queue
+commands, or support undo operations .cmd = new
+ConcreteCommand1( receiver,params )
+button.setCommand (cmd)
+// when button is clicked
+// cmd.executeCommand () is performed
+Receiver.operation( params )
+
+--- Page 15 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+15Requirement 1: The system must be highly available 24/7.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+This requirement usually leads to the introduction of redundancy (clusters, load balancers, 
+failover systems), distributed system components and, if necessary, separate monitoring 
+infrastructure.
+Why difficult to change Architecture Decisions later : 
+Once implemented, a high- availability setup affects deployment, testability, operating models 
+and monitoring. 
+It is expensive to change if, for example, requirements change towards 5x9 availability 
+(instead of 24/7) or lower operating requirements.example
+
+--- Page 16 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+16Requirement 2: The system should display the company logo at the top left of every 
+page.
+Architecture Significance: No.Resulting Architecture Decisions: 
+This concerns pure UI presentation. It does not lead to any specific structural or behavioural 
+architecture decisions.example
+
+--- Page 17 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+17Requirement 3: A user must log in with a user name and password.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Standard requirement that can be implemented with existing authentication modules. 
+Architecture remains largely unaffected.example
+
+--- Page 18 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+18Requirement 4: All system functions must also be available via a mobile app.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+This necessitates an API layer with appropriate backend decoupling and, if necessary, 
+specific security measures (tokens, OAuth2, device binding).
+Why difficult to change Architecture Decisions later : 
+The design of an API layer with abstracted endpoints and mobile authentication flows affects 
+the data model, state processing and logging functions system -wide. 
+Downgrading to a browser -centric front end is complex.example
+
+--- Page 19 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+19Requirement 4: All system functions must also be available via a mobile app.example
+UI interaction, token
+management , caching , 
+offline functionality
+Route control , 
+authentication , 
+versioning
+Login , Token -
+Issuing (OAuth2 )
+Business logic 
+offered via e.g. 
+REST API , GraphQL 
+endpoints , etc.
+Access to 
+persistently 
+stored data
+Let's see what further 
+measures a software
+architect might take here.
+Architecture Significance: Requirement 4 
+calls for an API -first architecture, clean 
+separation of frontend and backend , token -
+based authentication , and versioning . 
+API design is a long -term structural 
+decision . A monolithic UI model would 
+otherwise have to be decoupled at 
+great expense.
+--- Page 20 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+20Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize Façades. 
+Services (APIs) can be encapsulated by 
+façade classes that provide mobile -
+specific use cases (e.g., “load overview,” 
+“save photo”).
+
+--- Page 21 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+21Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize DTOs (Data 
+Transfer Objects) whenever responses
+must deliver clearly structured , mobile -
+optimized data (e.g., flat structures, no 
+cyclic references).
+Software Architects use the DTO -Pattern , 
+when network traffic needs to be optimized
+by reducing the number of calls , especially in 
+a client -server architecture.
+--- Page 22 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+22Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize DTOs (Data 
+Transfer Objects) whenever responses
+must deliver clearly structured , mobile -
+optimized data (e.g., flat structures, no 
+cyclic references).
+Software Architects use the DTO -Pattern , 
+when network traffic needs to be optimized
+by reducing the number of calls , especially in 
+a client -server architecture.
+Classes of business entities (like 
+Customer in this example) contain
+business logic and are relatively
+heavyweight .
+
+--- Page 23 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+23Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize DTOs (Data 
+Transfer Objects) whenever responses
+must deliver clearly structured , mobile -
+optimized data (e.g., flat structures, no 
+cyclic references).
+Software Architects use the DTO -Pattern , 
+when network traffic needs to be optimized
+by reducing the number of calls , especially in 
+a client -server architecture.
+A DTO class (e.g., CustomerDTO ) 
+is a representation of a 
+corresponding business entity 
+(e.g., Customer ) reduced to 
+essential data points.
+
+--- Page 24 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+24Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize DTOs (Data 
+Transfer Objects) whenever responses
+must deliver clearly structured , mobile -
+optimized data (e.g., flat structures, no 
+cyclic references).
+Software Architects use the DTO -Pattern , 
+when network traffic needs to be optimized
+by reducing the number of calls , especially in 
+a client -server architecture.
+Forthe transition between DTO and 
+corresponding business entity , 
+there are typically mapper classes 
+(CustomerMapper ) that support
+mapping in both directions . 
+
+--- Page 25 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+25Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize DTOs (Data 
+Transfer Objects) whenever responses
+must deliver clearly structured , mobile -
+optimized data (e.g., flat structures, no 
+cyclic references).
+Software Architects use the DTO -Pattern , 
+when network traffic needs to be optimized
+by reducing the number of calls , especially in 
+a client -server architecture.
+Finally, the main method above 
+shows how everything is typically 
+put together .
+
+--- Page 26 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+26Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Software Architects utilize the adapter
+pattern to moderate between domain -
+specific objects and a client -facing API layer . 
+An Adapter separates external
+representation from internal domain logic .
+
+--- Page 27 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+27Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Two types of adapters are distinguished:
+•Adapter with delegation (object adapter )
+•Adapter with inheritance (class adapter )
+Software Architects utilize the adapter
+pattern to moderate between domain -
+specific objects and a client -facing API layer . 
+An Adapter separates external
+representation from internal domain logic .
+--- Page 28 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+28Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Two types of adapters are distinguished:
+•Adapter with delegation (object adapter )
+•Adapter with inheritance (class adapter )
+Software Architects utilize the adapter
+pattern to moderate between domain -
+specific objects and a client -facing API layer . 
+An Adapter separates external
+representation from internal domain logic .
+--- Page 29 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+29Requirement 4: All system functions must also be available via a mobile app.example
+The clear objective here is to structure
+backend services in such a way that 
+mobile clients can access them in a 
+stable, secure, and efficient manner.
+Strategy enables parallel API 
+versions (v1, v2, etc.) within the 
+same code via interchangeable
+strategy implementations.
+Finally, Software 
+Architects may achieve
+versioning byadapting
+the strategy pattern .
+
+--- Page 30 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+30Requirement 5: The system must process personal data in accordance with the 
+GDPR
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to the introduction of data protection mechanisms (audit trails, pseudonymisation, right 
+to be forgotten, access control at attribute level).
+Why difficult to change Architecture Decisions later : 
+Data protection- friendly design must be conceived at an early stage. 
+If the system was not designed from the outset to separate sensitive and non- sensitive data, 
+separating them later is very time- consuming and prone to errors.example
+
+--- Page 31 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+31Requirement 6: The data entry page should contain a calendar component for date 
+fields.
+Architecture Significance: No.Resulting Architecture Decisions: 
+UI component – no significant impact on architecture or system structure.example
+
+--- Page 32 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+32Requirement 7: The application must be available in German and English.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Internationalisation (i18n) is often handled via libraries; rarely affects the system architecture 
+in the strict sense.example
+
+--- Page 33 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+33Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to the introduction of event stores, audit logs, versioned data storage, immutable 
+objects (immutability), and separation of live and historical data.
+Why difficult to change Architecture Decisions later : 
+A system that was not built with an audit target image usually does not have suitable 
+historization. 
+Subsequent introduction of complete traceability (e.g. at field level) requires changes to 
+almost all persistence, logging and transaction mechanisms.example
+
+--- Page 34 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+34Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+Persistence of events
+with timestamp , user
+context , and other
+context information
+Generation and 
+forwarding of audit -
+relevant events
+Immutable storage 
+of events (possibly 
+append -only )
+Provides user 
+identity for audit
+context
+Let's see what further 
+measures a software
+architect might take here.
+Architecture Significance: Requirement 
+8 calls for a system-wide cross-cutting 
+concern solution that must be deeply
+integrated into all services. 
+Retrofitting audit trails is 
+extremely costly , so this topic
+must be addressed early on in 
+the architecture design phase.
+--- Page 35 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+35Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Adapting the Event Sourcing Pattern 
+(Architecture Pattern ) your design
+persists the state of a business service 
+(e.g., Order or Customer service) as a 
+sequence of state -changing events . 
+Whenever the state of a 
+business service changes, 
+a new event is appended
+to the list of events .
+A business service (e.g., 
+Customer) may reconstruct
+a service’s (e.g., Order) 
+current state by replaying
+all appropriate events.
+--- Page 36 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+36Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Furthermore, the Observer Pattern could 
+be adapted for the Audit Log Service so 
+that the Audit Log Service registers as
+an observer with Business Service(s) 
+and is hence automatically informed of 
+state changes in business services.
+However , this approach would require the 
+introduction of deliberate log calls in every 
+business service, which would mix business 
+and technical (logging) logic . 
+--- Page 37 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+37Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+A pattern that would help here is Proxy .
+Proxy is a structural design pattern that 
+can be used to provide a substitute or 
+placeholder for another object . 
+A proxy intercepts access to the original
+object , allowing something to be executed
+before or after the request to the original 
+object (for example, sending a log event to 
+the audit log service ).
+By wrapping a business service in a business service 
+proxy and placing the logging inthe proxy , we relief the 
+business service from having notify registered 
+observers (via LogEvents ) itself.
+--- Page 38 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+38Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Let's combine the two 
+patterns (observer and proxy ) 
+in concrete terms and see
+what design they lead to in 
+the form of a class diagram.
+These classes adapt
+the Proxy pattern .
+--- Page 39 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+39Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Let's combine the two 
+patterns (observer and proxy ) 
+in concrete terms and see
+what design they lead to in 
+the form of a class diagram.
+These classes adapt
+the Proxy pattern .
+And these classes adapt
+the Observer pattern .
+--- Page 40 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+40Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Let’s have a look at a 
+corresponding Java 
+implementation .
+
+--- Page 41 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+41Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+
+--- Page 42 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+42Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+Finally a client pulls
+all strings together . 
+
+--- Page 43 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+43Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+In this design , the business service
+(OrderServiceImpl) is completely freed
+from knowledge of logging . 
+At the same time, a specific
+logger proxy (dedicated class) 
+must be created for each 
+business service. 
+--- Page 44 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+44Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+The design could be further improved 
+by a dynamic proxy –a feature offered
+since JDK 1.3 via the 
+java.lang.reflect.Proxy interface.
+In an appropriately adjusted design , most 
+interfaces and classes remain the same as before.
+However, the approach for the 
+AutoLogger proxy would 
+change fundamentally . 
+A generic proxy class would now 
+be used (i.e., one proxy class for 
+all business services) …
+--- Page 45 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+45Requirement 8: All business processes must be traceable and auditable for audit 
+purposes.example
+The goal is to collect audit data 
+centrally , store it securely and 
+efficiently , and make it reconstructable
+if necessary .
+The design could be further improved 
+by a dynamic proxy –a feature offered
+since JDK 1.3 via the 
+java.lang.reflect.Proxy interface.
+… and utilized in a respective 
+main method as shown here …
+
+--- Page 46 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+46Requirement 9: The system must be integrated into the company's existing SAP 
+environment.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+This leads to the selection of specific integration patterns (e.g. RFC, IDoc, BAPI, event 
+bridges) and restrictions in the choice of platform and technology stack.
+Why difficult to change Architecture Decisions later : 
+Integration into an ERP system affects all system layers –from the domain model to the 
+deployment mechanism. 
+Decoupling at a later stage is expensive and risky.example
+
+--- Page 47 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+47Requirement 10: The background colour of the start page should be blue.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Pure UI configuration –does not affect architectural elements.example
+
+--- Page 48 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+48Requirement 11: The app should also be usable in landscape mode.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Design question at the UI level (e.g. responsive design), affects layout strategies, not the 
+architecture.example
+
+--- Page 49 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+49Requirement 12: The solution should be cloud-native (e.g. on AWS).
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to a microservice- based structure, containerised deployments, use of platform 
+services (e.g. S3, Lambda) and DevOps practices.
+Why difficult to change Architecture Decisions later : 
+A subsequent switch to a monolithic on- premise system would be virtually impossible without 
+redesigning the entire architecture. 
+Switching to a different cloud platform can also be difficult (lock -in effects).example
+
+--- Page 50 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+50Requirement 12: The solution should be cloud-native (e.g. on AWS).example
+Route control , 
+authentication , 
+versioning
+Microservices contain business logic in 
+loosely coupled services and runin their 
+own execution environments …
+… based on a lightweight 
+container infrastructure
+(e.g., Docker) …
+… while container orchestration and 
+other platform services optimize the 
+operating environment depending on 
+e.g., workload context (e.g., Kubernetes).
+Cloud -native storage 
+services are used for data 
+storage (e.g., S3, 
+DynamoDB, RDS).
+Finally, a web application 
+uses microservices in the 
+backend to realize 
+selected use cases.
+Let's see what further 
+measures a software
+architect might take here.
+Architecture Significance: Requirement 
+12 calls for fundamental decisions 
+regarding service granularity , 
+technology stack , and DevOps culture . 
+The transition from a 
+monolithic architecture to 
+cloud -native requires massive
+re-engineering efforts .
+--- Page 51 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+51Requirement 12: The solution should be cloud-native (e.g. on AWS).example
+An important goal here is to structure
+Microservices in such a way that they 
+are lightweight , independently
+deployable , and scalable.
+Adapting a hexagonal architecture 
+approach (ports & adapters) promotes
+strict separation between business 
+logic (internal) and context -
+adaptations (external (e.g., client, API, 
+database, message broker)).
+--- Page 52 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+52Requirement 12: The solution should be cloud-native (e.g. on AWS).example
+An important goal here is to structure
+Microservices in such a way that they 
+are lightweight , independently
+deployable , and scalable.
+Another software 
+architecture principle is called 
+service statelessness.
+This principle requires that a 
+service does not store any 
+information between service-
+requests, orthat it fully delegates 
+persisting any status information 
+to specific components.
+This is illustrated by the many 
+equivalent instances of the 
+order service.
+Each request (e.g., to 
+the order service) is 
+hence treated as an 
+independent, complete 
+transaction .
+This offers major 
+advantages such as …
+… easy scalability (since any 
+server can process the request )
+high fault tolerance (since the failure of one 
+server does not affect the overall status).
+… and improved agility and maintainability , since the 
+complexity of status management is delegated to 
+external components (e.g., central database).
+--- Page 53 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+53Requirement 13: The system should be configurable by business users without 
+developer support.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to the introduction of a set of rules, configuration UI, script engines or rule- based 
+evaluation logic. This means separation of static code and dynamic behaviour.
+Why difficult to change Architecture Decisions later : 
+Such a metamodel has a profound impact on the architecture. 
+It requires separate test procedures, validation mechanisms and UI elements –and is difficult 
+to dismantle because logic has been ‘moved out of the code’.example
+
+--- Page 54 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+54Requirement 14: Users should be able to sort data records by columns.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Typically implemented in the client component (front end); no structural architecture 
+implications.example
+
+--- Page 55 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+55Requirement 15: Password policies should require at least 8 characters and one 
+capital letter.
+Architecture Significance: No.Resulting Architecture Decisions: 
+A security policy that can be implemented in an authentication module (or input validation on 
+the level of UI forms); no profound impact on architecture.example
+
+--- Page 56 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+56Requirement 16: The system must be fully multi -client capable.
+Architecture Significance: Yes.
+Resulting Architecture Decisions: 
+Multi -tenancy requires far -reaching decisions at the data level: separate databases, schema 
+sharing or shared schemas with tenant identifiers. It also affects all access controls, caching 
+strategies, logging and configuration models.
+Why difficult to change Architecture Decisions later : 
+A system that has not been built to be multi -tenant can only be converted with great effort –
+partly because of deeply embedded assumptions about data and session isolation. 
+Changing the tenant strategy (e.g. from shared to isolated schema) is also complex.example
+
+--- Page 57 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+57Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+Retrofitting multi -tenancy later
+on is risky and prone to errors , 
+hence early architecture 
+decisions arenecessary .
+Architecture Significance: 
+Multi -tenancy affects the 
+entire data model , 
+authentication , security 
+model , and service 
+behavior .
+A web application 
+determines thetenant 
+context , for example, by 
+capturing it during login.
+Tenant Context Resolver 
+receives the tenant 
+context orderives it from 
+respective requests.
+Execution and data processing 
+of Business Services takes 
+place taking the tenant context 
+into account . 
+A shared database separates
+the different tenant data either 
+based on schema, database 
+instance, or table columns . 
+Let’s have a quick look 
+into thedifferent 
+database approaches.
+--- Page 58 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+58Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+Database-based 
+separation (separate
+database per tenant ), 
+where each tenant gets its 
+own physical or logical
+database instance.
+Each DB has its own 
+users, configurations , 
+indexes, etc.
+--- Page 59 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+59Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+Schema-based separation 
+(shared database, separate
+schema perclient ), where all
+clients usethe same database 
+instance, but each client has its 
+own database schema.
+The tables are identical for each 
+schema (e.g., schema_a.users, 
+schema_b.users, etc.).
+
+--- Page 60 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+60Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+Column -based separation 
+(shared schema, shared 
+tables), in which all tenants 
+share the same tables. 
+Separation is achieved using a 
+tenant_id column in each table.
+For example, users(id, tenant_id, 
+name, email).
+
+--- Page 61 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+61Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+Retrofitting multi -tenancy later
+on is risky and prone to errors , 
+hence early architecture 
+decisions arenecessary .
+Architecture Significance: 
+Multi -tenancy affects the 
+entire data model , 
+authentication , security 
+model , and service 
+behavior .
+A web application 
+determines thetenant 
+context , for example, by 
+capturing it during login.
+Execution and data processing 
+of Business Services takes 
+place taking the tenant context 
+into account . 
+A shared database separates
+the different tenant data either 
+based on schema, database 
+instance, or table columns . 
+Let’s also have a quick look 
+into some design approaches
+for Tenant Context Resolver
+and Business Service(s) .
+--- Page 62 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+62Requirement 16: The system must be fully multi -client capable.example
+The goal of multi -tenancy is to ensure that each
+data access is uniquely assigned to a tenant and 
+that data isolation is consistently maintained .
+The Context Object pattern can be used 
+to encapsulate context (state and 
+behavior ) that is relevant to a user or the 
+request being processed and make it 
+available to application components .
+This decouples application 
+components from the complexity of 
+the environment .
+The design pattern helps to manage 
+application context efficiently .
+--- Page 63 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+63Requirement 17: The system must meet real -time requirements (e.g. responses 
+within 50 ms).
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Such requirements force specific design decisions, for example regarding memory structure, 
+data storage in RAM, use of asynchronous communication, and avoidance of I/O blocking.
+Why difficult to change Architecture Decisions later : 
+If you design a system without real -time requirements (e.g. with DB -based workflows, 
+heavyweight middleware), converting it to real -time processing is practically a complete rebuild.example
+
+--- Page 64 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+64Requirement 18: The system should automatically log out after 15 minutes of 
+inactivity.
+Architecture Significance: No.Resulting Architecture Decisions: 
+A session timeout rule that can be implemented locally in web server/framework 
+configurations.example
+
+--- Page 65 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+65Requirement 19: Input fields should perform validations (e.g. email format).
+Architecture Significance: No.Resulting Architecture Decisions: 
+Affects the validation logic in the front end or service layer –no significant structural decision.example
+
+--- Page 66 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+66Requirement 20: The system must be expandable by third parties (e.g. partner 
+companies) via publicly documented interfaces.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to the introduction of stable, versioned interfaces, API gateways, developer portals, 
+authentication and authorisation mechanisms for external parties.
+Why difficult to change Architecture Decisions later : 
+A system without clean API concepts is usually closely linked to the internal data model. 
+Subsequent ‘API isolation’ requires extensive refactoring and careful encapsulation of 
+internal details.example
+Requirement 20 leads to similar considerations 
+regarding architecture-significance and corresponding 
+approaches with regard to fundamental design 
+decisions , such as requirement 4 (All system 
+functions must also be available via a mobile app).
+--- Page 67 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+67Requirement 21: The system must support machine learning (e.g. by training and 
+using models based on usage data).
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Requires data pipelines, separation of OLTP and OLAP, data annotations, logging of user 
+interactions, model repository, model versioning.
+Why difficult to change Architecture Decisions later : 
+If the system does not provide for separation of training and production data from the outset, 
+logging, anonymisation and ML infrastructure are difficult to retrofit –especially in a regulatory 
+context.example
+
+--- Page 68 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+68Requirement 22: The application should offer a print function for invoices.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Affects formatting and export, but no fundamental changes to architecture or technology 
+stack.example
+
+--- Page 69 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+69Requirement 23: The system should allow users to reset their passwords themselves.
+Architecture Significance: No.Resulting Architecture Decisions: 
+Standard feature, usually implementable using existing authentication/IAM components; no 
+significant architecture decisions required.example
+
+--- Page 70 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+70Requirement 24: The system must support rule-based decision logic that can be 
+adapted by specialists at runtime.
+Architecture Significance: Yes.Resulting Architecture Decisions: 
+Leads to the separation of business logic and control logic, often also to the introduction of 
+rule engines (e.g. Drools), decision tables, UI components for rules, validation and versioning of 
+rules.
+Why difficult to change Architecture Decisions later : 
+A code- based system can only be converted into a rule- based system with great effort. 
+Data models, UI and error handling must be partially redesigned.example
+
+--- Page 71 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+71Requirement 24: The system must support rule-based decision logic that can be 
+adapted by specialists at runtime.example
+Execution of decision 
+rules based on business 
+services / objects.
+Maintaining rules (e.g., 
+editing, validation, versioning).
+Delegation of data 
+transformation and other 
+logic to Rule Engine , 
+response to results
+Architecture Significance: A 
+rule-based system requires a 
+clear separation of code and 
+configurable logic , data model 
+reflection capability , and 
+dynamic evaluation .
+The changeover is 
+profound , especially in the 
+case of originally hard-
+coded logic .
+Let’s also have a
+quick look into 
+some design 
+approaches for 
+Rule Engine and 
+Business 
+Service(s) .
+--- Page 72 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Requirements Assessment
+72Requirement 24: The system must support rule-based decision logic that can be 
+adapted by specialists at runtime.example
+The goal is to keep rules externally configurable , 
+versionable , and executable, thereby enabling
+(substantial) changes to be made to the system 
+without having to recompile it .
+An approach to achieving high 
+flexibility and adaptability is a 
+design based on the 
+Reflection pattern .
+Metaobjects are 
+read and interpreted by Base Level components
+Functional components realize application logic by reading and interpreting metaobjects on the Meta Level
+Reflection separates meta-objects from core 
+application logic using a 2-layer architecture:
+•A meta-level contains the meta-objects 
+reflecting themodifiable business rules.
+•A base layer contains the business 
+components that delegate parts of the 
+business logic to meta-objects and consult
+them for the business logic at runtime .
+--- Page 73 ---
+@ Ingo Arnold©Ingo Arnold
+Requirement 24: The system must support rule-based decision logic that can be 
+adapted by specialists at runtime.
+Interpreter is a behavioural 
+pattern that defines a method
+for interpreting and evaluating
+a language grammar .
+It provides a mechanism for evaluating
+sentences in the corresponding 
+language by representing their grammar
+as a series of classes.Exercise Opening
+Requirements Assessment
+73example
+The goal is to keep rules externally configurable , 
+versionable , and executable, thereby enabling
+(substantial) changes to be made to the system 
+without having to recompile it .
+The Interpreter pattern can 
+also be used to allow flexibility
+in modifying rules without 
+requiring recompilation .
+Each class represents a rule or expression
+in the grammar , and the pattern allows these 
+classes to be assembled hierarchically to 
+interpret complex expressions.
+--- Page 74 ---
+@ Ingo Arnold©Ingo Arnold
+Requirement 24: The system must support rule-based decision logic that can be 
+adapted by specialists at runtime.
+Exercise Opening
+Requirements Assessment
+74example
+The goal is to keep rules externally configurable , 
+versionable , and executable, thereby enabling
+(substantial) changes to be made to the system 
+without having to recompile it .
+This is a grammar example (in 
+BNF) of a section of the Java 
+programming language (i.e., 
+the grammar of Java 
+expressions).
+Grammar (in BNF) of Java Expressions
+Giving an interpreter that is built into a 
+system further access to the 
+business /document object model (DOM) of
+the surrounding system allows business
+experts to formulate sophisticated
+business rules .
+--- Page 75 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+75Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Which were common characteristics of requirements that were architecture 
+significant ?
+2.What is the extent to which the following types of requirements tend to be 
+architecture- significant (answers are provided in the respective Mentimeter)?
+elaborate
+
+--- Page 76 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+76Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”). 
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial 
+assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+elaborate
+--- Page 77 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+77Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”). 
+Subsequent architectural impact : Requires a configurable UI framework, separation of UI 
+structure and business logic, possibly a metamodel for fields and masks.
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial 
+assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+--- Page 78 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+78Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”).
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+Subsequent architectural impact : Multilingual database content, language- specific rules (e.g. 
+formatting), language context in APIs –affects persistence and business logic.
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial 
+assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+--- Page 79 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+79Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”).
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+Subsequent architectural impact : Mobile use requires an API -first approach, offline mode, 
+caching strategies, token -based authentication, push mechanisms –deep intervention in 
+system architecture.
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: 
+Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+--- Page 80 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+80Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”).
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial 
+assessment: Implementation in the front end, simple roles).
+Subsequent architectural impact : Increasing role differentiation → attribute -based access 
+control (ABAC), finely granulated rights, integrity protection → affects system model, APIs, security architecture.
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: 
+Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+--- Page 81 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+81Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture but 
+become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”).
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial 
+assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: Pure formatting function).
+Subsequent architectural impact: Requirements for data filtering, visibility rules, client 
+protection, performance with large amounts of data → export subsystem with security and 
+configuration logic.
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).
+--- Page 82 ---
+@ Ingo Arnold©Ingo Arnold
+Exercise Opening
+Overview
+82Let us discuss the following questions in order to reflect on the significance 
+assessments that we have performed:
+1.Are there requirements that do not initially appear to be relevant to the architecture
+but become so later on? Let us have a look at a few examples:
+a.Modifiability in the user interface (Example: “Specialist users should be able to customise UI 
+fields”. Initial assessment: “Only a UI issue, low relevance”).
+b.Internationalization (Example: “Texts should be displayed in German and English”. Initial assessment: Localisation via UI labels).
+c.Mobile use (Example: “The app should also work on tablets”. Initial assessment: UI -only issue).
+d.Role and rights model (Example: “Admin and user rights must be differentiated”. Initial 
+assessment: Implementation in the front end, simple roles).
+e.Export function as ‘simple CSV’ (Example: “Data should be exportable”. Initial assessment: Pure formatting function).
+f.Reporting/statistics (Example: “A reporting module would be nice”. Initial assessment: Can be 
+added later).Subsequent architectural impact: Leads to data warehouse, separate reporting stack (ETL, 
+OLAP), data quality management → strong influence on data architecture.
+--- Page 83 ---
+@ Ingo Arnold©Ingo Arnold
+ 83■Objective of the Exercise
+•The goal is to identify which requirements are architecturally significant and to reason about
+why they are .
+•Architecturally significant requirements (ASRs) are those that:
+•Influence fundamental design decisions.
+•Lead to structures that are difficult to change once implemented.
+•Affect multiple components , layers , or quality attributes of the system.
+•Students analyse requirements , identify ASRs , and design coarse -grained components as well 
+as more detailed architectural approaches for selected set of requirements .Wrap -Up
+--- Page 84 ---
+@ Ingo Arnold©Ingo Arnold
+ 84■Understanding Significance
+•A requirement is architecture- significant if it strongly shapes the system’s structure or 
+behaviour .
+•Indicators of significance :
+•Impacts non- functional qualities (e.g., availability, performance, scalability, security).
+•Requires new architectural mechanisms or cross -cutting solutions.
+•Drives irreversible design choices (platforms, frameworks, integration approaches).
+•Conversely , non-significant requirements typically affect only local elements (UI, formatting, 
+small validation rules).Wrap -Up
+--- Page 85 ---
+@ Ingo Arnold©Ingo Arnold
+ 85■Examples of architecture -significant requirements 
+1.High availability (24/7) . Redundant infrastructure (load balancers, failover), distributed deployment, 
+monitoring –difficult to retrofit.
+4.All functions via mobile app. API -first architecture, authentication tokens, DTOs, adapters, 
+versioning strategies –major design effort.
+5.GDPR compliance . Requires early data segregation, anonymisation, auditing, access control –
+foundational to architecture.
+8.Traceability and auditability . Event sourcing, audit log services, immutable storage, observer 
+pattern –cross- cutting concern.
+9.Integration into SAP . Imposes technology and integration constraints (e.g. BAPI, IDoc), affects all 
+layers.
+12.Cloud-native deployment . Microservices, containers, orchestration (Kubernetes), stateless 
+services –foundational redesign.
+13.Configurable by business users . Requires rule/configuration engines, separation of code and 
+logic, metamodeling.
+16.Multi -tenancy . Data isolation per tenant (schema, DB, or column -based), tenant context resolver 
+pattern –early decision crucial.
+17.Real -time performance. In -memory data, async communication, lightweight messaging –cannot 
+easily be added later.Wrap -Up
+--- Page 86 ---
+@ Ingo Arnold©Ingo Arnold
+ 86■Examples of architecture -significant requirements (continued)
+20.Extendable by third parties (public APIs). API gateways, developer portals, authentication and 
+versioning –defines external architecture boundary.
+21.Machine learning support . Data pipelines, model repositories, training/production data separation.
+24.Rule -based decision logic (runtime editable) . Rule engine (e.g., Drools), reflection, interpreter 
+pattern –separates logic from code and adds configurability.
+■Patterns and Design Approaches Introduced
+•Command Pattern –encapsulates offline transactions for later synchronization.
+•DTO Pattern –optimizes data transfer for APIs/mobile.
+•Adapter Pattern –decouples internal models from external APIs.
+•Event Sourcing Pattern –ensures traceability and auditability.
+•Observer Pattern –automates audit logging and event handling.
+•Context Object Pattern –manages multi -tenant context.
+•Reflection and Interpreter Patterns –enable dynamic rule evaluation.
+•Hexagonal (Ports & Adapters) Architecture –supports cloud-native, decoupled service designs.Wrap -Up
+--- Page 87 ---
+@ Ingo Arnold©Ingo Arnold
+ 87■Misleadingly “Non-Significant” Requirements
+•Some requirements may seem trivial at first but later have deep architectural consequences :
+•Modifiable UI : configurable UI frameworks, meta- layer for field definitions.
+•Internationalization: multilingual persistence, API adaptations.
+•Mobile use: caching, offline mode, authentication tokens.
+•Roles and rights: may evolve into attribute- based access control (ABAC).
+•Export /reporting: may lead to data warehouse, ETL pipelines, and OLAP systems.
+■Overall Learning Objectives
+•You should beable to …
+•Differentiate between architecturally significant andnon- significant requirements.
+•Explain why a given requirement leads to long lasting design decisions.
+•Apply heuristics to assess significance (impact breadth, volatility, conflict potential, stakeholder importance).
+•Elaborate high- level architecture sketches to investigate design implications.
+•Evolve high- level architecture sketches towards further detail in order to explore design approaches onthe next 
+level of detail (e.g., based on software architecture or design patterns).Wrap -Up
+--- Page 88 ---
+@ Ingo Arnold©Ingo Arnold
+Questions
+88

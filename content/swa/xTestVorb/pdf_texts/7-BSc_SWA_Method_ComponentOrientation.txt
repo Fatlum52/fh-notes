@@ -1,0 +1,253 @@
+
+--- Page 1 ---
+Software Architecture
+Exercise –Component -Orientation
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo ArnoldCopyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Architecture Context
+In today’s exercise, we will pursue Domain -Driven Design , with a special 
+focus on addressing the core Domain Model and respective Business 
+Components .
+3
+Solution as a
+Whole
+Software Part 
+under Design
+Business Components (Domain Model) . 
+Core Business Components and 
+complementary components that help 
+realize related technical aspects.
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo Arnold
+Exercise Opening
+Overview
+4In today’s exercise, we continue what we started last week (Domain-Driven 
+Design), where we arrived at the following . 
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+5We want to further improve our design by identifying coarser structures 
+(Components) and their corresponding Interfaces in order to reduce the current 
+complexity (many classes). 
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo ArnoldComponent Orientation
+Repeating Core Concepts
+6Components are coarser granular than classes –in fact, components
+compose many classes into a larger whole .
+The example below shows one way in which the gaming platform classes
+could be assembled into components .
+
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo ArnoldComponent Orientation
+Repeating Core Concepts
+7Components make their capabilities available to the outside via dedicated 
+interfaces (the providing component exports its interfaces).
+Components usethe capabilities of other components via interfaces (the 
+consuming component imports interfaces). 
+Components bind to interfaces –notto implementations .
+In the example below, component CBexports interface S, while CAimports
+interface S .
+
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo Arnold
+Component Orientation
+Repeating Core Concepts
+8Components canthemselves consist of other components :Component 
+Composition.
+•Component C is comprised of three components Cx, Cy, and Cz. 
+•Cx exports interfaces R and S, while Cz exports interface T and Cy interface U. 
+•Cx imports interfaces U and T, while Cy imports V and Cz an external interface W. 
+•Component C exports the interfaces R, S, and T.
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+9In a first step you analyse the existing class diagram and identify possible 
+software components that can be clearly delineated from a functional /technical
+perspective.
+elaborate
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+10Beyond the identification of Components , also elaborate (per Component ) … 
+•its responsibilities
+•its aggregated classes
+•the interfaces it provides and its dependencies on other components
+elaborate
+--- Page 11 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+11Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+
+--- Page 12 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+12Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+There are a variety of responsibilities 
+associated with the Candidate domain concept , 
+such as ...
+• Registration of new candidates and lifecycle
+management of existing candidates 
+(CandidateFactory, Candidate, CandidateRepository).
+• Management of profile information 
+(CandidateProfile).
+• Change of status (e.g., “invited,” “evaluated,” 
+“rejected”) and logic for status management 
+(CandidateStatus).
+• Data storage, etc.
+The above responsibilities could be combined in 
+a CandidateManagement component .
+--- Page 13 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+13Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+To analyse component interactions , we ask 
+ourselves questions such as ...
+• Who wants to register new candidates? 
+Candidate component: InterviewPlanner.
+• Who evaluates candidates? Candidate 
+component: EvaluationEngine.
+• Who wants to be informed about changes ? 
+Candidate component: NotificationDelivery.
+• Who accesses applicant data without changing it? 
+Candidate component: HiringPanelSupport.
+The answers to these questions give us an initial 
+idea of the component interactions and the 
+corresponding interfaces between 
+CandidateManagement andother components. 
+--- Page 14 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+14Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+From the above considerations , two interfaces
+are derived , for example, which 
+CandidateManagement exports ...
+• ICandidateService for changes to the candidate
+object (e.g., create, update), which contains the 
+following method, for example:
+ovoid registerCandidate(CandidateProfile profile);
+• ICandidateQueryService for read -only access (e.g., 
+getCandidateProfile), which contains, for example, the 
+method:
+oCandidateProfile getCandidateById(UUID candidateId);
+In addition, interfaces that 
+CandidateManagement imports become 
+apparent:
+• INotificationService , which is provided by a 
+NotificationDelivery component , for example.
+ovoid notifyUser(String recipientEmail, String subject, String message);
+--- Page 15 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+15Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+Considerations regarding architecture 
+principles and further architecture best 
+practices lead to design improvements , such as 
+...
+• The component EvaluationEngine must not access 
+CandidateRepository directly, but only the interface
+ICandidateQueryService.
+• The component NotificationDelivery is only an 
+event consumer , not directly coupled.
+• The component HiringPanelSupport only binds to 
+the interface ICandidateQueryService.
+--- Page 16 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+16Before you start solving the problem , let's look at an example to see how this 
+is typically approached .example
+The overall design is ultimately validated and 
+quality -tested based on questions such as …
+• Does each component have a clear 
+business /technical responsibility ?
+• Is data access possible via well- formed interfaces?
+• Is the system easy to testand expand ?
+• Are there any unnecessary dependencies?
+--- Page 17 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+17Beyond the identification of Components , also elaborate (per Component ) … 
+•its responsibilities
+•its aggregated classes
+•the interfaces it provides and its dependencies on other components
+elaborate
+--- Page 18 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+18Here I will share my reference solution with you .example
+
+--- Page 19 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+19Elaborate a proposal for how the registerCandidate(CandidateProfile) method of 
+the ICandidateService interface could be realized in a corresponding 
+implementation of ICandidateService based on objects of the Candidate , 
+CandidateFactory , and CandidateRepository classes.
+Use a diagram of type UML Sequence Diagram to sketch your design. 
+elaborate
+--- Page 20 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+20Here I will share my reference solution with you .example
+
+--- Page 21 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+21Investigate and indicate all types of coupling that exist between the 
+CandidateManagement and EvaluationEngine components and suggest respective 
+improvements .
+elaborate
+--- Page 22 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+BPO Example
+22Here I will share my reference solution with you .example
+
+--- Page 23 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+23

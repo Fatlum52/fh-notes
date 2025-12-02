@@ -1,0 +1,114 @@
+
+--- Page 1 ---
+Software Architecture  
+Basic Architecture Concepts 
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Component  .................................................................................. 3 
+2 Interface  ...................................................................................... 4 
+3 Composition  ................................................................................ 4 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Component  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und konzentrie-
+ren Sie sich auf das Verständnis des Unterschieds zwischen  Klassen, Objekten und 
+Komponenten sowie deren Rolle in der Architektur.  Sie sollten in der Lage sein, die 
+Komponenten -Orientierung von der Objekt -Orientierung zu differenzieren sowie zu 
+erklären, inwiefern die Komponenten -Orientierung komplementär zur Objekt- Orien-
+tierung ist.  
+ 
+Beantworten Sie darüber hinaus die folgenden Fragen:  
+• Welche Gemeinsamkeiten (und Unterschiede) weisen die in  diesem Kapitel ge-
+gebenen Component -Definitionen auf?  
+• Warum reichen Klassen allein nicht aus, um komplexe Softwaresysteme struk-
+turiert zu gestalten?  
+• Welche Vorteile bieten Komponenten gegenüber Klassen /Objekten  im Hin-
+blick auf Wartbarkeit und Wiederverwend barkeit?  
+ 
+Was ist die zentrale Eigenschaft einer Software -Komponente?  
+A. Sie enthält immer mindestens eine Datenbankverbindung.  
+B. Sie ist ein isolierter Teil eines Systems mit klar definierten Schnittstellen.  
+C. Sie kann nur innerhalb eines einzelnen Prozesses gen utzt werden.  
+D. Sie ersetzt automatisch jede andere Komponente im System.  
+ 
+Welche der folgenden Aussagen beschreibt am besten den Vorteil von Komponen-
+ten?  
+A. Komponenten sind immer schneller als einzelne Klassen.  
+B. Komponenten verhindern jede Form von Abhängigkeiten.  
+C. Komponenten erhöhen die Wiederverwendbarkeit durch klare Abgrenzung.  
+D. Komponenten ersetzen automatisch das gesamte Systemdesign.  
+ 
+Was ist KEIN typisches Merkmal einer Komponente?  
+A. Kapselung von Funktionalität.  
+B. Definierte Schnittstellen.  
+C. Austa uschbarkeit innerhalb eines Systems.  
+D. Direkter Zugriff auf alle anderen Komponenten ohne Beschränkung.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in : 
+• Software Architecture: A Comprehensive Framework and Guide for Practition-ers [Vogel, Arnold et al 2011] (aka: SWA -Buch) – Kapitel:  
+o 6.2.3 Component Orientation  
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ • den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+2 Interface  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und beantwort en 
+Sie die folgenden Fragen:  
+• Warum unterscheidet man zwischen Interfaces und dessen Implementierung 
+im Zusammenhang mit Komponenten -Orientierung?  
+• Welche Aspekte und Arten der „Bindung“ existieren, wenn zwei Komponenten 
+über ein entsprechendes Interface miteinander kooperieren, bzw. aneinander 
+gebunden sind?  
+ 
+Wozu dient ein Interface in der Softwarearchitektur?  
+A. Es implementiert die konkrete Logik einer Komponente.  
+B. Es kapselt interne Datenbanktabellen vor den Entwicklern.  
+C. Es definiert die erlaubten Zugriffsmöglichkeiten auf eine Komponente.  
+D. Es sorgt dafür, dass eine Komponente nur einmal instanziiert werden kann.  
+ 
+Warum sind Interfaces wichtig für die Kopplung von Komponenten?  
+A. Sie reduzier en die Abhängigkeit von konkreten Implementierungen.  
+B. Sie beschleunigen den Compiler bei der Codegenerierung.  
+C. Sie ermöglichen automatische Datenbankabfragen.  
+D. Sie stellen sicher, dass jede Komponente eine grafische Oberfläche besitzt.  
+ 
+Was passiert, wenn ein e Komponente ihr Interface verändert?  
+A. Andere Komponenten, die das Interface nutzen, sind eventuell betroffen.  
+B. Das gesamte System kompiliert automatisch neu ohne Probleme.  
+C. Alle anderen Komponenten bleiben unabhängig und unverändert.  
+D. Nur die interne Implemen tierung der Komponente wird angepasst.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.   
+ 
+3 Composition 
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch  und machen  Sie 
+sich das Schema des Aufbaus  einer Komponente in Java (ohne, dass Component -Ori-
+entation in Java mit eigenen Sprachmitteln unterstützt wird) so genau bewusst, dass 
+--- Page 5 ---
+5 
+© Ingo Arnold  – Software Architecture  
+ Sie dieses für die Konstruktion eigener Komponenten in Java jederzeit adaptieren 
+könnten.  
+ Seien Sie darüber hinaus in der Lage, das Façade  Muster und dessen Einsatzbereich 
+zu erklären  und überlegen Sie sich –  über die generische Anwendung des Musters in 
+den Unterlagen hinaus –  einen konkreten Fall, in dem Ihnen die  Anwendung des 
+Façade  Musters gute Dienste leistet.  
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 

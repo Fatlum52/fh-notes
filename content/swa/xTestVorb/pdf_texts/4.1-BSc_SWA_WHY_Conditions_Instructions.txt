@@ -1,0 +1,81 @@
+
+--- Page 1 ---
+Software Architecture  
+Architecture Conditions  
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Architecture Condition  .................................................................. 3 
+2 Architecture Significance  ............................................................... 3 
+3 Architecture Approach  .................................................................. 4 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Architecture Condition  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Welche – die Architektur eines Systems formenden  – Arten von Kräften wer-
+den unter dem Begriff Architecture Condition  zusammengefasst ?  
+• Welche methodischen Mittel werden vorgeschlagen, um (a) fu nktionale und 
+(b) nicht -funktionale Anforderungen prägnant zu erfassen?   
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture in Prac tice [Bass et al. 2003]  – Kapitel:  
+o 4.3 Quality Attribute Scenarios  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] (aka: SWA- Buch) – Kapitel:  
+o 5 Architecture Requirements (WHY)  
+• Enterprise Architecture Function ― a pattern language for planning, designing, and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.9.3 Architecture Condition 
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+2 Architecture Signifi cance  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Inwiefern ist es nützlich, gegebene Anforderungen an ein Software-System auf 
+ihre jeweilige Architektur -Signifikanz zu untersuchen?  
+• Welche Kritik könnte man an meiner Heuristik zur Erkennung/Bestimmung der 
+Architektur -Signifikanz einer konkret gegebenen An forderung anbringen?  
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, 
+and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.9.1 Architecture Significance  
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ • den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+3 Architecture Approach  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Was ist ein Architecture Approach und welch e Beiträge leistet eine Vorgehens-
+weise zur Entwicklung einer Gesamtarchitektur, wenn man Architecture Ap-
+proaches  als methodisches Mittel einsetzt?  
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, 
+and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.9.5 Architecture Approach  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 

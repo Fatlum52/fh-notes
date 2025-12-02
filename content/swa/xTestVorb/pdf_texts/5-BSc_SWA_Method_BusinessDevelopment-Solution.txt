@@ -1,0 +1,678 @@
+
+--- Page 1 ---
+Software Architecture
+Exercise –Business Development
+BSc
+Ingo Arnold
+--- Page 2 ---
+@ Ingo Arnold
+©Ingo ArnoldCopyright Notice
+2© Ingo Arnold. All rights reserved.
+You may use these materials for your personal internal reference purposes only. 
+You may not reuse these materials in creating your own educational offerings or in your own 
+educational situations like courses, lectures, or seminars nor may you distribute, transfer, resell or otherwise make them available to any other person or party without the expressed permission of the author. 
+URLs or other references to Internet Web sites in the training materials are subject to change without 
+notice. Unless otherwise indicated, all companies, organisations, domain names, email addresses, 
+persons, places and events depicted in the Training Materials are for illustrative purposes only and are fictitious. No real connection is intended or inferred. 
+These training materials are provided “as is” and the author makes no warranties, express or implied, 
+with respect to these training materials.
+--- Page 3 ---
+@ Ingo Arnold
+©Ingo Arnold
+Exercise Opening
+Overview
+3In today’s exercise, we will look at the interaction between the Architecture 
+Disciplines of Enterprise, Domain, and Solution Architecture, and finally Software 
+Architecture, using an example of end-to -end and top-to -bottom architecture 
+development . 
+We will discuss the case together and you will solve embedded tasks and 
+answer questions along the way.
+Westart atthe 
+Enterprise /Domain Level and 
+then zoom in to the level of an 
+individual Solution …
+--- Page 4 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+4In today’s exercise, we will look at the interaction between the Architecture 
+Disciplines of Enterprise, Domain, and Solution Architecture, and finally Software 
+Architecture, using an example of end-to -end and top-to -bottom architecture 
+development . 
+We will discuss the case together and you will solve embedded tasks and 
+answer questions along the way.
+… ... and then zoom in even 
+further to the responsibilities
+of the Software Architect .
+--- Page 5 ---
+@ Ingo Arnold
+©Ingo ArnoldExercise Opening
+Overview
+5The case we are looking at is based on the fictional bank you encountered in 
+Deck 5.1-BSc_SWA_HOW_Method.pptx and also follows the scheme introduced 
+there.
+
+--- Page 6 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+6The Bankolino Enterprise Architect (EA) , together with the responsible Domain 
+Architect (DA) , is tasked with investigating the advantages and disadvantages of 
+completely outsourcing personnel recruitment to a suitable BPO partner (BPO = 
+Business Process Outsourcing) for Bankolino. 
+Currently, Bankolino's entire recruitment and talent acquisition process is 
+operated based on its own application portfolio. 
+Bankolino's management is considering outsourcing this process to a 
+suitable BPO partner , since it is a non-strategic area of the bank's capabilities.
+--- Page 7 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+7What does BPO (Business Process Outsourcing ) mean?
+elaborate
+--- Page 8 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+8What are the advantages and disadvantages or risks of BPO projects?
+elaborate
+--- Page 9 ---
+@ Ingo Arnold
+©Ingo Arnold
+ 9
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Enterprise and Domain Architects view the various (types of) Building blocks
+of an Enterprise (socio -technical system) and their interrelationships , holistically .
+Different types of 
+Building Blocks 
+require quite different 
+approaches to their 
+elaboration. 
+Hence, different 
+Enterprise Architecture 
+Viewpoints have emerged 
+that address particular
+types of Building Blocks .
+--- Page 10 ---
+@ Ingo Arnold
+©Ingo Arnold 10
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Each of the Enterprise Architecture viewpoints captures Building Blocks of a 
+specific type and respective (types of) relationships between them .
+
+--- Page 11 ---
+@ Ingo Arnold
+©Ingo Arnold 11
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Each of the Enterprise Architecture viewpoints captures Building Blocks of a 
+specific type and respective (types of) relationships between them .
+The Business Architecture 
+viewpoint primarily captures
+the Business Capabilities , 
+Business Processes ,
+Business Objects and the 
+relationships between them. 
+Further Business Building Blocks 
+such as Products & Services, 
+Organization, Customers &
+Partners , Communication & Sales 
+Channels are mapped as business 
+dimensions to the above -
+mentioned Components .
+--- Page 12 ---
+@ Ingo Arnold
+©Ingo Arnold 12
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Each of the Enterprise Architecture viewpoints captures Building Blocks of a 
+specific type and respective (types of) relationships between them .
+The Application Architecture 
+Viewpoint captures
+Applications , Data , and 
+Interfaces as well as 
+relationships all among these.
+Applications offer their 
+users valuable 
+functionalities … 
+… and are connected to 
+other applications via
+interfaces .
+Further, Applications
+encapsulate Data . 
+--- Page 13 ---
+@ Ingo Arnold
+©Ingo Arnold 13
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Each of the Enterprise Architecture viewpoints captures Building Blocks of a 
+specific type and respective (types of) relationships between them .
+The Technology Architecture 
+Viewpoint captures
+Technology and Platform
+components and the 
+relationships between them.
+Technology Components 
+are the technical 
+products or services that 
+a company purchases
+from vendors in their 
+COTS state.
+Platform Components are the building 
+blocks that a company instantiates based
+on Technology and are hence customised
+to the needs of the company . 
+--- Page 14 ---
+@ Ingo Arnold
+©Ingo Arnold 14
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+ArchiMate and TOGAF are both Open Group standards. While TOGAF focuses
+on process (ADM ), ArchiMate contributes the View Model.
+This diagram shows how the 
+TOGAF ADM and its core areas 
+of activity (A .. H) are mapped to 
+ArchiMate View Model Layers .ArchiMate View 
+Model Layers
+ArchiMate View 
+Model LayersTOGAF ADM 
+Activities
+--- Page 15 ---
+@ Ingo Arnold
+©Ingo Arnold 15
+concept Enterprise & Domain Architecture
+Holistic View of an Enterprise & Domain
+Each of the Enterprise Architecture viewpoints captures Building Blocks of a 
+specific type and respective (types of) relationships between them .
+Each ArchiMate View Model Layer
+consists of a set of Viewpoints that 
+offer interesting insights for 
+Enterprise and Domain Architects . 
+ArchiMate Viewpoints of the 
+Business Architecture Layer
+--- Page 16 ---
+@ Ingo Arnold
+©Ingo Arnold
+ 16
+concept
+ The ArchiMate 
+Metamodel shows all 
+Building Block types 
+used in Viewpoints ...
+... and all relationships
+between the Building 
+Block Types . 
+Business Capability is a 
+pivotal Building Block type 
+in each Enterprise 
+Architecture Metamodel . 
+In a next step we 
+start with a Business 
+Capability Map to 
+look into a Business 
+Development 
+scenario .
+--- Page 17 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+17
+TheEnterprise Architect 
+differentiates business 
+capabilities in terms of the 
+importance with which 
+Bankolino keeps their 
+strategic and operational 
+control in -house versus 
+delegating it to an external 
+party . 
+Blue : Fully internal 
+capabilities that are critical
+to the strategic and 
+operational steering of the 
+bank.
+Purple : Mixed sourcing , 
+partly internal and partly 
+outsourced .
+Grey : Capabilities that can 
+be fully outsourced (i.e., 
+non-core activities) .
+Key objective of Business Capability Management is to use knowledge of business 
+structures and their relationships to IT structures in order to systematically identify 
+and leverage consolidation and other improvement opportunities . 
+In a next step the Enterprise Architect 
+zooms into the Recruitment and Talent 
+Acquisition capability to better understand 
+its next level of detail capabilities. 
+
+--- Page 18 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+18What further aspect do we consider in the next step and is associated with the 
+capabilities we just started with?
+elaborate
+--- Page 19 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+19
+Business capabilities and processes are both associated with 
+activities at the business model level (Business Model Canvas), which 
+is why there is a close relationship between these two concepts.
+1
+--- Page 20 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+20
+Enterprise and Domain Architects 
+review the detailed Business 
+Capabilities and the associated process 
+map to understand the scope of the 
+Management -requested investigation .
+They recognize that all 
+process steps are currently 
+operated by Bankolino .
+Business capabilities and processes are both associated with 
+activities at the business model level (Business Model Canvas), which 
+is why there is a close relationship between these two concepts.
+1
+ However , while business capabilities support
+a static view of the abilities that a business
+fundamentally needs (‘ what ’), business 
+processes tend to support an operational 
+perspective (“how ” and ‘ who’).
+--- Page 21 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+21
+Business Processes, and their corresponding 
+activities, are in turn (partially) supported by 
+applications that provide functions and make
+processes particularly efficient and effective.
+
+--- Page 22 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+22
+Theapplications exchange 
+information objects and are,
+hence, heavily interconnected .
+Business Processes, and their corresponding 
+activities, are in turn (partially) supported by 
+applications that provide functions and make
+processes particularly efficient and effective.
+Each application offers 
+distinct functionality (as we 
+will see on the next slides) that 
+is required to underpin the 
+respective process activities. 
+
+--- Page 23 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+23
+Theapplications exchange 
+information objects and are,
+hence, heavily interconnected .
+Business Processes, and their corresponding 
+activities, are in turn (partially) supported by 
+applications that provide functions and make
+processes particularly efficient and effective.
+
+--- Page 24 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+24
+Theapplications exchange 
+information objects and are,
+hence, heavily interconnected .
+Business Processes, and their corresponding 
+activities, are in turn (partially) supported by 
+applications that provide functions and make
+processes particularly efficient and effective.
+
+--- Page 25 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+25
+Theapplications exchange 
+information objects and are,
+hence, heavily interconnected .
+Business Processes, and their corresponding 
+activities, are in turn (partially) supported by 
+applications that provide functions and make
+processes particularly efficient and effective.
+
+--- Page 26 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+26
+Next the architects move into the Analysis stage and
+consider which process activities can be outsourced 
+versus which must remain with Bankolino .
+This means that these applications do not 
+have to be further developed and operated , 
+and can even be removed if the BPO partner
+brings its own application landscape .
+However , it may be necessary to significantly 
+adapt or even completely redevelop the existing 
+application “HireReview” to integrate the relevant 
+capabilities into a completely new application 
+landscape operated by the BPO partner .
+
+--- Page 27 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+27What options do you see for BPO in the situation described, and how would 
+you benefit from this?
+elaborate
+--- Page 28 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+28
+The Enterprise and Domain Architects 
+currently assume that a new application 
+for the internal hiring panel needs to be 
+established . They have given it the 
+working title “CandidateInsight” .
+The plan is that all tools (except 
+from CandidateInsight ) will be 
+provided by the future BPO
+partner …
+The system will remain entirely 
+under Bankolino's control and 
+cannot be viewed by the BPO .
+… while CandidateInsight remains the 
+only Bankolino-internal tool that 
+displays applicant dossiers provided
+by the BPO forthe Bankolino hiring 
+panel in an interactive dashboard , 
+allowing comments, evaluations and 
+final decisions to be made.
+
+--- Page 29 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+29Who has ever pursued a similar option in your own professional life ? 
+elaborate
+--- Page 30 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+30
+The Architects draw an interim conclusion by 
+compiling the advantages and disadvantages of a 
+BPO -based realignment of the recruitment process 
+(supported by theBankolino recruitment department).
+The Architects conclude that, bottom line , strategic 
+control is maintained by outsourcing only the 
+operational process, while key decisions (e.g., hiring 
+panel via CandidateInsight ) remain internal .
+
+--- Page 31 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+31How do development costs compare to operating costs of the total cost of 
+ownership (TCO) for anygiven application?
+elaborate
+--- Page 32 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+32
+Next, the Architects examine which 
+companies offer the required Recruitment 
+and Talent Acquisition Services in a BPO 
+model on the market .
+After conducting extensive research , they select two
+potential BPO candidates, which become subject to a 
+more detailed review and final assessment .
+--- Page 33 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+33Which of the 2 companies would you choose as your BPO partner?
+elaborate
+--- Page 34 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+34
+The detailed assessment reveals
+TalentHive AG as the winner …
+
+--- Page 35 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+35
+The Bankolino Enterprise and the responsible Domain 
+Architect elaborate a future (high-level) process design for 
+the Recruitment and Talent Acquisition Process, which 
+describes the situation after business process outsourcing .
+The process clearly shows that the 
+majority of recruitment and talent 
+management activities in the future 
+process will be handled by the BPO 
+partner , with only candidate review and 
+evaluation remaining with Bankolino .
+
+--- Page 36 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+36
+The current situation (Baseline Application 
+Landscape), in which Bankolino evolves and operates 
+several own applications, will be transferred as part of 
+the BPO conversion ... 
+
+--- Page 37 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+37
+... to a situation (Target Application Landscape ) in 
+which the future BPO partner TalentHive will support
+its own services with its own applications , while 
+Bankolino will only remain responsible for one 
+application (CandidateInsight).
+
+--- Page 38 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+38
+In the next step , the Enterprise and Domain Architect compile 
+a Project Charter for implementation planning based on the 
+information currently available .
+--- Page 39 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+39What are common ingredients of a Project Charter?
+elaborate
+--- Page 40 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+40
+In the next step , the Enterprise and Domain Architect compile 
+a Project Charter for implementation planning based on the 
+information currently available .
+The “ BPOing Recruitment & Talent 
+Acquisition” project is applying for the 
+necessary resources (e.g., budget, 
+people) as part of Bankolino's project 
+portfolio management and will be 
+launched once approved .
+--- Page 41 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+41
+Domain and solution architects initially 
+reflect on the existing plan together and 
+then zoom in on the details . 
+In a first step, they identify the 
+basic functionalities required
+on the TalentHive platform .
+
+--- Page 42 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+42Why are the functionalities of the TalentHive platform also identified even if 
+they are the responsibility of the BPO partner ?
+elaborate
+--- Page 43 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+43
+Domain and solution architects initially 
+reflect on the existing plan together and 
+then zoom in on the details . 
+While these capabilities do not have 
+to be developed by Bankolino itself, 
+they must be included in the BPO 
+contract and specified in sufficient 
+detail as functions to be provided to 
+Job applicants .
+In a first step, they identify the 
+basic functionalities required
+on the TalentHive platform .
+
+--- Page 44 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+44
+Domain and solution architects initially 
+reflect on the existing plan together and 
+then zoom in on the details . 
+In the next step , they identify the 
+basic functions that 
+CandidateInsight must offer its 
+users (i.e., members of the hiring 
+board) in Bankolino.
+Further, they identify the information
+that will need to be exchanged 
+between CandidateInsight and the 
+TalentHive platform in the future.
+In addition, other Bankolino 
+applications are identified, that exist
+in the wider environment and also 
+need to be connected .
+Next the Solution Architect 
+zooms further inonthe 
+CandidateInsight Application. 
+
+--- Page 45 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+45
+In a first step, a workshop is held 
+with potential hiring board 
+members and other individuals
+familiar with the domain . 
+Expectations for the new 
+CandidateInsight 
+application are discussed , 
+formulated , and captured in 
+a preliminary application 
+factsheet .
+
+--- Page 46 ---
+@ Ingo Arnold
+©Ingo ArnoldCase Study
+Overview
+46Next , we will divide into six working groups again. 
+Each group will collect and note any additional functional and non-functional 
+capabilities that are expected of CandidateInsight in the future so that this new 
+application can be fully integrated into the scenario outlined so far.
+Each group goes through the following three steps:
+-Identify and determine the categories in which you suspect relevant requirements exist (e.g., 
+security).
+-Collect and describe concrete requirements for CandidateInsight that you consider relevant.
+-For each of the requirements you have identified, name the responsible stakeholder group with 
+whom you will confirm the requirement as well as discuss it in more detail.
+Collect your results and then present them to the whole class.
+elaborate
+--- Page 47 ---
+@ Ingo Arnold
+©Ingo Arnold
+Case Study
+BPO Example
+47
+In a first step, a workshop is held 
+with potential hiring board 
+members and other individuals
+familiar with the domain . 
+Expectations for the new 
+CandidateInsight 
+application are discussed , 
+formulated , and captured in 
+a preliminary application 
+factsheet .
+As we can already see from 
+this very rough first step , 
+there is a wide range of very 
+different types of aspects 
+that need to be addressed
+by the new solution .
+Inter -system integration and 
+synchronization aspects.
+UI and usability 
+aspects.
+Identity and Access 
+Management aspects.
+Core Use Cases.
+IT-Security 
+aspects.
+Non-Repudiation 
+aspects.
+Data Protection 
+and Privacy 
+aspects.
+--- Page 48 ---
+@ Ingo Arnold
+©Ingo ArnoldQuestions
+48

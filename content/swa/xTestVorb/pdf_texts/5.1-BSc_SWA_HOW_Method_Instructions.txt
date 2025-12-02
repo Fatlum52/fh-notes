@@ -1,0 +1,114 @@
+
+--- Page 1 ---
+Software Architecture  
+Architecture Methodology  
+ 
+Bearbeitungshinweise  
+ 
+Ingo Arnold  
+2025  
+  
+--- Page 2 ---
+2 
+© Ingo Arnold  – Software Architecture  
+ Inhaltsverzeichnis  
+ 
+1 Methodology  ................................................................................. 3 
+2 Architecture Mandate  ................................................................... 4 
+3 Solution Architecture Methodology  ............................................... 4 
+ 
+ 
+  
+--- Page 3 ---
+3 
+© Ingo Arnold  – Software Architecture  
+ 1 Methodology  
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Warum ist die Adaption eines Architektur rahmenwerks (Framework), bzw. der 
+in ein solches eingebetteten Architektur Methoden sowie Sichtenmodelle an 
+den jeweils gegebenen Kontext wichtig ?  
+• Welche Fehlkonzeptionen bezüglich Architekturrahmenwerke sind weit ver-
+breitet?  
+• Aus welchen Aktivitätsbereichen besteht der vorgestellte generische (end -2-
+end) Architekturprozess wie greifen entlang dieses Prozesses die drei Architek-
+turdisziplinen Enterprise, Do main und Solution Architecture Disziplinen inei-
+nander.  
+• Was sind zentrale Konzepte und Ideen der TOGAF ADM (Architecture Develo-
+pment Method)? Was finden Sie beim TOGAF ADM gut abgebildet und was kommt Ihnen dagegen zu kurz, bzw. fehlt Ihnen  vollständig?  
+• Überlegen Sie sich ein Beispiel analog zu dem, welches als „End- 2-End Exa-
+mple“ in diesem Kapitel vorgestellt wurde . Suchen Sie ein Beispiel,  das Ihnen 
+selbst gut bekannt ist , bzw. aus Ihrem Erfahrungsschatz stammt und skizzieren 
+Sie dieses entlang der  Stages Transpareny , Analysis , Enterprise Architecture 
+Design, Plan, Solution Architecture Design sowie über die drei Architekturdis-
+ziplinen Enterprise , Domain  und Solution Architecture hinweg.  
+ Bitte lesen Sie insbesondere die Slides 45 – 76 ("Methodology – End-2-End Exa-
+mple ") als eine Gesch ichte, die exemplarisch illustriert, wie Architecture Prozesse 
+über den gesamten Lebenszyklus einer Lösung sowie über mind . 3 Stufen von Archi-
+tektur -Disziplinen (i.e., Enterprise -, Do main- und Solution Architecture) hinweg funk-
+tionieren.  
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Kon zepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, 
+and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.10.1 Your Own Architecture Methodology  
+o 6.10.2 Architecture Methodology Adapter  
+o 6.10.4 Domain Architecture Methodology  
+o 6.10.5 Solution Architecture Methodology  
+o 6.10.6 Architecture Assessment Methodology  
+--- Page 4 ---
+4 
+© Ingo Arnold  – Software Architecture  
+ o 6.10.7 Reference Architecture Methodology  
+o 6.10.7 Reference Architecture Methodology  
+o 6.10.9 Architecture Pattern Methodology  
+o 6.10.11 Your own Architecture Platform  
+o 6.4 Architecture Discipline  
+o 6.9.2 Architecture Level  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+2 Architecture Mandate  
+Bitte  lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Was spricht dafür, Architekturmandate ausdrücklich zu formulieren (z.B., im 
+Kontext eines Projekts)  und welchen Nachteilen muss man si ch gewahr sein, 
+wenn diesen „Extra -Aufwand“ vermeidet ? 
+ 
+Nutzen Sie ggf. ChatGPT oder andere Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Enterprise Architecture Function ― a pattern language for planning, designing, and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.7 Architecture Objective  
+o 6.7.2 Architecture Mandate 
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
+3 Solution Architecture Methodology 
+Bitte lesen Sie alle Folien zu diesem Abschnitt aufmerksam durch und versuchen 
+Sie, sich die folgenden Fragen zu beantworten:  
+• Welche fünf Schritte werden immer wieder (iterativ) durchlaufen, um aus ei-
+nem gegebenen Problem sukzessive eine angemessene Lösung abzuleiten?  
+• Was ist der Unterschied zwischen System Analysis  und System Architecture, 
+bzw. der mit diesen unterschiedlichen Ergebnisstufen assoziierten Modell -Ar-
+tefakten?  
+• Verschaffen Sie sich einen Überblick über OpenUP und geben  Sie eine Ein-
+schätzung des Architektur Rahmenwerks .  
+ 
+--- Page 5 ---
+5 
+© Ingo Arnold  – Software Architecture  
+ Nutzen Sie ggf. ChatGPT oder ande re Quellen, um zentrale Konzepte weiter zu ver-
+tiefen.  
+ 
+Weitere nützliche Informationen und Erläuterungen finden Sie in:  
+• Software Architecture: A Comprehensive Framework and Guide for Practition-
+ers [Vogel, Arnold et al 2011] (aka: SWA- Buch) – Kapitel:  
+o 8 Architecture Method (HOW)  
+• Enterprise Architecture Function ― a pattern language for planning, designing, 
+and executing [Arnold 2022] (aka: EAF -Buch) – Kapitel:  
+o 6.10.5 Solution Architecture Methodology  
+o 6.4.3 Solution Architecture Discipline  
+• den unter Bibliography  aufgeführten Literaturhinweisen im Foliensatz.  
+ 
