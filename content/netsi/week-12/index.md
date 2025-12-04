@@ -226,7 +226,6 @@ tags = ["netsi"]
 
 - ![alt text](image-44.png)
 - was für funktionen sind enabled
-- 
 
 ## Clients vs. Server – Unterschiede im Endpoint Management
 
