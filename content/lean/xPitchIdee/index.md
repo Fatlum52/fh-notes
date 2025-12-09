@@ -68,8 +68,8 @@ WanderGo: Dein Weg. Deine Geschichte
 Features:
 
 - Create & Discover (Planung):
-  - Feature: Intuitives „Free-Hand“ Routenzeichnen und Import existierender GPX-Daten.
-  - Nutzen: Die totale Freiheit, Wege zu gehen, die noch keiner gegangen ist, oder bewährten Pfaden zu folgen.
+  - Feature: Live-GPS-Tracking & Routen-Aufzeichnung
+  - Nutzen: Einfach loslaufen und Neues entdecken. Die App zeichnet den gegangenen Weg automatisch auf und erstellt daraus eine speicherbare Route für die Zukunft – inkl. aller Höhenmeter und Statistiken.
 
 - Guide & Survive (Unterwegs):
   - Feature: Präzise Turn-by-Turn Führung, vollständige Offline-Verfügbarkeit, Export auf Wearables/Garmin.
@@ -90,20 +90,66 @@ unter folgendem link sieht man, dass die schweiz ca. 4 millionen aktive wanderer
 
 ---
 
-Phase 1 (2-3 Jahre):
+Geschäftsmodell:
+
+Phase 1 (1-2 Jahre):
 Die Schweiz hat 4 Millionen aktive Wanderer. Wenn nur 3000 von den 4 Millionen aktiven Wanderer eine einmalige Zahlung von 15.-
 machen würden, dann wären wir bei einem Brutto gewinn von: 45’000
 Die Serverkosten belaufen sich auf ca. 200 pro Monat, was etwa 2400.- für ein Jahr ausmacht.
 Apple verdient 15% für jeden App-Kauf bei dem der Firmenwert unter 1 Mio liegt.
 Das macht also einen Abzug von 2.25 pro Kauf.
 
+Zahlen pro Kauf:
+
+App:              + 15.0
+MwSt(8.1):        -  1.2
+Apple/Google-fee: -  2.1
+                 _______
+Gewinn pro Kauf:    11.7
+
 Netto gerechnet kommen wir auf folgende Zahlen:
-3000 Käufe:    + 45'000
+3000 Käufe:    + 35'100
 Serverkosten:  -  2'400
-Apple/Google:  -  6'750
               _________
-Gewinn:          35’850
+Gewinn:          32'700
 
 Extrem viel ist das nicht, aber für das erste oder zweite Jahr ist das ein gutes Startkapital was man sich nebenbei aufgebaut hat.
 Mit diesem Geld könnte man sich dann überlegen, ob man expandieren will, ausserhalb der Schweiz und in Marketing investieren.
 Hat man sich erst mal einen Namen gemacht, kann man auf ein Abo-Modell umstellen.
+
+Phase 2 (Skalierung & Abo-Modell):
+Nach Etablierung der Marke Umstellung auf Recurring Revenue (SaaS), um laufende Cloud-Kosten zu decken und Weiterentwicklung zu finanzieren.
+Preismodell: Jährlich 60.- (Rabatt) oder Monatlich 7.- (Flexibilität).
+
+Annahme Szenario:
+Wachstum auf 5'000 aktive Abonnenten.
+Split: 70% Jahres-Abos (3'500 User), 30% Monats-Abos.
+Serverkosten steigen auf ca. 400.-/Monat (4'800.-/Jahr) durch erhöhten Datenspeicher (Bilder/Videos).
+
+Zahlen pro Abo (Unit Economics):
+
+Option A (Jahres-Abo):
+Preis:            + 60.00
+MwSt(8.1):        -  4.50
+Apple/Google-fee: -  8.33
+                 _______
+Gewinn pro User:    47.17
+
+Option B (Monats-Abo):
+Preis:            +  7.00
+MwSt(8.1):        -  0.52
+Apple/Google-fee: -  0.97
+                 _______
+Gewinn pro Monat:    5.51
+
+Gesamtrechnung (Pro Jahr):
+3'500 Jahres-Abos:          + 165'095
+1'500 Monats-Abos (x6):     +  49'590
+Serverkosten:               -   4'800
+                           _________
+Gewinn (EBIT):                209'885
+
+Strategisches Vorgehen:
+Der Hebel beim Abo-Modell ist deutlich grösser. Während Phase 1 Startkapital liefert, baut Phase 2 ein echtes Unternehmen auf.
+Wichtig: "Grandfathering" für die frühen Käufer aus Phase 1 (sie behalten Pro-Status auf Lebenszeit), um Loyalität zu sichern.
+Saisonale Schwankungen bei Monats-Abos (Wintermonate) müssen durch Jahres-Abos abgefedert werden.
