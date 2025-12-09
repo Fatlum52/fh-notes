@@ -82,3 +82,28 @@ Features:
 - Analyze & Prepare (Optimierung):
   - Feature: Höhenprofile, Leistungscharts, teilbare Packlisten.
   - Nutzen: Perfekte Vorbereitung und detaillierte Nachbereitung der eigenen Leistung.
+
+---
+
+unter folgendem link sieht man, dass die schweiz ca. 4 millionen aktive wanderer hat:
+[wanderer statistik](https://wandern-in-zahlen.ch/die-wandernden)
+
+---
+
+Phase 1 (2-3 Jahre):
+Die Schweiz hat 4 Millionen aktive Wanderer. Wenn nur 3000 von den 4 Millionen aktiven Wanderer eine einmalige Zahlung von 15.-
+machen würden, dann wären wir bei einem Brutto gewinn von: 45’000
+Die Serverkosten belaufen sich auf ca. 200 pro Monat, was etwa 2400.- für ein Jahr ausmacht.
+Apple verdient 15% für jeden App-Kauf bei dem der Firmenwert unter 1 Mio liegt.
+Das macht also einen Abzug von 2.25 pro Kauf.
+
+Netto gerechnet kommen wir auf folgende Zahlen:
+3000 Käufe:    + 45'000
+Serverkosten:  -  2'400
+Apple/Google:  -  6'750
+              _________
+Gewinn:          35’850
+
+Extrem viel ist das nicht, aber für das erste oder zweite Jahr ist das ein gutes Startkapital was man sich nebenbei aufgebaut hat.
+Mit diesem Geld könnte man sich dann überlegen, ob man expandieren will, ausserhalb der Schweiz und in Marketing investieren.
+Hat man sich erst mal einen Namen gemacht, kann man auf ein Abo-Modell umstellen.
