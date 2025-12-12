@@ -281,4 +281,269 @@ tags = ["netsi"]
 
 - ![alt text](image-57.png)
 
-##
+## Network Detection & Response (NDR)
+
+- ![alt text](image-58.png)
+- sämtlichen traffci spiegelt man dahin
+- ndr schauen sich timings an
+- ndr kann nicht auf layer 7 schauen, nur bis layer 4
+
+## Motivation für NDR
+
+- ![alt text](image-59.png)
+- merkwürdiges traffic erkennen
+- ndr kann angeschlossen werden an SOA
+- ziel von ndr, dass man früh erkennt, wenn sich jemand schon im netz ist
+
+## Funktionsprinzip von NDR
+
+- ![alt text](image-60.png)
+
+## Was kann NDR erkennen?
+
+- ![alt text](image-61.png)
+
+## Grenzen und Herausforderungen von NDR
+
+- ![alt text](image-62.png)
+- alles ohne layer 7 inspection ist nicht gut
+- ndr sind nicht günstig
+- hohen integrationsaufwand
+- muss sie in andere tools integrieren z.b SIEM
+- in public cloud wenig anfang, also mehr eine on-prem lösung
+- DLP ist schwierigistes thema
+- DLP = data loss prevention
+- DLP über SSE lösen
+- SSE = Security Service Edge
+- ohne layer 7 macht DLP keinen sinn
+
+# EDR (Endpoint Detection & Response)
+
+## EDR Evolution
+
+- ![alt text](image-63.png)
+- es geht auch im die response
+- wenn ich festelle, dass client infiziert ist, kann man den von netz weg nehmen
+  - den alert an SIEM senden
+  - reactions auslösen
+
+## EDR: Ziel & Grundidee
+
+- ![alt text](image-64.png)
+
+## EDR Features: Sichtbarkeit & Erkennung
+
+- ![alt text](image-65.png)
+- EDR führt sandbox nicht mehr lokal aus
+  - cloud sandboxing
+- sandboxing ist cpu intensiv
+
+## EDR Features: Prävention & Hardening
+
+- ![alt text](image-66.png)
+- eher die retro, also was passiert nachdem man virus/angriff erkannt hat
+
+## EDR Stärken, Grenzen & Einordnung
+
+- ![alt text](image-67.png)
+- EDR eher auf std. client und server ausgelegt
+- EDR sieht was client und rechner machen -> Datenschutz
+
+## EDR Erweiterung & Ausblick
+
+- ![alt text](image-68.png)
+- x steht für universall
+- proxy und handy mit einbinden
+
+## Vergleich NDR und EDR
+
+- ![alt text](image-69.png)
+
+# SIEM (Security Information and Event Management)
+
+## SIEM: Ziel & Grundidee
+
+- ![alt text](image-70.png)
+- was für muster von angriffen man in den logs erkennt
+- logs korrelieren, nennt man das
+- logs normalisieren, zum am SIEM erklären, was da steht
+- SIEM zentralisiert alle logs
+- korrelationen werden AI unterstützt
+- SOC = Security Operations Center
+- SOC auf basis von SIEM machen
+
+## SIEM: Datenquellen & Architektur
+
+- ![alt text](image-71.png)
+- alles im unternehmen
+- alles was L7 inspizieren kann ist wertvoll
+
+## SIEM Use-Cases
+
+- ![alt text](image-72.png)
+
+## SIEM: Stärken & Grenzen
+
+- ![alt text](image-73.png)
+- ist ein enterprise produkt
+- SIEM konfiguriert man selber
+- security analysten arbeiten mit SIEM
+- verbraucht ressourcen -> CPU, Memory, GPU, Storage
+- SIEM verarbeitet daten, erstellt dann einen neuen
+- SIEM ist kern element von SOC
+
+## SIEM im Zusammenspiel mit EDR, XDR & SOC
+
+- ![alt text](image-74.png)
+
+# SOAR - Security Orchestration, Automation & Response
+
+## SOAR – Security Orchestration, Automation & Response
+
+- ![alt text](image-75.png)
+- aus gefilterten, bearbeiteten SIEM alerts dann mach SOAR
+- also nutze ein SOAR-tool und spiele playbook xy aus
+- in SOAR-tool wird ein alert von SIEM kategorigisiert
+- anhand von kategorie, wird ein gewisses playbook ausgeführt
+
+## Bausteine eines SOAR-Systems
+
+- ![alt text](image-76.png)
+- runbook in low-code definieren
+
+## Beispiel: Phishing-Fall mit mehreren Systemen
+
+- ![alt text](image-77.png)
+
+## SOAR: Zusammenspiel mit SIEM, EDR, NDR & SOC
+
+- ![alt text](image-78.png)
+
+## Stärken und Schwächen von SOAR
+
+- ![alt text](image-79.png)
+
+# SOC (Security Operations Center)
+
+## SOC: Ziel & Grundidee
+
+- ![alt text](image-80.png)
+- SOC ist eher prozessural ausgelegt
+
+## Aufgaben eines SOC
+
+- ![alt text](image-81.png)
+
+## SOC: Rollen & Aufbau
+
+- ![alt text](image-82.png)
+
+## SOC: Betriebsmodelle
+
+- ![alt text](image-83.png)
+
+# Adversarial Exposure Validation (AEV)
+
+## Worum geht es bei AEV?
+
+- ![alt text](image-84.png)
+- SASE lösung forwarded logs an SIEM
+- da geht es darum, sein unternehmen kontinuierlich anzugreifen um zu schauen ob sicherheitskonzept standhält
+
+## Wie funktioniert AEV?
+
+- ![alt text](image-85.png)
+
+## Stärken & Schwächen von AEV
+
+- ![alt text](image-86.png)
+
+## AEV im Kontext
+
+- ![alt text](image-87.png)
+
+## Exposure Validation vs Red-Teaming
+
+- ![alt text](image-88.png)
+- Red Team (Der Angriff)
+- Blue Team (Die Verteidigung)
+
+# Passwort Manager
+
+## Enterprise Passwort-Manager: Features
+
+- ![alt text](image-89.png)
+
+# Backup
+
+## Grundidee und KPIs (Key Performance Indicator)
+
+- ![alt text](image-90.png)
+- backups unbedingt testen, ob man sie auch recovern kann
+
+## Klassische Backup-Konzepte
+
+- ![alt text](image-91.png)
+
+## Backup-Architekturen
+
+- ![alt text](image-92.png)
+
+## Moderne Backup- und Data-Protection-Plattformen
+
+- ![alt text](image-93.png)
+- unternehmensdaten liegen überall im intern verstreut
+- forensiker finden die eigentliche malware mit SIEM
+- wenn man datei findet, die für malware zuständig ist, kann man diese datei hashen, dann beim backup, alles backupen ausser die datei mit diesem hash
+- backuplösungen sind so granular, man kann alles weiderherstellen bis auf die einte datenbank oder sogar ohne den einten eintrag in der datenbank
+- DLP: grösser faktor, ist die menschliche klassifizierung
+- backups sollen immutable sein
+  - es gibt policies drauf, die geairtagged sind
+- backups haben mit AI eine anomalie erkennung
+
+## Backup Angriffe und Schutzkonzepte
+
+- ![alt text](image-94.png)
+
+# IaC (Infrastructure as Code)
+
+## Infrastructure as Code – Konzept und Definition
+
+- ![alt text](image-95.png)
+
+## Vorteile und Nachteile von IaC
+
+- ![alt text](image-96.png)
+
+# Identity Protection
+
+## Digitale Identität im Netzwerk
+
+- ![alt text](image-97.png)
+
+## Bedrohungen für digitale Identitäten
+
+- ![alt text](image-98.png)
+
+## Identity Protection: Schutz Mechanismen
+
+- ![alt text](image-99.png)
+- IDP sehen alles, also vorallem diese schützen
+- Intrusion Detection & Prevention (IDP)
+
+## Exkursion: Identity Proxy
+
+- ![alt text](image-100.png)
+- nicht nur die actions allow oder block?
+- über einen identity proxy
+- ![alt text](image-101.png)
+- ![alt text](image-102.png)
+- SSE lösung übernimmt IDP-lösung
+- ermöglich BYOD für SaaS
+
+# Strategie
+
+## Infrastruktur smart vernetzen statt Feature-Zoo
+
+- ![alt text](image-103.png)
+- wichtig zu verstehen, was sind die konzepte und das es dich gibt

@@ -316,7 +316,7 @@ tags = ["netsi"]
 
 - ![image-20.png](image-20.png)
 
-## SSE Architektur
+## SSE Architektur'
 
 - ![image-21.png](image-21.png)
 
