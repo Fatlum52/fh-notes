@@ -7,5 +7,3 @@ tags = ["cysL"]
 +++
 
 ---
-
-Hello world

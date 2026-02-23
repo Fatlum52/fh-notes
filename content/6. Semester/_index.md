@@ -1,5 +1,5 @@
 +++
-title = "Vorlesungen"
+title = "6. Semester"
 sort_by = "date"
 +++
 
