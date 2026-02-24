@@ -45,4 +45,7 @@ tags = ["Vesys"]
 - Für Bank sowie für Account braucht es Proxy
 - Wie sieht das Protokoll aus?
 - Frei mit welcher Technologie der Server implementiert wird
--
+- wie serialisiert man die attribute etc. müssen wir selber machen
+- zeurst local driver implementieren
+- die local bank, kann dann für alle weiteren implemenrtierungen verwendet werden
+- Test kann man machen
