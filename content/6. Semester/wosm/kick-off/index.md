@@ -8,7 +8,7 @@ tags = ["wosm"]
 
 ---
 
-***Drehbuch: [Modulübersicht PCLS – Drehbuch](https://sgi.pages.fhnw.ch/moduluebersicht/2026fs/wosm/drehbuch.html)***
+***Drehbuch: [Modulübersicht PCLS – Drehbuch](https://sgi.pages.fhnw.ch/moduluebersicht/2026fs/wosm/drehbuch.html)***  
 ***Aufgaben: [Beschreibung Aufgaben](https://spd.pages.fhnw.ch/module/wosm/content/wosm/welcome-wosm.html)***
 
 netzwerksicherheit
