@@ -1,0 +1,43 @@
+site_name: FH Notes
+site_url: https://Fatlum52.github.io/fh-notes/
+
+repo_url: https://github.com/Fatlum52/fh-notes
+repo_name: Fatlum52/fh-notes
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: de
+  features:
+    - navigation.sections
+    # index.md eines Ordners wird die Sektion selbst -> "Cloud/Week 01"
+    # ist direkt anklickbar, statt "Cloud/Week 01/Week 01".
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Light Mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+
+# Nicht-Inhalt aus dem Build heraushalten; Bilder/PDFs/TXT bleiben bewusst drin,
+# damit die relativen Verweise in den Notizen weiter funktionieren.
+exclude_docs: |
+  .DS_Store
+  *.py
