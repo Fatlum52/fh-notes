@@ -11,7 +11,6 @@ theme:
   name: material
   language: de
   features:
-    - navigation.sections
     # index.md eines Ordners wird die Sektion selbst -> "Cloud/Week 01"
     # ist direkt anklickbar, statt "Cloud/Week 01/Week 01".
     - navigation.indexes
