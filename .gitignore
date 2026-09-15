@@ -1,8 +1,11 @@
-# Zola build output
-/public
+# MkDocs build output
+/site
 
-# Sass cache (falls mal verwendet)
-/.sass-cache
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
 
 # macOS system files
 .DS_Store

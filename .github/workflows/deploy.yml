@@ -1,4 +1,4 @@
-name: Deploy Zola site to GitHub Pages
+name: Deploy MkDocs site to GitHub Pages
 
 on:
   push:
@@ -21,24 +21,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive # falls du Theme-Submodule nutzt
           fetch-depth: 0
 
-      - name: Install Zola
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
         run: |
-          ZOLA_VERSION=0.21.0
-          wget -q https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-          tar -xzf zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz
-          sudo mv zola /usr/local/bin/zola
-          zola --version
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          mkdocs --version
 
       - name: Build site
-        run: zola build
+        run: mkdocs build --strict
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: public
+          path: site
 
   deploy:
     environment:
