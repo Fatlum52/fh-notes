@@ -1,8 +1,8 @@
 ---
-title: "Week 02"
+title: "Week 01"
 ---
 
-# Week 02 - Lektion 1: Unit Tests und Sicherheitseigenschaften
+# Week 01 - Lektion 1: Unit Tests und Sicherheitseigenschaften
 
 [Moodle](https://moodle.fhnw.ch/course/view.php?id=70909)
 
