@@ -32,6 +32,7 @@ plugins:
 markdown_extensions:
   - admonition
   - tables
+  - mdx_truly_sane_lists
   - toc:
       permalink: true
 
